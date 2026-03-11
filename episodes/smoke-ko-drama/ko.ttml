@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tt ttp:contentProfiles="http://www.w3.org/ns/ttml/profile/imsc1.1/text" xmlns="http://www.w3.org/ns/ttml" xmlns:nttm="http://www.netflix.com/ns/ttml#metadata" xmlns:tt="http://www.w3.org/ns/ttml" xmlns:ttp="http://www.w3.org/ns/ttml#parameter" xmlns:tts="http://www.w3.org/ns/ttml#styling" xmlns:xml="http://www.w3.org/XML/1998/namespace" ttp:tickRate="10000000" ttp:timeBase="media" xml:lang="ko">
+<head>
+<metadata nttm:Smpte24TimingAdjusted="true" nttm:schemaVersion="0" nttm:textType="CC" nttm:uuid="d4e5f6a7-b8c9-0123-def0-123456789012"/>
+<styling>
+<initial tts:backgroundColor="transparent" tts:color="white" tts:displayAlign="after" tts:extent="80.000% 80.000%" tts:opacity="1.000" tts:origin="10.000% 10.000%" tts:showBackground="whenActive" tts:textAlign="center" tts:textOutline="black 0.300rh" tts:writingMode="lrtb"/>
+<style xml:id="style0" tts:fontWeight="normal"/>
+</styling>
+<layout>
+<region xml:id="region0" tts:displayAlign="after" tts:extent="80.000% 80.000%" tts:origin="10.000% 10.000%"/>
+</layout>
+</head>
+<body>
+<div>
+<p xml:id="subtitle1" begin="684433750t" end="706122082t" region="region0" style="style0">[여자1] 아, 날씨 진짜 좋다</p>
+<p xml:id="subtitle2" begin="706956250t" end="744493750t" region="region0" style="style0">[여자2] 그래<br/>딱 산책하기 좋은 날이네</p>
+<p xml:id="subtitle3" begin="745327916t" end="765347916t" region="region0" style="style0">[여자3] 야, 선글라스 벗어<br/>앞에 안 보인다</p>
+<p xml:id="subtitle4" begin="766182082t" end="776192082t" region="region0" style="style0">- [여자2] 어<br/>- [여자1의 웃음]</p>
+<p xml:id="subtitle5" begin="777026250t" end="791624166t" region="region0" style="style0">- 야, 지영아<br/>- [지영] 어</p>
+<p xml:id="subtitle6" begin="792458332t" end="807056250t" region="region0" style="style0">[여자2] 너 오늘<br/>기분이 좋아 보인다?</p>
+<p xml:id="subtitle7" begin="807890416t" end="816649166t" region="region0" style="style0">표정도 밝아진 거 같고</p>
+<p xml:id="subtitle8" begin="817483332t" end="833332500t" region="region0" style="style0">- [지영] 그래? 아<br/>- [여자2] 어</p>
+<p xml:id="subtitle9" begin="834166666t" end="855437916t" region="region0" style="style0">[지영] 요즘 운동 시작한 게<br/>효과가 나오나 보네 [웃음]</p>
+<p xml:id="subtitle10" begin="856272082t" end="872955416t" region="region0" style="style0">[여자3] 어머<br/>운동 시작했어? 뭐 하는데?</p>
+</div>
+</body>
+</tt>

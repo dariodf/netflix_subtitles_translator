@@ -1,0 +1,50 @@
+[
+    [
+        [
+            "\u00bfHola, c\u00f3mo est\u00e1s?\n",
+            "Hello, how are you?\n",
+            null,
+            null,
+            10,
+            null,
+            null,
+            null,
+            [
+                [
+                    null,
+                    true
+                ]
+            ]
+        ],
+        [
+            "Estoy bien gracias.\n",
+            "I am fine, thank you.\n",
+            null,
+            null,
+            10,
+            null,
+            null,
+            null,
+            [
+                [
+                    null,
+                    true
+                ]
+            ]
+        ],
+        [
+            "\u00bfC\u00f3mo te llamas?",
+            "What is your name?",
+            null,
+            null,
+            10
+        ]
+    ],
+    null,
+    "en",
+    null,
+    null,
+    null,
+    null,
+    []
+]

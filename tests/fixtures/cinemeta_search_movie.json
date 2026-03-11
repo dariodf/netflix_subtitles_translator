@@ -1,0 +1,1723 @@
+{
+    "query": "The Matrix",
+    "rank": 33.125,
+    "cacheMaxAge": 86400,
+    "metas": [
+        {
+            "id": "tt0133093",
+            "imdb_id": "tt0133093",
+            "type": "movie",
+            "name": "The Matrix",
+            "poster": "https://m.media-amazon.com/images/M/MV5BN2NmN2VhMTQtMDNiOS00NDlhLTliMjgtODE2ZTY0ODQyNDRhXkEyXkFqcGc@._V1_SX250.jpg",
+            "background": "https://images.metahub.space/background/medium/tt0133093/img",
+            "releaseInfo": "1999",
+            "links": [],
+            "behaviorHints": {
+                "defaultVideoId": "tt0133093",
+                "hasScheduledVideos": false
+            }
+        },
+        {
+            "id": "tt10838180",
+            "imdb_id": "tt10838180",
+            "type": "movie",
+            "name": "The Matrix Resurrections",
+            "poster": "https://m.media-amazon.com/images/M/MV5BMDMyNDIzYzMtZTMyMy00NjUyLWI3Y2MtYzYzOGE1NzQ1MTBiXkEyXkFqcGc@._V1_SX250.jpg",
+            "background": "https://images.metahub.space/background/medium/tt10838180/img",
+            "releaseInfo": "2021",
+            "links": [],
+            "behaviorHints": {
+                "defaultVideoId": "tt10838180",
+                "hasScheduledVideos": false
+            }
+        },
+        {
+            "id": "tt0234215",
+            "imdb_id": "tt0234215",
+            "type": "movie",
+            "name": "The Matrix Reloaded",
+            "poster": "https://m.media-amazon.com/images/M/MV5BNjAxYjkxNjktYTU0YS00NjFhLWIyMDEtMzEzMTJjMzRkMzQ1XkEyXkFqcGc@._V1_SX250.jpg",
+            "background": "https://images.metahub.space/background/medium/tt0234215/img",
+            "releaseInfo": "2003",
+            "links": [],
+            "behaviorHints": {
+                "defaultVideoId": "tt0234215",
+                "hasScheduledVideos": false
+            }
+        },
+        {
+            "id": "tt0242653",
+            "imdb_id": "tt0242653",
+            "type": "movie",
+            "name": "The Matrix Revolutions",
+            "poster": "https://m.media-amazon.com/images/M/MV5BMmNmMTEzODQtNmExMS00OGUxLWFkNTItMTM3NzBlNDk0YWU5XkEyXkFqcGc@._V1_SX250.jpg",
+            "background": "https://images.metahub.space/background/medium/tt0242653/img",
+            "releaseInfo": "2003",
+            "links": [],
+            "behaviorHints": {
+                "defaultVideoId": "tt0242653",
+                "hasScheduledVideos": false
+            }
+        },
+        {
+            "id": "tt9847360",
+            "imdb_id": "tt9847360",
+            "type": "movie",
+            "name": "A Glitch in the Matrix",
+            "poster": "https://m.media-amazon.com/images/M/MV5BYmU0NzFhYmEtMmUzNC00MjQ1LTg3NTctZDdlZmVlY2MzMDQzXkEyXkFqcGc@._V1_SX250.jpg",
+            "background": "https://images.metahub.space/background/medium/tt9847360/img",
+            "releaseInfo": "2021",
+            "links": [],
+            "behaviorHints": {
+                "defaultVideoId": "tt9847360",
+                "hasScheduledVideos": false
+            }
+        },
+        {
+            "id": "tt31998838",
+            "imdb_id": "tt31998838",
+            "type": "movie",
+            "name": "Matrix 5",
+            "poster": "https://images.metahub.space/poster/small/tt31998838/img",
+            "background": "https://images.metahub.space/background/medium/tt31998838/img",
+            "links": [],
+            "behaviorHints": {
+                "defaultVideoId": "tt31998838",
+                "hasScheduledVideos": false
+            }
+        },
+        {
+            "id": "tt16409916",
+            "imdb_id": "tt16409916",
+            "type": "movie",
+            "name": "Rifftrax: The Matrix",
+            "poster": "https://m.media-amazon.com/images/M/MV5BMzJmZDUzNmQtY2Y3MC00MzcxLWE2MWItMGUwOGJhYjNhNzljXkEyXkFqcGc@._V1_SX250.jpg",
+            "background": "https://images.metahub.space/background/medium/tt16409916/img",
+            "releaseInfo": "2006",
+            "links": [],
+            "behaviorHints": {
+                "defaultVideoId": "tt16409916",
+                "hasScheduledVideos": false
+            }
+        },
+        {
+            "awards": null,
+            "cast": [
+                "Lorenzo di Bonaventura",
+                "Joel Silver",
+                "Bill Pope",
+                "Owen Paterson"
+            ],
+            "description": "A DVD-exclusive documentary about the making and production of The Matrix (1999).",
+            "director": [
+                "Josh Oreck"
+            ],
+            "dvdRelease": "2001-11-20T00:00:00.000Z",
+            "genre": [
+                "Documentary"
+            ],
+            "imdbRating": "7.4",
+            "imdb_id": "tt0295432",
+            "name": "The Matrix Revisited",
+            "popularity": 0.03832,
+            "poster": "https://images.metahub.space/poster/small/tt0295432/img",
+            "released": "2001-11-20T00:00:00.000Z",
+            "runtime": "123 min",
+            "trailers": [
+                {
+                    "source": "52GlGQkt3NM",
+                    "type": "Trailer"
+                }
+            ],
+            "type": "movie",
+            "writer": null,
+            "year": "2001",
+            "popularities": {
+                "moviedb": 0.965,
+                "stremio": 0.03832,
+                "stremio_lib": 0,
+                "trakt": 2
+            },
+            "background": "https://images.metahub.space/background/medium/tt0295432/img",
+            "logo": "https://images.metahub.space/logo/medium/tt0295432/img",
+            "slug": "movie/the-matrix-revisited-0295432",
+            "id": "tt0295432",
+            "score": 28.333333333333332,
+            "genres": [
+                "Documentary"
+            ],
+            "releaseInfo": "2001",
+            "trailerStreams": [
+                {
+                    "title": "The Matrix Revisited",
+                    "ytId": "52GlGQkt3NM"
+                }
+            ],
+            "links": [
+                {
+                    "name": "7.4",
+                    "category": "imdb",
+                    "url": "https://imdb.com/title/tt0295432"
+                },
+                {
+                    "name": "The Matrix Revisited",
+                    "category": "share",
+                    "url": "https://www.strem.io/s/movie/the-matrix-revisited-0295432"
+                },
+                {
+                    "name": "Documentary",
+                    "category": "Genres",
+                    "url": "stremio:///discover/https%3A%2F%2Fv3-cinemeta.strem.io%2Fmanifest.json/movie/top?genre=Documentary"
+                },
+                {
+                    "name": "Lorenzo di Bonaventura",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Lorenzo%20di%20Bonaventura"
+                },
+                {
+                    "name": "Joel Silver",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Joel%20Silver"
+                },
+                {
+                    "name": "Bill Pope",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Bill%20Pope"
+                },
+                {
+                    "name": "Owen Paterson",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Owen%20Paterson"
+                },
+                {
+                    "name": "Josh Oreck",
+                    "category": "Directors",
+                    "url": "stremio:///search?search=Josh%20Oreck"
+                }
+            ],
+            "behaviorHints": {
+                "defaultVideoId": "tt0295432",
+                "hasScheduledVideos": false
+            }
+        },
+        {
+            "imdb_id": "tt1830850",
+            "cast": [
+                "Tanveer K. Atwal",
+                "Helmut Bakaitis",
+                "Monica Bellucci"
+            ],
+            "director": [
+                "Josh Oreck"
+            ],
+            "imdbRating": "7.6",
+            "name": "The Matrix Reloaded Revisited",
+            "poster": "https://images.metahub.space/poster/small/tt1830850/img",
+            "released": null,
+            "slug": "movie/the-matrix-reloaded-revisited-1830850",
+            "type": "movie",
+            "year": "2004",
+            "popularities": {
+                "stremio": 0.011136666666666666,
+                "stremio_lib": 0,
+                "moviedb": 0.4339
+            },
+            "trailers": [],
+            "genre": [
+                "Documentary"
+            ],
+            "writer": [],
+            "description": "A documentary film dedicated to the creation of The Matrix Reloaded",
+            "runtime": "138 min",
+            "background": "https://images.metahub.space/background/medium/tt1830850/img",
+            "logo": "https://images.metahub.space/logo/medium/tt1830850/img",
+            "popularity": 0.011136666666666666,
+            "id": "tt1830850",
+            "score": 26.666666666666668,
+            "genres": [
+                "Documentary"
+            ],
+            "releaseInfo": "2004",
+            "trailerStreams": [],
+            "links": [
+                {
+                    "name": "7.6",
+                    "category": "imdb",
+                    "url": "https://imdb.com/title/tt1830850"
+                },
+                {
+                    "name": "The Matrix Reloaded Revisited",
+                    "category": "share",
+                    "url": "https://www.strem.io/s/movie/the-matrix-reloaded-revisited-1830850"
+                },
+                {
+                    "name": "Documentary",
+                    "category": "Genres",
+                    "url": "stremio:///discover/https%3A%2F%2Fv3-cinemeta.strem.io%2Fmanifest.json/movie/top?genre=Documentary"
+                },
+                {
+                    "name": "Tanveer K. Atwal",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Tanveer%20K.%20Atwal"
+                },
+                {
+                    "name": "Helmut Bakaitis",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Helmut%20Bakaitis"
+                },
+                {
+                    "name": "Monica Bellucci",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Monica%20Bellucci"
+                },
+                {
+                    "name": "Josh Oreck",
+                    "category": "Directors",
+                    "url": "stremio:///search?search=Josh%20Oreck"
+                }
+            ],
+            "behaviorHints": {
+                "defaultVideoId": "tt1830850",
+                "hasScheduledVideos": false
+            }
+        },
+        {
+            "imdb_id": "tt0365467",
+            "name": "Making 'The Matrix'",
+            "cast": [
+                "Laurence Fishburne",
+                "Joe Pantoliano",
+                "Barrie M. Osborne"
+            ],
+            "description": "A promotional making-of documentary for the film Matrix, The (1999) that devotes its time to explaining the digital and practical effects contained in the film. This is very interesting, seeing as how they're giving away the cinem...",
+            "director": [
+                "Josh Oreck"
+            ],
+            "genre": [
+                "Documentary",
+                "Short",
+                "Sci-Fi"
+            ],
+            "imdbRating": "8.6",
+            "released": "1999-09-21T00:00:00.000Z",
+            "slug": "movie/making-the-matrix-0365467",
+            "type": "movie",
+            "year": "1999",
+            "popularities": {
+                "moviedb": 0.8152,
+                "stremio": 0.0008506666666666666,
+                "stremio_lib": 0
+            },
+            "poster": "https://images.metahub.space/poster/small/tt0365467/img",
+            "runtime": "26 min",
+            "writer": [],
+            "background": "https://images.metahub.space/background/medium/tt0365467/img",
+            "logo": "https://images.metahub.space/logo/medium/tt0365467/img",
+            "popularity": 0.0008506666666666666,
+            "id": "tt0365467",
+            "score": 24.479166666666664,
+            "genres": [
+                "Documentary",
+                "Short",
+                "Sci-Fi"
+            ],
+            "releaseInfo": "1999",
+            "links": [
+                {
+                    "name": "8.6",
+                    "category": "imdb",
+                    "url": "https://imdb.com/title/tt0365467"
+                },
+                {
+                    "name": "Making 'The Matrix'",
+                    "category": "share",
+                    "url": "https://www.strem.io/s/movie/making-the-matrix-0365467"
+                },
+                {
+                    "name": "Documentary",
+                    "category": "Genres",
+                    "url": "stremio:///discover/https%3A%2F%2Fv3-cinemeta.strem.io%2Fmanifest.json/movie/top?genre=Documentary"
+                },
+                {
+                    "name": "Short",
+                    "category": "Genres",
+                    "url": "stremio:///discover/https%3A%2F%2Fv3-cinemeta.strem.io%2Fmanifest.json/movie/top?genre=Short"
+                },
+                {
+                    "name": "Sci-Fi",
+                    "category": "Genres",
+                    "url": "stremio:///discover/https%3A%2F%2Fv3-cinemeta.strem.io%2Fmanifest.json/movie/top?genre=Sci-Fi"
+                },
+                {
+                    "name": "Laurence Fishburne",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Laurence%20Fishburne"
+                },
+                {
+                    "name": "Joe Pantoliano",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Joe%20Pantoliano"
+                },
+                {
+                    "name": "Barrie M. Osborne",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Barrie%20M.%20Osborne"
+                },
+                {
+                    "name": "Josh Oreck",
+                    "category": "Directors",
+                    "url": "stremio:///search?search=Josh%20Oreck"
+                }
+            ],
+            "behaviorHints": {
+                "defaultVideoId": "tt0365467",
+                "hasScheduledVideos": false
+            }
+        },
+        {
+            "awards": null,
+            "cast": [
+                "Donna Bowman",
+                "David Chalmers",
+                "Peter Chung",
+                "Andy Clark"
+            ],
+            "description": null,
+            "director": [
+                "Josh Oreck"
+            ],
+            "dvdRelease": null,
+            "genre": [
+                "Documentary"
+            ],
+            "imdbRating": "8.1",
+            "imdb_id": "tt0439783",
+            "name": "Return to Source: Philosophy & The Matrix",
+            "popularity": 0.009063333333333333,
+            "poster": "https://images.metahub.space/poster/small/tt0439783/img",
+            "released": "2004-12-07T00:00:00.000Z",
+            "runtime": "61 min",
+            "trailers": [],
+            "type": "movie",
+            "writer": null,
+            "year": "2004",
+            "popularities": {
+                "moviedb": 0.7232,
+                "stremio": 0.009063333333333333,
+                "stremio_lib": 0
+            },
+            "slug": "movie/return-to-source-philosophy-the-matrix-0439783",
+            "background": "https://images.metahub.space/background/medium/tt0439783/img",
+            "logo": "https://images.metahub.space/logo/medium/tt0439783/img",
+            "id": "tt0439783",
+            "score": 18.458333333333332,
+            "genres": [
+                "Documentary"
+            ],
+            "releaseInfo": "2004",
+            "trailerStreams": [],
+            "links": [
+                {
+                    "name": "8.1",
+                    "category": "imdb",
+                    "url": "https://imdb.com/title/tt0439783"
+                },
+                {
+                    "name": "Return to Source: Philosophy & The Matrix",
+                    "category": "share",
+                    "url": "https://www.strem.io/s/movie/return-to-source-philosophy-the-matrix-0439783"
+                },
+                {
+                    "name": "Documentary",
+                    "category": "Genres",
+                    "url": "stremio:///discover/https%3A%2F%2Fv3-cinemeta.strem.io%2Fmanifest.json/movie/top?genre=Documentary"
+                },
+                {
+                    "name": "Donna Bowman",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Donna%20Bowman"
+                },
+                {
+                    "name": "David Chalmers",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=David%20Chalmers"
+                },
+                {
+                    "name": "Peter Chung",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Peter%20Chung"
+                },
+                {
+                    "name": "Andy Clark",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Andy%20Clark"
+                },
+                {
+                    "name": "Josh Oreck",
+                    "category": "Directors",
+                    "url": "stremio:///search?search=Josh%20Oreck"
+                }
+            ],
+            "behaviorHints": {
+                "defaultVideoId": "tt0439783",
+                "hasScheduledVideos": false
+            }
+        },
+        {
+            "awards": "Nominated for 3 Primetime Emmys. 3 nominations total",
+            "cast": [
+                "Paul Reubens",
+                "John Moody",
+                "Drew Powell"
+            ],
+            "description": "Subversive humor and childlike wonder based on both Reubens' original stage show, \"The Pee-wee Herman Show,\" and the Emmy-winning Saturday morning TV show, \"Pee-wee's Playhouse.\"",
+            "director": [
+                "Marty Callner"
+            ],
+            "dvdRelease": "2011-10-04T00:00:00.000Z",
+            "genre": [
+                "Comedy"
+            ],
+            "imdbRating": "7.6",
+            "imdb_id": "tt1839648",
+            "name": "The Pee-Wee Herman Show on Broadway",
+            "popularity": 0.00897,
+            "poster": "https://images.metahub.space/poster/small/tt1839648/img",
+            "released": "2011-03-19T00:00:00.000Z",
+            "runtime": "89 min",
+            "trailers": [
+                {
+                    "source": "xSyPdvlthg0",
+                    "type": "Trailer"
+                }
+            ],
+            "type": "movie",
+            "writer": [
+                "Paul Reubens",
+                "Bill Steinkellner",
+                "John Paragon"
+            ],
+            "year": "2011",
+            "popularities": {
+                "moviedb": 0.6138,
+                "stremio": 0.00897,
+                "stremio_lib": 0
+            },
+            "slug": "movie/the-pee-wee-herman-show-on-broadway-1839648",
+            "background": "https://images.metahub.space/background/medium/tt1839648/img",
+            "logo": "https://images.metahub.space/logo/medium/tt1839648/img",
+            "id": "tt1839648",
+            "score": 16.798220298220294,
+            "genres": [
+                "Comedy"
+            ],
+            "releaseInfo": "2011",
+            "trailerStreams": [
+                {
+                    "title": "The Pee-Wee Herman Show on Broadway",
+                    "ytId": "xSyPdvlthg0"
+                }
+            ],
+            "links": [
+                {
+                    "name": "7.6",
+                    "category": "imdb",
+                    "url": "https://imdb.com/title/tt1839648"
+                },
+                {
+                    "name": "The Pee-Wee Herman Show on Broadway",
+                    "category": "share",
+                    "url": "https://www.strem.io/s/movie/the-pee-wee-herman-show-on-broadway-1839648"
+                },
+                {
+                    "name": "Comedy",
+                    "category": "Genres",
+                    "url": "stremio:///discover/https%3A%2F%2Fv3-cinemeta.strem.io%2Fmanifest.json/movie/top?genre=Comedy"
+                },
+                {
+                    "name": "Paul Reubens",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Paul%20Reubens"
+                },
+                {
+                    "name": "John Moody",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=John%20Moody"
+                },
+                {
+                    "name": "Drew Powell",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Drew%20Powell"
+                },
+                {
+                    "name": "Paul Reubens",
+                    "category": "Writers",
+                    "url": "stremio:///search?search=Paul%20Reubens"
+                },
+                {
+                    "name": "Bill Steinkellner",
+                    "category": "Writers",
+                    "url": "stremio:///search?search=Bill%20Steinkellner"
+                },
+                {
+                    "name": "John Paragon",
+                    "category": "Writers",
+                    "url": "stremio:///search?search=John%20Paragon"
+                },
+                {
+                    "name": "Marty Callner",
+                    "category": "Directors",
+                    "url": "stremio:///search?search=Marty%20Callner"
+                }
+            ],
+            "behaviorHints": {
+                "defaultVideoId": "tt1839648",
+                "hasScheduledVideos": false
+            }
+        },
+        {
+            "awards": "Won 1 Oscar. 13 wins & 12 nominations total",
+            "cast": [
+                "Charlton Heston",
+                "Yul Brynner",
+                "Anne Baxter"
+            ],
+            "description": "Moses, raised as a prince of Egypt in the Pharaoh's household, learns of his true heritage as a Hebrew and his divine mission as the deliverer of his people from slavery.",
+            "director": [
+                "Cecil B. DeMille"
+            ],
+            "dvdRelease": "2016-11-24T00:00:00.000Z",
+            "genre": [
+                "Adventure",
+                "Drama",
+                "Family"
+            ],
+            "imdbRating": "7.9",
+            "imdb_id": "tt0049833",
+            "name": "The Ten Commandments",
+            "popularity": 0.2662566666666667,
+            "poster": "https://images.metahub.space/poster/small/tt0049833/img",
+            "released": "1956-10-05T00:00:00.000Z",
+            "runtime": "220 min",
+            "trailers": [
+                {
+                    "source": "KBzbyIPWVT4",
+                    "type": "Trailer"
+                },
+                {
+                    "source": "_vHnxV_C9XA",
+                    "type": "Trailer"
+                },
+                {
+                    "source": "EiLmKxiTT3g",
+                    "type": "Trailer"
+                }
+            ],
+            "type": "movie",
+            "writer": [
+                "Dorothy Clarke Wilson",
+                "J.H. Ingraham",
+                "A.E. Southon"
+            ],
+            "year": "1956",
+            "background": "https://images.metahub.space/background/medium/tt0049833/img",
+            "logo": "https://images.metahub.space/logo/medium/tt0049833/img",
+            "popularities": {
+                "moviedb": 7.7698,
+                "stremio": 0.2662566666666667,
+                "trakt": 57,
+                "stremio_lib": 0
+            },
+            "slug": "movie/the-ten-commandments-0049833",
+            "id": "tt0049833",
+            "score": 13.342752485609628,
+            "genres": [
+                "Adventure",
+                "Drama",
+                "Family"
+            ],
+            "releaseInfo": "1956",
+            "trailerStreams": [
+                {
+                    "title": "The Ten Commandments",
+                    "ytId": "KBzbyIPWVT4"
+                },
+                {
+                    "title": "The Ten Commandments",
+                    "ytId": "_vHnxV_C9XA"
+                },
+                {
+                    "title": "The Ten Commandments",
+                    "ytId": "EiLmKxiTT3g"
+                }
+            ],
+            "links": [
+                {
+                    "name": "7.9",
+                    "category": "imdb",
+                    "url": "https://imdb.com/title/tt0049833"
+                },
+                {
+                    "name": "The Ten Commandments",
+                    "category": "share",
+                    "url": "https://www.strem.io/s/movie/the-ten-commandments-0049833"
+                },
+                {
+                    "name": "Adventure",
+                    "category": "Genres",
+                    "url": "stremio:///discover/https%3A%2F%2Fv3-cinemeta.strem.io%2Fmanifest.json/movie/top?genre=Adventure"
+                },
+                {
+                    "name": "Drama",
+                    "category": "Genres",
+                    "url": "stremio:///discover/https%3A%2F%2Fv3-cinemeta.strem.io%2Fmanifest.json/movie/top?genre=Drama"
+                },
+                {
+                    "name": "Family",
+                    "category": "Genres",
+                    "url": "stremio:///discover/https%3A%2F%2Fv3-cinemeta.strem.io%2Fmanifest.json/movie/top?genre=Family"
+                },
+                {
+                    "name": "Charlton Heston",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Charlton%20Heston"
+                },
+                {
+                    "name": "Yul Brynner",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Yul%20Brynner"
+                },
+                {
+                    "name": "Anne Baxter",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Anne%20Baxter"
+                },
+                {
+                    "name": "Dorothy Clarke Wilson",
+                    "category": "Writers",
+                    "url": "stremio:///search?search=Dorothy%20Clarke%20Wilson"
+                },
+                {
+                    "name": "J.H. Ingraham",
+                    "category": "Writers",
+                    "url": "stremio:///search?search=J.H.%20Ingraham"
+                },
+                {
+                    "name": "A.E. Southon",
+                    "category": "Writers",
+                    "url": "stremio:///search?search=A.E.%20Southon"
+                },
+                {
+                    "name": "Cecil B. DeMille",
+                    "category": "Directors",
+                    "url": "stremio:///search?search=Cecil%20B.%20DeMille"
+                }
+            ],
+            "behaviorHints": {
+                "defaultVideoId": "tt0049833",
+                "hasScheduledVideos": false
+            }
+        },
+        {
+            "imdb_id": "tt5592248",
+            "name": "The Beguiled",
+            "popularities": {
+                "moviedb": 2.4016,
+                "stremio": 0.09997666666666666,
+                "trakt": 1,
+                "stremio_lib": 0
+            },
+            "type": "movie",
+            "year": "2017",
+            "runtime": "93 min",
+            "genre": [
+                "Drama",
+                "History",
+                "Thriller"
+            ],
+            "released": "2017-06-30T00:00:00.000Z",
+            "director": [
+                "Sofia Coppola"
+            ],
+            "writer": [
+                "Sofia Coppola",
+                "Thomas Cullinan",
+                "Albert Maltz"
+            ],
+            "cast": [
+                "Nicole Kidman",
+                "Kirsten Dunst",
+                "Elle Fanning"
+            ],
+            "imdbRating": "6.3",
+            "poster": "https://images.metahub.space/poster/small/tt5592248/img",
+            "description": "The unexpected arrival of a wounded Union soldier at a girls school in Virginia during the American Civil War leads to jealousy and betrayal.",
+            "awards": "5 wins & 26 nominations total",
+            "dvdRelease": "2018-10-30T00:00:00.000Z",
+            "trailers": [
+                {
+                    "source": "_r_FSRbuZ9Y",
+                    "type": "Trailer"
+                }
+            ],
+            "background": "https://images.metahub.space/background/medium/tt5592248/img",
+            "logo": "https://images.metahub.space/logo/medium/tt5592248/img",
+            "slug": "movie/the-beguiled-5592248",
+            "popularity": 0.09997666666666666,
+            "id": "tt5592248",
+            "score": 10.82142857142857,
+            "genres": [
+                "Drama",
+                "History",
+                "Thriller"
+            ],
+            "releaseInfo": "2017",
+            "trailerStreams": [
+                {
+                    "title": "The Beguiled",
+                    "ytId": "_r_FSRbuZ9Y"
+                }
+            ],
+            "links": [
+                {
+                    "name": "6.3",
+                    "category": "imdb",
+                    "url": "https://imdb.com/title/tt5592248"
+                },
+                {
+                    "name": "The Beguiled",
+                    "category": "share",
+                    "url": "https://www.strem.io/s/movie/the-beguiled-5592248"
+                },
+                {
+                    "name": "Drama",
+                    "category": "Genres",
+                    "url": "stremio:///discover/https%3A%2F%2Fv3-cinemeta.strem.io%2Fmanifest.json/movie/top?genre=Drama"
+                },
+                {
+                    "name": "History",
+                    "category": "Genres",
+                    "url": "stremio:///discover/https%3A%2F%2Fv3-cinemeta.strem.io%2Fmanifest.json/movie/top?genre=History"
+                },
+                {
+                    "name": "Thriller",
+                    "category": "Genres",
+                    "url": "stremio:///discover/https%3A%2F%2Fv3-cinemeta.strem.io%2Fmanifest.json/movie/top?genre=Thriller"
+                },
+                {
+                    "name": "Nicole Kidman",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Nicole%20Kidman"
+                },
+                {
+                    "name": "Kirsten Dunst",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Kirsten%20Dunst"
+                },
+                {
+                    "name": "Elle Fanning",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Elle%20Fanning"
+                },
+                {
+                    "name": "Sofia Coppola",
+                    "category": "Writers",
+                    "url": "stremio:///search?search=Sofia%20Coppola"
+                },
+                {
+                    "name": "Thomas Cullinan",
+                    "category": "Writers",
+                    "url": "stremio:///search?search=Thomas%20Cullinan"
+                },
+                {
+                    "name": "Albert Maltz",
+                    "category": "Writers",
+                    "url": "stremio:///search?search=Albert%20Maltz"
+                },
+                {
+                    "name": "Sofia Coppola",
+                    "category": "Directors",
+                    "url": "stremio:///search?search=Sofia%20Coppola"
+                }
+            ],
+            "behaviorHints": {
+                "defaultVideoId": "tt5592248",
+                "hasScheduledVideos": false
+            }
+        },
+        {
+            "imdb_id": "tt0041452",
+            "type": "movie",
+            "name": "The Heiress",
+            "year": "1949",
+            "runtime": "115 min",
+            "genre": [
+                "Drama",
+                "Romance"
+            ],
+            "released": "1949-12-28T00:00:00.000Z",
+            "director": [
+                "William Wyler"
+            ],
+            "writer": [
+                "Ruth Goetz",
+                "Augustus Goetz",
+                "Henry James"
+            ],
+            "cast": [
+                "Olivia de Havilland",
+                "Montgomery Clift",
+                "Ralph Richardson"
+            ],
+            "imdbRating": "8.1",
+            "poster": "https://images.metahub.space/poster/small/tt0041452/img",
+            "description": "A naive young woman falls for a handsome young man her emotionally abusive father suspects is only a fortune hunter.",
+            "awards": "Won 4 Oscars. 13 wins & 9 nominations total",
+            "dvdRelease": "2007-02-06T00:00:00.000Z",
+            "trailers": [
+                {
+                    "source": "ltjOydHAO0M",
+                    "type": "Trailer"
+                }
+            ],
+            "popularities": {
+                "moviedb": 1.2559,
+                "stremio": 0.04096333333333334,
+                "stremio_lib": 0,
+                "trakt": 2
+            },
+            "background": "https://images.metahub.space/background/medium/tt0041452/img",
+            "logo": "https://images.metahub.space/logo/medium/tt0041452/img",
+            "slug": "movie/the-heiress-0041452",
+            "popularity": 0.04096333333333334,
+            "id": "tt0041452",
+            "score": 11.81190476190476,
+            "genres": [
+                "Drama",
+                "Romance"
+            ],
+            "releaseInfo": "1949",
+            "trailerStreams": [
+                {
+                    "title": "The Heiress",
+                    "ytId": "ltjOydHAO0M"
+                }
+            ],
+            "links": [
+                {
+                    "name": "8.1",
+                    "category": "imdb",
+                    "url": "https://imdb.com/title/tt0041452"
+                },
+                {
+                    "name": "The Heiress",
+                    "category": "share",
+                    "url": "https://www.strem.io/s/movie/the-heiress-0041452"
+                },
+                {
+                    "name": "Drama",
+                    "category": "Genres",
+                    "url": "stremio:///discover/https%3A%2F%2Fv3-cinemeta.strem.io%2Fmanifest.json/movie/top?genre=Drama"
+                },
+                {
+                    "name": "Romance",
+                    "category": "Genres",
+                    "url": "stremio:///discover/https%3A%2F%2Fv3-cinemeta.strem.io%2Fmanifest.json/movie/top?genre=Romance"
+                },
+                {
+                    "name": "Olivia de Havilland",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Olivia%20de%20Havilland"
+                },
+                {
+                    "name": "Montgomery Clift",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Montgomery%20Clift"
+                },
+                {
+                    "name": "Ralph Richardson",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Ralph%20Richardson"
+                },
+                {
+                    "name": "Ruth Goetz",
+                    "category": "Writers",
+                    "url": "stremio:///search?search=Ruth%20Goetz"
+                },
+                {
+                    "name": "Augustus Goetz",
+                    "category": "Writers",
+                    "url": "stremio:///search?search=Augustus%20Goetz"
+                },
+                {
+                    "name": "Henry James",
+                    "category": "Writers",
+                    "url": "stremio:///search?search=Henry%20James"
+                },
+                {
+                    "name": "William Wyler",
+                    "category": "Directors",
+                    "url": "stremio:///search?search=William%20Wyler"
+                }
+            ],
+            "behaviorHints": {
+                "defaultVideoId": "tt0041452",
+                "hasScheduledVideos": false
+            }
+        },
+        {
+            "imdb_id": "tt12363162",
+            "name": "My People, My Homeland",
+            "popularities": {
+                "trakt": 2,
+                "moviedb": 0.9682,
+                "stremio": 0.03187666666666667,
+                "stremio_lib": 0
+            },
+            "type": "movie",
+            "awards": "10 wins & 12 nominations total",
+            "cast": [
+                "Huang Bo",
+                "You Ge",
+                "Wei Fan"
+            ],
+            "description": "In different parts of rural China, various people explore what makes their communities unique.",
+            "director": [
+                "Hao Ning",
+                "Sicheng Chen",
+                "Chao Deng"
+            ],
+            "genre": [
+                "Drama"
+            ],
+            "imdbRating": "6.4",
+            "poster": "https://images.metahub.space/poster/small/tt12363162/img",
+            "released": "2020-10-01T00:00:00.000Z",
+            "runtime": "153 min",
+            "slug": "movie/my-people-my-homeland-12363162",
+            "writer": [
+                "Ziye Wang",
+                "Ang Wang",
+                "Sicheng Chen"
+            ],
+            "year": "2020",
+            "trailers": [
+                {
+                    "source": "ev2sCnsYv9A",
+                    "type": "Trailer"
+                }
+            ],
+            "background": "https://images.metahub.space/background/medium/tt12363162/img",
+            "logo": "https://images.metahub.space/logo/medium/tt12363162/img",
+            "dvdRelease": "2021-06-04T00:00:00.000Z",
+            "popularity": 0.03187666666666667,
+            "id": "tt12363162",
+            "score": 12.316208791208789,
+            "genres": [
+                "Drama"
+            ],
+            "releaseInfo": "2020",
+            "trailerStreams": [
+                {
+                    "title": "My People, My Homeland",
+                    "ytId": "ev2sCnsYv9A"
+                }
+            ],
+            "links": [
+                {
+                    "name": "6.4",
+                    "category": "imdb",
+                    "url": "https://imdb.com/title/tt12363162"
+                },
+                {
+                    "name": "My People, My Homeland",
+                    "category": "share",
+                    "url": "https://www.strem.io/s/movie/my-people-my-homeland-12363162"
+                },
+                {
+                    "name": "Drama",
+                    "category": "Genres",
+                    "url": "stremio:///discover/https%3A%2F%2Fv3-cinemeta.strem.io%2Fmanifest.json/movie/top?genre=Drama"
+                },
+                {
+                    "name": "Huang Bo",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Huang%20Bo"
+                },
+                {
+                    "name": "You Ge",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=You%20Ge"
+                },
+                {
+                    "name": "Wei Fan",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Wei%20Fan"
+                },
+                {
+                    "name": "Ziye Wang",
+                    "category": "Writers",
+                    "url": "stremio:///search?search=Ziye%20Wang"
+                },
+                {
+                    "name": "Ang Wang",
+                    "category": "Writers",
+                    "url": "stremio:///search?search=Ang%20Wang"
+                },
+                {
+                    "name": "Sicheng Chen",
+                    "category": "Writers",
+                    "url": "stremio:///search?search=Sicheng%20Chen"
+                },
+                {
+                    "name": "Hao Ning",
+                    "category": "Directors",
+                    "url": "stremio:///search?search=Hao%20Ning"
+                },
+                {
+                    "name": "Sicheng Chen",
+                    "category": "Directors",
+                    "url": "stremio:///search?search=Sicheng%20Chen"
+                },
+                {
+                    "name": "Chao Deng",
+                    "category": "Directors",
+                    "url": "stremio:///search?search=Chao%20Deng"
+                }
+            ],
+            "behaviorHints": {
+                "defaultVideoId": "tt12363162",
+                "hasScheduledVideos": false
+            }
+        },
+        {
+            "awards": "Nominated for 1 Primetime Emmy. 2 nominations total",
+            "cast": [
+                "Sally Kirkland",
+                "Jeffrey DeMunn",
+                "Louise Latham"
+            ],
+            "description": "When the Smurl family moves into a duplex, they find out its haunted.",
+            "director": [
+                "Robert Mandel"
+            ],
+            "dvdRelease": null,
+            "genre": [
+                "Drama",
+                "Horror"
+            ],
+            "imdbRating": "6.2",
+            "imdb_id": "tt0102007",
+            "name": "The Haunted",
+            "popularity": 0.03092,
+            "poster": "https://images.metahub.space/poster/small/tt0102007/img",
+            "released": "1991-05-06T00:00:00.000Z",
+            "runtime": "100 min",
+            "trailers": [
+                {
+                    "source": "UZvWyh7HacY",
+                    "type": "Trailer"
+                }
+            ],
+            "type": "movie",
+            "writer": [
+                "Robert Curran",
+                "Jack Smurl",
+                "Janet Smurl"
+            ],
+            "year": "1991",
+            "popularities": {
+                "moviedb": 0.7894,
+                "stremio": 0.03092,
+                "stremio_lib": 0,
+                "trakt": 2
+            },
+            "slug": "movie/the-haunted-0102007",
+            "background": "https://images.metahub.space/background/medium/tt0102007/img",
+            "logo": "https://images.metahub.space/logo/medium/tt0102007/img",
+            "id": "tt0102007",
+            "score": 11.726190476190474,
+            "genres": [
+                "Drama",
+                "Horror"
+            ],
+            "releaseInfo": "1991",
+            "trailerStreams": [
+                {
+                    "title": "The Haunted",
+                    "ytId": "UZvWyh7HacY"
+                }
+            ],
+            "links": [
+                {
+                    "name": "6.2",
+                    "category": "imdb",
+                    "url": "https://imdb.com/title/tt0102007"
+                },
+                {
+                    "name": "The Haunted",
+                    "category": "share",
+                    "url": "https://www.strem.io/s/movie/the-haunted-0102007"
+                },
+                {
+                    "name": "Drama",
+                    "category": "Genres",
+                    "url": "stremio:///discover/https%3A%2F%2Fv3-cinemeta.strem.io%2Fmanifest.json/movie/top?genre=Drama"
+                },
+                {
+                    "name": "Horror",
+                    "category": "Genres",
+                    "url": "stremio:///discover/https%3A%2F%2Fv3-cinemeta.strem.io%2Fmanifest.json/movie/top?genre=Horror"
+                },
+                {
+                    "name": "Sally Kirkland",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Sally%20Kirkland"
+                },
+                {
+                    "name": "Jeffrey DeMunn",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Jeffrey%20DeMunn"
+                },
+                {
+                    "name": "Louise Latham",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Louise%20Latham"
+                },
+                {
+                    "name": "Robert Curran",
+                    "category": "Writers",
+                    "url": "stremio:///search?search=Robert%20Curran"
+                },
+                {
+                    "name": "Jack Smurl",
+                    "category": "Writers",
+                    "url": "stremio:///search?search=Jack%20Smurl"
+                },
+                {
+                    "name": "Janet Smurl",
+                    "category": "Writers",
+                    "url": "stremio:///search?search=Janet%20Smurl"
+                },
+                {
+                    "name": "Robert Mandel",
+                    "category": "Directors",
+                    "url": "stremio:///search?search=Robert%20Mandel"
+                }
+            ],
+            "behaviorHints": {
+                "defaultVideoId": "tt0102007",
+                "hasScheduledVideos": false
+            }
+        },
+        {
+            "imdb_id": "tt2209180",
+            "popularity": 0.019656666666666666,
+            "name": "Poka noch ne razluchit",
+            "year": "2012",
+            "runtime": "71 min",
+            "genre": [
+                "Comedy",
+                "Drama"
+            ],
+            "released": "2012-10-11T00:00:00.000Z",
+            "director": [
+                "Boris Khlebnikov"
+            ],
+            "writer": [
+                "Aleksandr Rodionov",
+                "Boris Khlebnikov",
+                "Aleksey Kazakov"
+            ],
+            "cast": [
+                "Aleksandr Yatsenko",
+                "Evgeniy Sytyy",
+                "Sakhat Dursunov"
+            ],
+            "imdbRating": "5.8",
+            "poster": "https://images.metahub.space/poster/small/tt2209180/img",
+            "description": "A satirical look at one day of an expensive restaurant. Based on the real life.",
+            "awards": "2 nominations",
+            "dvdRelease": null,
+            "type": "movie",
+            "trailers": [],
+            "popularities": {
+                "moviedb": 0.3116,
+                "stremio": 0.019656666666666666,
+                "stremio_lib": 0
+            },
+            "slug": "movie/poka-noch-ne-razluchit-2209180",
+            "background": "https://images.metahub.space/background/medium/tt2209180/img",
+            "logo": "https://images.metahub.space/logo/medium/tt2209180/img",
+            "id": "tt2209180",
+            "score": 11.185810810810809,
+            "genres": [
+                "Comedy",
+                "Drama"
+            ],
+            "releaseInfo": "2012",
+            "trailerStreams": [],
+            "links": [
+                {
+                    "name": "5.8",
+                    "category": "imdb",
+                    "url": "https://imdb.com/title/tt2209180"
+                },
+                {
+                    "name": "Poka noch ne razluchit",
+                    "category": "share",
+                    "url": "https://www.strem.io/s/movie/poka-noch-ne-razluchit-2209180"
+                },
+                {
+                    "name": "Comedy",
+                    "category": "Genres",
+                    "url": "stremio:///discover/https%3A%2F%2Fv3-cinemeta.strem.io%2Fmanifest.json/movie/top?genre=Comedy"
+                },
+                {
+                    "name": "Drama",
+                    "category": "Genres",
+                    "url": "stremio:///discover/https%3A%2F%2Fv3-cinemeta.strem.io%2Fmanifest.json/movie/top?genre=Drama"
+                },
+                {
+                    "name": "Aleksandr Yatsenko",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Aleksandr%20Yatsenko"
+                },
+                {
+                    "name": "Evgeniy Sytyy",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Evgeniy%20Sytyy"
+                },
+                {
+                    "name": "Sakhat Dursunov",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Sakhat%20Dursunov"
+                },
+                {
+                    "name": "Aleksandr Rodionov",
+                    "category": "Writers",
+                    "url": "stremio:///search?search=Aleksandr%20Rodionov"
+                },
+                {
+                    "name": "Boris Khlebnikov",
+                    "category": "Writers",
+                    "url": "stremio:///search?search=Boris%20Khlebnikov"
+                },
+                {
+                    "name": "Aleksey Kazakov",
+                    "category": "Writers",
+                    "url": "stremio:///search?search=Aleksey%20Kazakov"
+                },
+                {
+                    "name": "Boris Khlebnikov",
+                    "category": "Directors",
+                    "url": "stremio:///search?search=Boris%20Khlebnikov"
+                }
+            ],
+            "behaviorHints": {
+                "defaultVideoId": "tt2209180",
+                "hasScheduledVideos": false
+            }
+        },
+        {
+            "awards": "3 nominations",
+            "cast": [
+                "Cate Blanchett",
+                "Sebastian Koch",
+                "Thomas Kretschmann"
+            ],
+            "description": "About a series of unsolved disappearances on the Galapagos Island of Floreana in the 1930s.",
+            "director": [
+                "Daniel Geller",
+                "Dayna Goldfine"
+            ],
+            "dvdRelease": "2016-08-10T00:00:00.000Z",
+            "genre": [
+                "Documentary",
+                "Biography",
+                "Crime"
+            ],
+            "imdbRating": "6.7",
+            "imdb_id": "tt2960450",
+            "name": "The Galapagos Affair: Satan Came to Eden",
+            "popularity": 0.01435,
+            "poster": "https://images.metahub.space/poster/small/tt2960450/img",
+            "released": "2014-07-25T00:00:00.000Z",
+            "runtime": "126 min",
+            "trailers": [
+                {
+                    "source": "Wf2txEIcg6E",
+                    "type": "Trailer"
+                }
+            ],
+            "type": "movie",
+            "writer": [
+                "Dayna Goldfine",
+                "Daniel Geller",
+                "Celeste Schaefer Snyder"
+            ],
+            "year": "2013",
+            "popularities": {
+                "moviedb": 2.436,
+                "stremio": 0.01435,
+                "stremio_lib": 0
+            },
+            "slug": "movie/the-galapagos-affair-satan-came-to-eden-2960450",
+            "background": "https://images.metahub.space/background/medium/tt2960450/img",
+            "logo": "https://images.metahub.space/logo/medium/tt2960450/img",
+            "id": "tt2960450",
+            "score": 10.523809523809524,
+            "genres": [
+                "Documentary",
+                "Biography",
+                "Crime"
+            ],
+            "releaseInfo": "2013",
+            "trailerStreams": [
+                {
+                    "title": "The Galapagos Affair: Satan Came to Eden",
+                    "ytId": "Wf2txEIcg6E"
+                }
+            ],
+            "links": [
+                {
+                    "name": "6.7",
+                    "category": "imdb",
+                    "url": "https://imdb.com/title/tt2960450"
+                },
+                {
+                    "name": "The Galapagos Affair: Satan Came to Eden",
+                    "category": "share",
+                    "url": "https://www.strem.io/s/movie/the-galapagos-affair-satan-came-to-eden-2960450"
+                },
+                {
+                    "name": "Documentary",
+                    "category": "Genres",
+                    "url": "stremio:///discover/https%3A%2F%2Fv3-cinemeta.strem.io%2Fmanifest.json/movie/top?genre=Documentary"
+                },
+                {
+                    "name": "Biography",
+                    "category": "Genres",
+                    "url": "stremio:///discover/https%3A%2F%2Fv3-cinemeta.strem.io%2Fmanifest.json/movie/top?genre=Biography"
+                },
+                {
+                    "name": "Crime",
+                    "category": "Genres",
+                    "url": "stremio:///discover/https%3A%2F%2Fv3-cinemeta.strem.io%2Fmanifest.json/movie/top?genre=Crime"
+                },
+                {
+                    "name": "Cate Blanchett",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Cate%20Blanchett"
+                },
+                {
+                    "name": "Sebastian Koch",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Sebastian%20Koch"
+                },
+                {
+                    "name": "Thomas Kretschmann",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Thomas%20Kretschmann"
+                },
+                {
+                    "name": "Dayna Goldfine",
+                    "category": "Writers",
+                    "url": "stremio:///search?search=Dayna%20Goldfine"
+                },
+                {
+                    "name": "Daniel Geller",
+                    "category": "Writers",
+                    "url": "stremio:///search?search=Daniel%20Geller"
+                },
+                {
+                    "name": "Celeste Schaefer Snyder",
+                    "category": "Writers",
+                    "url": "stremio:///search?search=Celeste%20Schaefer%20Snyder"
+                },
+                {
+                    "name": "Daniel Geller",
+                    "category": "Directors",
+                    "url": "stremio:///search?search=Daniel%20Geller"
+                },
+                {
+                    "name": "Dayna Goldfine",
+                    "category": "Directors",
+                    "url": "stremio:///search?search=Dayna%20Goldfine"
+                }
+            ],
+            "behaviorHints": {
+                "defaultVideoId": "tt2960450",
+                "hasScheduledVideos": false
+            }
+        },
+        {
+            "imdb_id": "tt9055114",
+            "name": "Howard Lovecraft and the Kingdom of Madness",
+            "popularities": {
+                "trakt": 2,
+                "moviedb": 0.7512,
+                "stremio": 0.013586666666666667,
+                "stremio_lib": 0
+            },
+            "type": "movie",
+            "cast": [
+                "Kiefer O'Reilly",
+                "Jeffrey Combs",
+                "Tyler Nicol",
+                "Michelle O'Reilly"
+            ],
+            "description": "After returning from his previous adventure, young Howard Lovecraft must lead an expedition including his father, Winfield, Uncle Randolph, and Miskatonic Universitys Dr. Henry Armitage to Antarctica, to prevent the awakening of Cthulhu!",
+            "director": [
+                "Sean Patrick O'Reilly"
+            ],
+            "genre": [
+                "Animation",
+                "Family",
+                "Fantasy"
+            ],
+            "imdbRating": "5.0",
+            "poster": "https://images.metahub.space/poster/small/tt9055114/img",
+            "released": "2018-12-04T00:00:00.000Z",
+            "runtime": "75 min",
+            "slug": "movie/howard-lovecraft-and-the-kingdom-of-madness-9055114",
+            "writer": [
+                "Sean Patrick O'Reilly",
+                "Bruce Brown (based on the Arcana graphic novel by)",
+                "Thomas Boatwright (based on the Arcana graphic novel by)",
+                "Erik Fokkens (based on the Arcana graphic novel by)",
+                "Dwight MacPherson (based on the Arcana graphic novel by)",
+                "Sean Patrick O'Reilly (based on the Arcana graphic novel by)",
+                "E.T. Dollman (based on the Arcana graphic novel by)"
+            ],
+            "year": "2018",
+            "trailers": [
+                {
+                    "source": "412EGH2OxzI",
+                    "type": "Trailer"
+                }
+            ],
+            "dvdRelease": "2018-12-04T00:00:00.000Z",
+            "background": "https://images.metahub.space/background/medium/tt9055114/img",
+            "logo": "https://images.metahub.space/logo/medium/tt9055114/img",
+            "popularity": 0.013586666666666667,
+            "id": "tt9055114",
+            "score": 10.83030303030303,
+            "genres": [
+                "Animation",
+                "Family",
+                "Fantasy"
+            ],
+            "releaseInfo": "2018",
+            "trailerStreams": [
+                {
+                    "title": "Howard Lovecraft and the Kingdom of Madness",
+                    "ytId": "412EGH2OxzI"
+                }
+            ],
+            "links": [
+                {
+                    "name": "5.0",
+                    "category": "imdb",
+                    "url": "https://imdb.com/title/tt9055114"
+                },
+                {
+                    "name": "Howard Lovecraft and the Kingdom of Madness",
+                    "category": "share",
+                    "url": "https://www.strem.io/s/movie/howard-lovecraft-and-the-kingdom-of-madness-9055114"
+                },
+                {
+                    "name": "Animation",
+                    "category": "Genres",
+                    "url": "stremio:///discover/https%3A%2F%2Fv3-cinemeta.strem.io%2Fmanifest.json/movie/top?genre=Animation"
+                },
+                {
+                    "name": "Family",
+                    "category": "Genres",
+                    "url": "stremio:///discover/https%3A%2F%2Fv3-cinemeta.strem.io%2Fmanifest.json/movie/top?genre=Family"
+                },
+                {
+                    "name": "Fantasy",
+                    "category": "Genres",
+                    "url": "stremio:///discover/https%3A%2F%2Fv3-cinemeta.strem.io%2Fmanifest.json/movie/top?genre=Fantasy"
+                },
+                {
+                    "name": "Kiefer O'Reilly",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Kiefer%20O'Reilly"
+                },
+                {
+                    "name": "Jeffrey Combs",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Jeffrey%20Combs"
+                },
+                {
+                    "name": "Tyler Nicol",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Tyler%20Nicol"
+                },
+                {
+                    "name": "Michelle O'Reilly",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Michelle%20O'Reilly"
+                },
+                {
+                    "name": "Sean Patrick O'Reilly",
+                    "category": "Writers",
+                    "url": "stremio:///search?search=Sean%20Patrick%20O'Reilly"
+                },
+                {
+                    "name": "Bruce Brown (based on the Arcana graphic novel by)",
+                    "category": "Writers",
+                    "url": "stremio:///search?search=Bruce%20Brown%20(based%20on%20the%20Arcana%20graphic%20novel%20by)"
+                },
+                {
+                    "name": "Thomas Boatwright (based on the Arcana graphic novel by)",
+                    "category": "Writers",
+                    "url": "stremio:///search?search=Thomas%20Boatwright%20(based%20on%20the%20Arcana%20graphic%20novel%20by)"
+                },
+                {
+                    "name": "Erik Fokkens (based on the Arcana graphic novel by)",
+                    "category": "Writers",
+                    "url": "stremio:///search?search=Erik%20Fokkens%20(based%20on%20the%20Arcana%20graphic%20novel%20by)"
+                },
+                {
+                    "name": "Dwight MacPherson (based on the Arcana graphic novel by)",
+                    "category": "Writers",
+                    "url": "stremio:///search?search=Dwight%20MacPherson%20(based%20on%20the%20Arcana%20graphic%20novel%20by)"
+                },
+                {
+                    "name": "Sean Patrick O'Reilly (based on the Arcana graphic novel by)",
+                    "category": "Writers",
+                    "url": "stremio:///search?search=Sean%20Patrick%20O'Reilly%20(based%20on%20the%20Arcana%20graphic%20novel%20by)"
+                },
+                {
+                    "name": "E.T. Dollman (based on the Arcana graphic novel by)",
+                    "category": "Writers",
+                    "url": "stremio:///search?search=E.T.%20Dollman%20(based%20on%20the%20Arcana%20graphic%20novel%20by)"
+                },
+                {
+                    "name": "Sean Patrick O'Reilly",
+                    "category": "Directors",
+                    "url": "stremio:///search?search=Sean%20Patrick%20O'Reilly"
+                }
+            ],
+            "behaviorHints": {
+                "defaultVideoId": "tt9055114",
+                "hasScheduledVideos": false
+            }
+        },
+        {
+            "imdb_id": "tt0045680",
+            "cast": [
+                "Kathryn Grayson",
+                "Gordon MacRae",
+                "Steve Cochran"
+            ],
+            "description": "Shiek Yousseff, poses as a friend of the French while secretly plotting to overthrow them. Apposing Yousseff are the Riffs, whose secret leader, The Red Shadow, is Paul Bonnard, a professor who is studying the desert, and whose at...",
+            "director": [
+                "H. Bruce Humberstone"
+            ],
+            "genre": [
+                "Musical",
+                "Romance"
+            ],
+            "imdbRating": "6.1",
+            "name": "The Desert Song",
+            "poster": "https://images.metahub.space/poster/small/tt0045680/img",
+            "released": "1953-05-30T00:00:00.000Z",
+            "runtime": "110 min",
+            "slug": "movie/the-desert-song-0045680",
+            "type": "movie",
+            "writer": [
+                "Roland Kibbee",
+                "Laurence Schwab",
+                "Otto A. Harbach"
+            ],
+            "year": "1953",
+            "popularities": {
+                "moviedb": 0.733,
+                "stremio": 0.008323333333333334,
+                "stremio_lib": 0
+            },
+            "trailers": [
+                {
+                    "source": "lBuTmyYSzP4",
+                    "type": "Clip"
+                }
+            ],
+            "background": "https://images.metahub.space/background/medium/tt0045680/img",
+            "logo": "https://images.metahub.space/logo/medium/tt0045680/img",
+            "popularity": 0.008323333333333334,
+            "id": "tt0045680",
+            "score": 11.285714285714285,
+            "genres": [
+                "Musical",
+                "Romance"
+            ],
+            "releaseInfo": "1953",
+            "trailerStreams": [],
+            "links": [
+                {
+                    "name": "6.1",
+                    "category": "imdb",
+                    "url": "https://imdb.com/title/tt0045680"
+                },
+                {
+                    "name": "The Desert Song",
+                    "category": "share",
+                    "url": "https://www.strem.io/s/movie/the-desert-song-0045680"
+                },
+                {
+                    "name": "Musical",
+                    "category": "Genres",
+                    "url": "stremio:///discover/https%3A%2F%2Fv3-cinemeta.strem.io%2Fmanifest.json/movie/top?genre=Musical"
+                },
+                {
+                    "name": "Romance",
+                    "category": "Genres",
+                    "url": "stremio:///discover/https%3A%2F%2Fv3-cinemeta.strem.io%2Fmanifest.json/movie/top?genre=Romance"
+                },
+                {
+                    "name": "Kathryn Grayson",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Kathryn%20Grayson"
+                },
+                {
+                    "name": "Gordon MacRae",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Gordon%20MacRae"
+                },
+                {
+                    "name": "Steve Cochran",
+                    "category": "Cast",
+                    "url": "stremio:///search?search=Steve%20Cochran"
+                },
+                {
+                    "name": "Roland Kibbee",
+                    "category": "Writers",
+                    "url": "stremio:///search?search=Roland%20Kibbee"
+                },
+                {
+                    "name": "Laurence Schwab",
+                    "category": "Writers",
+                    "url": "stremio:///search?search=Laurence%20Schwab"
+                },
+                {
+                    "name": "Otto A. Harbach",
+                    "category": "Writers",
+                    "url": "stremio:///search?search=Otto%20A.%20Harbach"
+                },
+                {
+                    "name": "H. Bruce Humberstone",
+                    "category": "Directors",
+                    "url": "stremio:///search?search=H.%20Bruce%20Humberstone"
+                }
+            ],
+            "behaviorHints": {
+                "defaultVideoId": "tt0045680",
+                "hasScheduledVideos": false
+            }
+        }
+    ]
+}

@@ -1,0 +1,75 @@
+{
+  "description": "Synthetic fixture. Tests cast matching: partial word match, elongated vowel romanization (Ryouta↔Ryōta), reversed name order, frequency threshold (single misattribution ignored), and diacritics normalization.",
+  "cast": [
+    { "character": "Kenji Takahashi" },
+    { "character": "Yūki Yamamoto" },
+    { "character": "Ryōta Nakamura" },
+    { "character": "Haruka Suzuki" }
+  ],
+  "source": [
+    { "text": "（高橋）行くぞ！" },
+    { "text": "（高橋）おい！" },
+    { "text": "（高橋）やるぞ" },
+    { "text": "（高橋）行け！" },
+    { "text": "（高橋）やっぱり" },
+    { "text": "（高橋）おう" },
+    { "text": "（山本）何だ？" },
+    { "text": "（山本）来い" },
+    { "text": "（山本）そうだ" },
+    { "text": "（山本）わかった" },
+    { "text": "（中村）やめろ" },
+    { "text": "（中村）おーい" },
+    { "text": "（中村）見せてやる" },
+    { "text": "（中村）はい" },
+    { "text": "（中村）そうだ" },
+    { "text": "（鈴木）うるさい" },
+    { "text": "（鈴木）行くわよ" },
+    { "text": "（鈴木）やれ" },
+    { "text": "（鈴木）そう" },
+    { "text": "行け！" }
+  ],
+  "translated": [
+    { "text": "(Takahashi) Let's go!", "begin": 0, "end": 1000 },
+    { "text": "(Kenji) Hey!", "begin": 1000, "end": 2000 },
+    { "text": "(Takahashi) Let's do this", "begin": 2000, "end": 3000 },
+    { "text": "(Kenji) Come on!", "begin": 3000, "end": 4000 },
+    { "text": "(Takahashi) As I thought", "begin": 4000, "end": 5000 },
+    { "text": "(Yamamoto) Yeah", "begin": 5000, "end": 6000 },
+    { "text": "(Yamamoto) What?", "begin": 6000, "end": 7000 },
+    { "text": "(Yuki) Come", "begin": 7000, "end": 8000 },
+    { "text": "(Yamamoto) Right", "begin": 8000, "end": 9000 },
+    { "text": "(Yuki) Got it", "begin": 9000, "end": 10000 },
+    { "text": "(Ryouta) Stop", "begin": 10000, "end": 11000 },
+    { "text": "(Ryota) Hey!", "begin": 11000, "end": 12000 },
+    { "text": "(Ryouta) I'll show you", "begin": 12000, "end": 13000 },
+    { "text": "(Ryota) Yes", "begin": 13000, "end": 14000 },
+    { "text": "(Nakamura Ryota) Right", "begin": 14000, "end": 15000 },
+    { "text": "(Suzuki) Shut up", "begin": 15000, "end": 16000 },
+    { "text": "(Haruka) Let's go", "begin": 16000, "end": 17000 },
+    { "text": "(Suzuki) Do it", "begin": 17000, "end": 18000 },
+    { "text": "(Haruka) Yeah", "begin": 18000, "end": 19000 },
+    { "text": "Go!", "begin": 19000, "end": 20000 }
+  ],
+  "expected": {
+    "canonicalNames": {
+      "高橋": "Takahashi",
+      "山本": "Yamamoto",
+      "中村": "Ryouta",
+      "鈴木": "Suzuki"
+    },
+    "normalizedCount": 10,
+    "spotChecks": [
+      { "index": 0, "pattern": "^\\(Takahashi\\)" },
+      { "index": 1, "pattern": "^\\(Takahashi\\)" },
+      { "index": 5, "pattern": "^\\(Takahashi\\)" },
+      { "index": 6, "pattern": "^\\(Yamamoto\\)" },
+      { "index": 7, "pattern": "^\\(Yamamoto\\)" },
+      { "index": 10, "pattern": "^\\(Ryouta\\)" },
+      { "index": 11, "pattern": "^\\(Ryouta\\)" },
+      { "index": 14, "pattern": "^\\(Ryouta\\)" },
+      { "index": 15, "pattern": "^\\(Suzuki\\)" },
+      { "index": 16, "pattern": "^\\(Suzuki\\)" }
+    ],
+    "unchangedIndices": [19]
+  }
+}

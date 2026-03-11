@@ -1,0 +1,11 @@
+{
+  "title": "Sample Action Fantasy",
+  "type": "series",
+  "year": 2024,
+  "genre": ["Anime", "Action"],
+  "episode": {
+    "season": 1,
+    "episode": 5,
+    "title": "The Final Stand"
+  }
+}

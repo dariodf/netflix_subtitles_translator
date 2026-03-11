@@ -1,0 +1,26 @@
+{
+  "name": "netflix-subtitles-translator",
+  "version": "2.4.0",
+  "description": "Intercept Netflix subtitles, translate via multiple AI providers, overlay on video",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "headless": "node src/headless/index.js",
+    "analyze": "node src/headless/analyze.js"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@vitest/coverage-v8": "^4.0.18",
+    "eslint": "^10.0.2",
+    "globals": "^17.4.0",
+    "jsdom": "^28.1.0",
+    "vite": "^6.2.0",
+    "vite-plugin-monkey": "^5.0.7",
+    "vitest": "^4.0.18"
+  }
+}

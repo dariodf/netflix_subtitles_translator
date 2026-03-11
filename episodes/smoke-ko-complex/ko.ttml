@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tt ttp:contentProfiles="http://www.w3.org/ns/ttml/profile/imsc1.1/text" xmlns="http://www.w3.org/ns/ttml" xmlns:nttm="http://www.netflix.com/ns/ttml#metadata" xmlns:tt="http://www.w3.org/ns/ttml" xmlns:ttp="http://www.w3.org/ns/ttml#parameter" xmlns:tts="http://www.w3.org/ns/ttml#styling" xmlns:xml="http://www.w3.org/XML/1998/namespace" ttp:tickRate="10000000" ttp:timeBase="media" xml:lang="ko">
+<head>
+<metadata nttm:Smpte24TimingAdjusted="true" nttm:schemaVersion="0" nttm:textType="CC" nttm:uuid="e5f6a7b8-c9d0-1234-ef01-234567890123"/>
+<styling>
+<initial tts:backgroundColor="transparent" tts:color="white" tts:displayAlign="after" tts:extent="80.000% 80.000%" tts:opacity="1.000" tts:origin="10.000% 10.000%" tts:showBackground="whenActive" tts:textAlign="center" tts:textOutline="black 0.300rh" tts:writingMode="lrtb"/>
+<style xml:id="style0" tts:fontWeight="normal"/>
+</styling>
+<layout>
+<region xml:id="region0" tts:displayAlign="after" tts:extent="80.000% 80.000%" tts:origin="10.000% 10.000%"/>
+<region xml:id="region1" tts:displayAlign="before" tts:extent="80.000% 80.000%" tts:origin="10.000% 10.000%"/>
+</layout>
+</head>
+<body>
+<div>
+<p xml:id="subtitle1" begin="777026250t" end="791624166t" region="region0" style="style0">- 야, 지영아<br/>- [지영] 어</p>
+<p xml:id="subtitle2" begin="1006004999t" end="1033115416t" region="region0" style="style0">- [지영이 웃으며] 맞아, 아이고<br/>- 난 건강에 신경 쓰는 거고</p>
+<p xml:id="subtitle3" begin="1161994166t" end="1176592082t" region="region0" style="style0">- [쾅 부딪히는 소리]<br/>- [여자들의 비명]</p>
+<p xml:id="subtitle4" begin="2497077916t" end="2521268750t" region="region0" style="style0">- [지영] 민수 진짜 대단하다, 와<br/>- [민수 모] 그럼 [웃음]</p>
+<p xml:id="subtitle5" begin="2910824582t" end="2935849582t" region="region0" style="style0">[민수 모가 자랑스럽게] 민수가<br/>설계 참여한 새 도서관 있지?</p>
+<p xml:id="subtitle6" begin="12420741666t" end="12438676250t" region="region0" style="style0">- [수진] '아', 괜찮아<br/>- [지영의 못마땅한 소리]</p>
+<p xml:id="subtitle7" begin="15414565832t" end="15452103332t" region="region0" style="style0">[어린 민수가 영어로]<br/>김지영이랑 수영장 같이 가기 싫어요</p>
+<p xml:id="subtitle8" begin="18128110000t" end="18146044582t" region="region0" style="style0">- [수진] 사과의 의미로? [웃음]<br/>- [민수의 웃음]</p>
+<p xml:id="subtitle9" begin="26317958332t" end="26339229582t" region="region0" style="style0">- 뭐, 뭔 소리야, 이게?<br/>- [지영] 야, 나랑 같이 있자, 어?</p>
+<p xml:id="subtitle10" begin="28401289582t" end="28420475416t" region="region0" style="style0">- [지영 부] 이런 나쁜 놈<br/>- [개 짖는 소리]</p>
+</div>
+</body>
+</tt>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tt ttp:contentProfiles="http://www.w3.org/ns/ttml/profile/imsc1.1/text" xmlns="http://www.w3.org/ns/ttml" xmlns:ebutts="urn:ebu:tt:style" xmlns:nttm="http://www.netflix.com/ns/ttml#metadata" xmlns:tt="http://www.w3.org/ns/ttml" xmlns:ttp="http://www.w3.org/ns/ttml#parameter" xmlns:tts="http://www.w3.org/ns/ttml#styling" xmlns:xml="http://www.w3.org/XML/1998/namespace" ttp:tickRate="10000000" ttp:timeBase="media" xml:lang="ja">
+<head>
+<metadata nttm:Smpte24TimingAdjusted="true" nttm:schemaVersion="0" nttm:textType="CC" nttm:uuid="a1b2c3d4-e5f6-7890-abcd-ef0123456789"/>
+<styling>
+<initial tts:backgroundColor="transparent" tts:color="white" tts:extent="80.000% 80.000%" tts:fontFamily="Japanese" tts:opacity="1.000" tts:origin="10.000% 10.000%" tts:showBackground="whenActive" tts:textOutline="black 0.050em" tts:writingMode="lrtb"/>
+<style xml:id="style0" ebutts:multiRowAlign="start" tts:fontSize="6.000rh" tts:textAlign="center"/>
+<style xml:id="style1" ebutts:multiRowAlign="start" tts:fontSize="6.000rh" tts:ruby="container"/>
+<style xml:id="style2" ebutts:multiRowAlign="start" tts:fontSize="6.000rh" tts:ruby="base"/>
+<style xml:id="style3" ebutts:multiRowAlign="start" tts:ruby="text" tts:rubyPosition="before"/>
+<style xml:id="style4" tts:fontSize="6.000rh"/>
+<style xml:id="style5" tts:fontSize="6.000rh" tts:ruby="container"/>
+<style xml:id="style6" tts:fontSize="6.000rh" tts:ruby="base"/>
+<style xml:id="style7" tts:ruby="text" tts:rubyPosition="before"/>
+</styling>
+<layout>
+<region xml:id="region0" tts:displayAlign="after" tts:extent="80.000% 30.000%" tts:origin="10.000% 63.000%" tts:position="left 50.0% bottom 10.0rh" tts:showBackground="whenActive"/>
+<region xml:id="region1" tts:extent="30.000% 80.000%" tts:origin="63.000% 10.000%" tts:position="right 10.0rw top 50.0%" tts:showBackground="whenActive" tts:writingMode="tbrl"/>
+</layout>
+</head>
+<body>
+<div>
+<p xml:id="subtitle1" begin="14597916t" end="61728332t" region="region0" style="style0" xml:space="preserve">（生徒たちの話し声）</p>
+<p xml:id="subtitle2" begin="135135000t" end="150150000t" region="region0" style="style0" xml:space="preserve">（<span style="style1"><span style="style2">田中</span><span style="style3">たなか</span></span>）今日の宿題 やった？</p>
+<p xml:id="subtitle3" begin="150984166t" end="174757916t" region="region0" style="style0" xml:space="preserve">まだだよ<br/>昨日 ゲームしてた</p>
+<p xml:id="subtitle4" begin="175592082t" end="187687500t" region="region0" style="style0" xml:space="preserve">放課後 図書室で<br/>一緒にやろうよ</p>
+<p xml:id="subtitle5" begin="187687500t" end="198531666t" region="region0" style="style0" xml:space="preserve">放課後 図書室で<br/>一緒にやろうよ</p>
+<p xml:id="subtitle6" begin="187687500t" end="198531666t" region="region1" style="style4" xml:space="preserve">（<span style="style5"><span style="style6">山田</span><span style="style7">やまだ</span></span>のあくび）</p>
+<p xml:id="subtitle7" begin="199365832t" end="216883332t" region="region0" style="style0" xml:space="preserve">（山田）眠い… 昨日 徹夜しちゃった</p>
+<p xml:id="subtitle8" begin="217717499t" end="237737499t" region="region0" style="style0" xml:space="preserve">（<span style="style1"><span style="style2">佐藤</span><span style="style3">さとう</span></span>）<br/>マジか 何してたの？</p>
+<p xml:id="subtitle9" begin="238571666t" end="251501249t" region="region0" style="style0" xml:space="preserve">（<span style="style1"><span style="style2">鈴木</span><span style="style3">すずき</span></span>）このペン かわいいんだけど<br/>高くてさ</p>
+<p xml:id="subtitle10" begin="251501249t" end="259425832t" region="region0" style="style0" xml:space="preserve">♪ 春の風に 吹かれて ♪</p>
+</div>
+</body>
+</tt>

@@ -1,0 +1,588 @@
+{
+    "meta": {
+        "id": "tt4574334",
+        "imdb_id": "tt4574334",
+        "type": "series",
+        "poster": "https://live.metahub.space/poster/small/tt4574334/img",
+        "logo": "https://live.metahub.space/logo/medium/tt4574334/img",
+        "background": "https://live.metahub.space/background/medium/tt4574334/img",
+        "moviedb_id": 66732,
+        "name": "Stranger Things",
+        "description": "When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces, and one strange little girl.",
+        "genres": [
+            "Sci-Fi & Fantasy",
+            "Mystery",
+            "Action & Adventure"
+        ],
+        "releaseInfo": "2016\u20132025",
+        "status": "Ended",
+        "trailers": [
+            {
+                "source": "mnd7sFt5c3A",
+                "type": "Trailer"
+            },
+            {
+                "source": "b9EkMc79ZSU",
+                "type": "Trailer"
+            }
+        ],
+        "cast": [
+            "Winona Ryder",
+            "David Harbour",
+            "Millie Bobby Brown"
+        ],
+        "credits_cast": [
+            {
+                "character": "Joyce Byers",
+                "name": "Winona Ryder",
+                "profile_path": "/dlffgYbqr1BllWacVLhAFw23nLl.jpg",
+                "id": 1920
+            },
+            {
+                "character": "Jim Hopper",
+                "name": "David Harbour",
+                "profile_path": "/qMFtMWlYVtFVyBoBhX5IoA5sN5a.jpg",
+                "id": 35029
+            },
+            {
+                "character": "Eleven / Jane Hopper",
+                "name": "Millie Bobby Brown",
+                "profile_path": "/kHO7hdNEVuTnQ0OjjrxP1RcAa0e.jpg",
+                "id": 1356210
+            },
+            {
+                "character": "Mike Wheeler",
+                "name": "Finn Wolfhard",
+                "profile_path": "/dQ1Fj2gCwko0Jnt3QEj1GLseXSh.jpg",
+                "id": 1442069
+            },
+            {
+                "character": "Dustin Henderson",
+                "name": "Gaten Matarazzo",
+                "profile_path": "/alVT7oDp8N5G9WLIApI9jqeuqHq.jpg",
+                "id": 1653291
+            },
+            {
+                "character": "Lucas Sinclair",
+                "name": "Caleb McLaughlin",
+                "profile_path": "/4jVS3EziBn7bf97ErxkW7jsdiLM.jpg",
+                "id": 1474123
+            },
+            {
+                "character": "Will Byers",
+                "name": "Noah Schnapp",
+                "profile_path": "/rmsJ0UJumpQOVEHffGeUVyJyVcj.jpg",
+                "id": 1393177
+            },
+            {
+                "character": "Max Mayfield",
+                "name": "Sadie Sink",
+                "profile_path": "/fV0KHJcK3fYX2acMorDUf1Uv9mY.jpg",
+                "id": 1590797
+            },
+            {
+                "character": "Nancy Wheeler",
+                "name": "Natalia Dyer",
+                "profile_path": "/RFjVz6bPspwxF2PgbtqoNSyOsz.jpg",
+                "id": 1039011
+            },
+            {
+                "character": "Jonathan Byers",
+                "name": "Charlie Heaton",
+                "profile_path": "/8Se6WZuvRmoB990bT29OPgVAyBo.jpg",
+                "id": 1448222
+            }
+        ],
+        "credits_crew": [
+            {
+                "department": "Production",
+                "job": "Producer",
+                "name": "Hilary Leavitt",
+                "profile_path": null,
+                "id": 4020675
+            },
+            {
+                "department": "Production",
+                "job": "Producer",
+                "name": "Rand Geiger",
+                "profile_path": null,
+                "id": 3025043
+            }
+        ],
+        "director": [],
+        "videos": [
+            {
+                "id": "tt4574334:1:1",
+                "title": "Chapter One: The Vanishing of Will Byers",
+                "season": 1,
+                "episode": 1,
+                "number": 1,
+                "released": "2016-07-15T00:00:00.000Z",
+                "overview": "On his way home from a friend's house, young Will sees something terrifying. Nearby, a sinister secret lurks in the depths of a government lab.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/1/1/w780.jpg",
+                "moviedb_id": 1198665
+            },
+            {
+                "id": "tt4574334:1:2",
+                "title": "Chapter Two: The Weirdo on Maple Street",
+                "season": 1,
+                "episode": 2,
+                "number": 2,
+                "released": "2016-07-15T00:00:01.000Z",
+                "overview": "Lucas, Mike and Dustin try to talk to the girl they found in the woods. Hopper questions an anxious Joyce about an unsettling phone call.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/1/2/w780.jpg",
+                "moviedb_id": 1203677
+            },
+            {
+                "id": "tt4574334:1:3",
+                "title": "Chapter Three: Holly, Jolly",
+                "season": 1,
+                "episode": 3,
+                "number": 3,
+                "released": "2016-07-15T00:00:02.000Z",
+                "overview": "An increasingly concerned Nancy looks for Barb and finds out what Jonathan's been up to. Joyce is convinced Will is trying to talk to her.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/1/3/w780.jpg",
+                "moviedb_id": 1203679
+            },
+            {
+                "id": "tt4574334:1:4",
+                "title": "Chapter Four: The Body",
+                "season": 1,
+                "episode": 4,
+                "number": 4,
+                "released": "2016-07-15T00:00:03.000Z",
+                "overview": "Refusing to believe Will is dead, Joyce tries to connect with her son. The boys give Eleven a makeover. Nancy and Jonathan form an unlikely alliance.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/1/4/w780.jpg",
+                "moviedb_id": 1203680
+            },
+            {
+                "id": "tt4574334:1:5",
+                "title": "Chapter Five: The Flea and the Acrobat",
+                "season": 1,
+                "episode": 5,
+                "number": 5,
+                "released": "2016-07-15T00:00:04.000Z",
+                "overview": "Hopper breaks into the lab while Nancy and Jonathan confront the force that took Will. The boys ask Mr. Clarke how to travel to another dimension.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/1/5/w780.jpg",
+                "moviedb_id": 1205904
+            },
+            {
+                "id": "tt4574334:1:6",
+                "title": "Chapter Six: The Monster",
+                "season": 1,
+                "episode": 6,
+                "number": 6,
+                "released": "2016-07-15T00:00:05.000Z",
+                "overview": "A frantic Jonathan looks for Nancy in the darkness, but Steve's looking for her, too. Hopper and Joyce uncover the truth about the lab's experiments.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/1/6/w780.jpg",
+                "moviedb_id": 1205905
+            },
+            {
+                "id": "tt4574334:1:7",
+                "title": "Chapter Seven: The Bathtub",
+                "season": 1,
+                "episode": 7,
+                "number": 7,
+                "released": "2016-07-15T00:00:06.000Z",
+                "overview": "Eleven struggles to reach Will, while Lucas warns that \"the bad men are coming.\" Nancy and Jonathan show the police what Jonathan caught on camera.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/1/7/w780.jpg",
+                "moviedb_id": 1205906
+            },
+            {
+                "id": "tt4574334:1:8",
+                "title": "Chapter Eight: The Upside Down",
+                "season": 1,
+                "episode": 8,
+                "number": 8,
+                "released": "2016-07-15T00:00:07.000Z",
+                "overview": "Dr. Brenner holds Hopper and Joyce for questioning while the boys wait with Eleven in the gym. Back at Will's, Nancy and Jonathan prepare for battle.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/1/8/w780.jpg",
+                "moviedb_id": 1205907
+            },
+            {
+                "id": "tt4574334:2:1",
+                "title": "Chapter One: MADMAX",
+                "season": 2,
+                "episode": 1,
+                "number": 1,
+                "released": "2017-10-27T00:00:00.000Z",
+                "overview": "As the town preps for Halloween, a high-scoring rival shakes things up at the arcade, and a skeptical Hopper inspects a field of rotting pumpkins.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/2/1/w780.jpg",
+                "moviedb_id": 1250983
+            },
+            {
+                "id": "tt4574334:2:2",
+                "title": "Chapter Two: Trick or Treat, Freak",
+                "season": 2,
+                "episode": 2,
+                "number": 2,
+                "released": "2017-10-27T00:00:01.000Z",
+                "overview": "After Will sees something terrible on trick-or-treat night, Mike wonders whether Eleven's still out there. Nancy wrestles with the truth about Barb.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/2/2/w780.jpg",
+                "moviedb_id": 1250984
+            },
+            {
+                "id": "tt4574334:2:3",
+                "title": "Chapter Three: The Pollywog",
+                "season": 2,
+                "episode": 3,
+                "number": 3,
+                "released": "2017-10-27T00:00:02.000Z",
+                "overview": "Dustin adopts a strange new pet, and Eleven grows increasingly impatient. A well-meaning Bob urges Will to stand up to his fears.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/2/3/w780.jpg",
+                "moviedb_id": 1250985
+            },
+            {
+                "id": "tt4574334:2:4",
+                "title": "Chapter Four: Will the Wise",
+                "season": 2,
+                "episode": 4,
+                "number": 4,
+                "released": "2017-10-27T00:00:03.000Z",
+                "overview": "An ailing Will opens up to Joyce -- with disturbing results. While Hopper digs for the truth, Eleven unearths a surprising discovery.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/2/4/w780.jpg",
+                "moviedb_id": 1250986
+            },
+            {
+                "id": "tt4574334:2:5",
+                "title": "Chapter Five: Dig Dug",
+                "season": 2,
+                "episode": 5,
+                "number": 5,
+                "released": "2017-10-27T00:00:04.000Z",
+                "overview": "Nancy and Jonathan swap conspiracy theories with a new ally as Eleven searches for someone from her past. \u201cBob the Brain\u201d tackles a difficult problem.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/2/5/w780.jpg",
+                "moviedb_id": 1250987
+            },
+            {
+                "id": "tt4574334:2:6",
+                "title": "Chapter Six: The Spy",
+                "season": 2,
+                "episode": 6,
+                "number": 6,
+                "released": "2017-10-27T00:00:05.000Z",
+                "overview": "Will's connection to a shadowy evil grows stronger, but no one's quite sure how to stop it. Elsewhere, Dustin and Steve forge an unlikely bond.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/2/6/w780.jpg",
+                "moviedb_id": 1250988
+            },
+            {
+                "id": "tt4574334:2:7",
+                "title": "Chapter Seven: The Lost Sister",
+                "season": 2,
+                "episode": 7,
+                "number": 7,
+                "released": "2017-10-27T00:00:06.000Z",
+                "overview": "Psychic visions draw Eleven to a band of violent outcasts and an angry girl with a shadowy past.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/2/7/w780.jpg",
+                "moviedb_id": 1250989
+            },
+            {
+                "id": "tt4574334:2:8",
+                "title": "Chapter Eight: The Mind Flayer",
+                "season": 2,
+                "episode": 8,
+                "number": 8,
+                "released": "2017-10-27T00:00:07.000Z",
+                "overview": "An unlikely hero steps forward when a deadly development puts the Hawkins Lab on lockdown, trapping Will and several others inside.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/2/8/w780.jpg",
+                "moviedb_id": 1250990
+            },
+            {
+                "id": "tt4574334:2:9",
+                "title": "Chapter Nine: The Gate",
+                "season": 2,
+                "episode": 9,
+                "number": 9,
+                "released": "2017-10-27T00:00:08.000Z",
+                "overview": "Eleven makes plans to finish what she started while the survivors turn up the heat on the monstrous force that's holding Will hostage.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/2/9/w780.jpg",
+                "moviedb_id": 1250991
+            },
+            {
+                "id": "tt4574334:3:1",
+                "title": "Chapter One: Suzie, Do You Copy?",
+                "season": 3,
+                "episode": 1,
+                "number": 1,
+                "released": "2019-07-04T00:00:00.000Z",
+                "overview": "Summer brings new jobs and budding romance. But the mood shifts when Dustin's radio picks up a Russian broadcast, and Will senses something is wrong.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/3/1/w780.jpg",
+                "moviedb_id": 1657328
+            },
+            {
+                "id": "tt4574334:3:2",
+                "title": "Chapter Two: The Mall Rats",
+                "season": 3,
+                "episode": 2,
+                "number": 2,
+                "released": "2019-07-04T00:00:01.000Z",
+                "overview": "Nancy and Jonathan follow a lead, Steve and Robin sign on to a secret mission, and Max and Eleven go shopping. A rattled Billy has troubling visions.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/3/2/w780.jpg",
+                "moviedb_id": 1657329
+            },
+            {
+                "id": "tt4574334:3:3",
+                "title": "Chapter Three: The Case of the Missing Lifeguard",
+                "season": 3,
+                "episode": 3,
+                "number": 3,
+                "released": "2019-07-04T00:00:02.000Z",
+                "overview": "With El and Max looking for Billy, Will declares a day without girls. Steve and Dustin go on a stakeout, and Joyce and Hopper return to Hawkins Lab.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/3/3/w780.jpg",
+                "moviedb_id": 1657330
+            },
+            {
+                "id": "tt4574334:3:4",
+                "title": "Chapter Four: The Sauna Test",
+                "season": 3,
+                "episode": 4,
+                "number": 4,
+                "released": "2019-07-04T00:00:03.000Z",
+                "overview": "A code red brings the gang back together to face a frighteningly familiar evil. Karen urges Nancy to keep digging, and Robin finds a useful map.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/3/4/w780.jpg",
+                "moviedb_id": 1657331
+            },
+            {
+                "id": "tt4574334:3:5",
+                "title": "Chapter Five: The Flayed",
+                "season": 3,
+                "episode": 5,
+                "number": 5,
+                "released": "2019-07-04T00:00:04.000Z",
+                "overview": "Strange surprises lurk inside an old farmhouse and deep beneath the Starcourt Mall. Meanwhile, the Mind Flayer is gathering strength.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/3/5/w780.jpg",
+                "moviedb_id": 1657332
+            },
+            {
+                "id": "tt4574334:3:6",
+                "title": "Chapter Six: E Pluribus Unum",
+                "season": 3,
+                "episode": 6,
+                "number": 6,
+                "released": "2019-07-04T00:00:05.000Z",
+                "overview": "Dr. Alexei reveals what the Russians have been building, and Eleven sees where Billy has been. Dustin and Erica stage a daring rescue.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/3/6/w780.jpg",
+                "moviedb_id": 1657333
+            },
+            {
+                "id": "tt4574334:3:7",
+                "title": "Chapter Seven: The Bite",
+                "season": 3,
+                "episode": 7,
+                "number": 7,
+                "released": "2019-07-04T00:00:06.000Z",
+                "overview": "With time running out -- and an assassin close behind -- Hopper's crew races back to Hawkins, where El and the kids are preparing for war.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/3/7/w780.jpg",
+                "moviedb_id": 1657334
+            },
+            {
+                "id": "tt4574334:3:8",
+                "title": "Chapter Eight: The Battle of Starcourt",
+                "season": 3,
+                "episode": 8,
+                "number": 8,
+                "released": "2019-07-04T00:00:07.000Z",
+                "overview": "Terror reigns in the food court when the Mind Flayer comes to collect. But down below, in the dark, the future of the world is at stake.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/3/8/w780.jpg",
+                "moviedb_id": 1657335
+            },
+            {
+                "id": "tt4574334:4:1",
+                "title": "Chapter One: The Hellfire Club",
+                "season": 4,
+                "episode": 1,
+                "number": 1,
+                "released": "2022-05-27T00:00:00.000Z",
+                "overview": "El is bullied at school. Joyce opens a mysterious package. A scrappy player shakes up D&D night.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/4/1/w780.jpg",
+                "moviedb_id": 2551221
+            },
+            {
+                "id": "tt4574334:4:2",
+                "title": "Chapter Two: Vecna's Curse",
+                "season": 4,
+                "episode": 2,
+                "number": 2,
+                "released": "2022-05-27T00:00:01.000Z",
+                "overview": "A plane brings Mike to California \u2014 and a dead body brings Hawkins to a halt. Nancy goes looking for leads. A shaken Eddie tells the gang what he saw.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/4/2/w780.jpg",
+                "moviedb_id": 3325032
+            },
+            {
+                "id": "tt4574334:4:3",
+                "title": "Chapter Three: The Monster and the Superhero",
+                "season": 4,
+                "episode": 3,
+                "number": 3,
+                "released": "2022-05-27T00:00:02.000Z",
+                "overview": "Murray and Joyce fly to Alaska, and El faces serious consequences. Robin and Nancy dig up dirt on Hawkins' demons. Dr. Owens delivers sobering news.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/4/3/w780.jpg",
+                "moviedb_id": 3325033
+            },
+            {
+                "id": "tt4574334:4:4",
+                "title": "Chapter Four: Dear Billy",
+                "season": 4,
+                "episode": 4,
+                "number": 4,
+                "released": "2022-05-27T00:00:03.000Z",
+                "overview": "Max is in grave danger... and running out of time. A patient at Pennhurst asylum has visitors. Elsewhere, in Russia, Hopper is hard at work.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/4/4/w780.jpg",
+                "moviedb_id": 3325035
+            },
+            {
+                "id": "tt4574334:4:5",
+                "title": "Chapter Five: The Nina Project",
+                "season": 4,
+                "episode": 5,
+                "number": 5,
+                "released": "2022-05-27T00:00:04.000Z",
+                "overview": "Owens takes El to Nevada, where she's forced to confront her past, while the Hawkins kids comb a crumbling house for clues. Vecna claims another victim.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/4/5/w780.jpg",
+                "moviedb_id": 3325036
+            },
+            {
+                "id": "tt4574334:4:6",
+                "title": "Chapter Six: The Dive",
+                "season": 4,
+                "episode": 6,
+                "number": 6,
+                "released": "2022-05-27T00:00:05.000Z",
+                "overview": "Behind the Iron Curtain, a risky rescue mission gets underway. The California crew seeks help from a hacker. Steve takes one for the team.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/4/6/w780.jpg",
+                "moviedb_id": 3325038
+            },
+            {
+                "id": "tt4574334:4:7",
+                "title": "Chapter Seven: The Massacre at Hawkins Lab",
+                "season": 4,
+                "episode": 7,
+                "number": 7,
+                "released": "2022-05-27T00:00:06.000Z",
+                "overview": "As Hopper braces to battle a monster, Dustin dissects Vecna's motives \u2014 and decodes a message from beyond. El finds strength in a distant memory.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/4/7/w780.jpg",
+                "moviedb_id": 3325040
+            },
+            {
+                "id": "tt4574334:4:8",
+                "title": "Chapter Eight: Papa",
+                "season": 4,
+                "episode": 8,
+                "number": 8,
+                "released": "2022-07-01T00:00:00.000Z",
+                "overview": "Nancy has sobering visions, and El passes an important test. Back in Hawkins, the gang gathers supplies and prepares for battle.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/4/8/w780.jpg",
+                "moviedb_id": 3325041
+            },
+            {
+                "id": "tt4574334:4:9",
+                "title": "Chapter Nine: The Piggyback",
+                "season": 4,
+                "episode": 9,
+                "number": 9,
+                "released": "2022-07-01T00:00:01.000Z",
+                "overview": "With selfless hearts and a clash of metal, heroes fight from every corner of the battlefield to save Hawkins \u2014 and the world itself.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/4/9/w780.jpg",
+                "moviedb_id": 3325045
+            },
+            {
+                "id": "tt4574334:5:1",
+                "title": "Chapter One: The Crawl",
+                "season": 5,
+                "episode": 1,
+                "number": 1,
+                "released": "2025-11-26T00:00:00.000Z",
+                "overview": "November, 1987. The gang evades the military to scour the Upside Down for Vecna \u2014 but fails to notice a threat lurking closer to home.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/5/1/w780.jpg",
+                "moviedb_id": 5477828
+            },
+            {
+                "id": "tt4574334:5:2",
+                "title": "Chapter Two: The Vanishing of...",
+                "season": 5,
+                "episode": 2,
+                "number": 2,
+                "released": "2025-11-26T00:00:01.000Z",
+                "overview": "After a vicious attack at the Wheeler home, Mike and Nancy confront the cost of secrecy, while El and Hopper embark on a rescue mission.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/5/2/w780.jpg",
+                "moviedb_id": 5607045
+            },
+            {
+                "id": "tt4574334:5:3",
+                "title": "Chapter Three: The Turnbow Trap",
+                "season": 5,
+                "episode": 3,
+                "number": 3,
+                "released": "2025-11-26T00:00:02.000Z",
+                "overview": "Will gains unique insight into Vecna's next move, giving the crew an opportunity to set a trap. Holly explores her new surroundings.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/5/3/w780.jpg",
+                "moviedb_id": 5607046
+            },
+            {
+                "id": "tt4574334:5:4",
+                "title": "Chapter Four: Sorcerer",
+                "season": 5,
+                "episode": 4,
+                "number": 4,
+                "released": "2025-11-26T00:00:03.000Z",
+                "overview": "The military tightens its grip on the town. Mike, Lucas and Robin orchestrate a daring escape. El comes face-to-face with the enemy.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/5/4/w780.jpg",
+                "moviedb_id": 5607047
+            },
+            {
+                "id": "tt4574334:5:5",
+                "title": "Chapter Five: Shock Jock",
+                "season": 5,
+                "episode": 5,
+                "number": 5,
+                "released": "2025-12-25T00:00:00.000Z",
+                "overview": "The gang hatches an electrifying plan to reconnect Will to the hive mind. Tensions flare during a search of the Upside Down's Hawkins Lab.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/5/5/w780.jpg",
+                "moviedb_id": 5607048
+            },
+            {
+                "id": "tt4574334:5:6",
+                "title": "Chapter Six: Escape from Camazotz",
+                "season": 5,
+                "episode": 6,
+                "number": 6,
+                "released": "2025-12-25T00:00:01.000Z",
+                "overview": "As Holly and Max fight to escape Vecna's mind, El must find a way into Will's. Joyce wrestles with guilt. Jonathan and Nancy face a turning point.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/5/6/w780.jpg",
+                "moviedb_id": 5607049
+            },
+            {
+                "id": "tt4574334:5:7",
+                "title": "Chapter Seven: The Bridge",
+                "season": 5,
+                "episode": 7,
+                "number": 7,
+                "released": "2025-12-25T00:00:02.000Z",
+                "overview": "On the anniversary of Will's disappearance, the party reunites to prepare for a battle with world-altering implications.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/5/7/w780.jpg",
+                "moviedb_id": 5607050
+            },
+            {
+                "id": "tt4574334:5:8",
+                "title": "Chapter Eight: The Rightside Up",
+                "season": 5,
+                "episode": 8,
+                "number": 8,
+                "released": "2025-12-31T00:00:00.000Z",
+                "overview": "As Vecna prepares to destroy the world as we know it, the party must put everything on the line to defeat him once and for all.",
+                "thumbnail": "https://episodes.metahub.space/tt4574334/5/8/w780.jpg",
+                "moviedb_id": 5607051
+            }
+        ],
+        "imdbRating": "8.6",
+        "runtime": "51 min",
+        "language": "English",
+        "country": "United States",
+        "awards": "Won 12 Primetime Emmys. 118 wins & 338 nominations total",
+        "slug": "series/stranger-things-4574334",
+        "behaviorHints": {
+            "defaultVideoId": null,
+            "hasScheduledVideos": true
+        }
+    }
+}

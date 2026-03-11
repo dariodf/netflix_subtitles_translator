@@ -1,0 +1,136 @@
+{
+    "meta": {
+        "id": "tt0133093",
+        "imdb_id": "tt0133093",
+        "type": "movie",
+        "poster": "https://live.metahub.space/poster/small/tt0133093/img",
+        "logo": "https://live.metahub.space/logo/medium/tt0133093/img",
+        "background": "https://live.metahub.space/background/medium/tt0133093/img",
+        "moviedb_id": 603,
+        "name": "The Matrix",
+        "description": "Set in the 22nd century, The Matrix tells the story of a computer hacker who joins a group of underground insurgents fighting the vast and powerful computers who now rule the earth.",
+        "genres": [
+            "Action",
+            "Science Fiction"
+        ],
+        "releaseInfo": "1999",
+        "runtime": "136 min",
+        "trailers": [
+            {
+                "source": "d0XTFAMmhrE",
+                "type": "Trailer"
+            },
+            {
+                "source": "nUEQNVV3Gfs",
+                "type": "Trailer"
+            },
+            {
+                "source": "L0fw0WzFaBM",
+                "type": "Trailer"
+            }
+        ],
+        "cast": [
+            "Keanu Reeves",
+            "Laurence Fishburne",
+            "Carrie-Anne Moss"
+        ],
+        "credits_cast": [
+            {
+                "character": "Neo",
+                "name": "Keanu Reeves",
+                "profile_path": "/8RZLOyYGsoRe9p44q3xin9QkMHv.jpg",
+                "id": 6384
+            },
+            {
+                "character": "Morpheus",
+                "name": "Laurence Fishburne",
+                "profile_path": "/2GbXERENPpl5MmlqOLlPVaVtifD.jpg",
+                "id": 2975
+            },
+            {
+                "character": "Trinity",
+                "name": "Carrie-Anne Moss",
+                "profile_path": "/xD4jTA3KmVp5Rq3aHcymL9DUGjD.jpg",
+                "id": 530
+            },
+            {
+                "character": "Agent Smith",
+                "name": "Hugo Weaving",
+                "profile_path": "/lSC8Et0PYi5zeQb3IpPkFje7hgR.jpg",
+                "id": 1331
+            },
+            {
+                "character": "Oracle",
+                "name": "Gloria Foster",
+                "profile_path": "/AriGXtC9fjBOia9Zr8CZjn4o3rx.jpg",
+                "id": 9364
+            },
+            {
+                "character": "Cypher",
+                "name": "Joe Pantoliano",
+                "profile_path": "/3OHUI3nX4SYGGItDk3xqeIvWtIf.jpg",
+                "id": 532
+            },
+            {
+                "character": "Tank",
+                "name": "Marcus Chong",
+                "profile_path": "/q9HQttibTj2MoXVtLjq2kKqmPrE.jpg",
+                "id": 9372
+            },
+            {
+                "character": "Apoc",
+                "name": "Julian Arahanga",
+                "profile_path": "/g2YkF3PWSJU1vTKuURBH0DOMblm.jpg",
+                "id": 7244
+            },
+            {
+                "character": "Mouse",
+                "name": "Matt Doran",
+                "profile_path": "/4HtMShAbsZ2AyFtq5z3bOVrvw2s.jpg",
+                "id": 9374
+            },
+            {
+                "character": "Switch",
+                "name": "Belinda McClory",
+                "profile_path": "/wfTCwkIDJjH5k5DtuvcjP52PrLc.jpg",
+                "id": 9376
+            }
+        ],
+        "credits_crew": [
+            {
+                "department": "Production",
+                "job": "Producer",
+                "name": "Joel Silver",
+                "profile_path": "/5YWxIdEql8yyGWIcF1X3QPQ40u6.jpg",
+                "id": 1091
+            },
+            {
+                "department": "Directing",
+                "job": "Director",
+                "name": "Lana Wachowski",
+                "profile_path": "/5KuRHnoH8UkSCFHMKf4YjKOvzOM.jpg",
+                "id": 9340
+            },
+            {
+                "department": "Directing",
+                "job": "Director",
+                "name": "Lilly Wachowski",
+                "profile_path": "/rCScAjSpeKA19BLNR07MqNNeeTT.jpg",
+                "id": 9339
+            }
+        ],
+        "director": [
+            "Lana Wachowski",
+            "Lilly Wachowski"
+        ],
+        "imdbRating": "8.7",
+        "language": "English",
+        "country": "United States, Australia",
+        "awards": "Won 4 Oscars. 42 wins & 52 nominations total",
+        "slug": "movie/the-matrix-0133093",
+        "behaviorHints": {
+            "defaultVideoId": "tt0133093",
+            "hasScheduledVideos": false
+        }
+    }
+}

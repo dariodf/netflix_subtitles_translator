@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Netflix Subtitle Translator — Usage Guide</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.7; color: #1a1a2e; background: #f8f9fb; padding: 40px 20px; }
+  .container { max-width: 720px; margin: 0 auto; }
+  h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; color: #e50914; }
+  .subtitle { font-size: 15px; color: #666; margin-bottom: 40px; }
+  h2 { font-size: 20px; font-weight: 700; margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #e50914; color: #1a1a2e; }
+  h3 { font-size: 16px; font-weight: 600; margin: 20px 0 10px; color: #333; }
+  p { margin-bottom: 14px; font-size: 15px; }
+  .card { background: white; border-radius: 12px; padding: 24px; margin-bottom: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+  .link { color: #1a73e8; text-decoration: none; font-weight: 500; }
+  .link:hover { text-decoration: underline; }
+  code { background: #f0f0f5; padding: 2px 7px; border-radius: 4px; font-size: 13px; font-family: 'SF Mono', Consolas, monospace; color: #c7254e; }
+  .callout { background: #fff3cd; border-left: 4px solid #ffc107; padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 16px 0; font-size: 14px; }
+  .callout.info { background: #e8f4fd; border-left-color: #2196f3; }
+  .callout.success { background: #e8f5e9; border-left-color: #4caf50; }
+  .callout.warn { background: #fff3e0; border-left-color: #ff9800; }
+  .key-combo { display: inline-block; background: #eee; border: 1px solid #ccc; border-radius: 4px; padding: 1px 7px; font-size: 12px; font-family: monospace; font-weight: 600; }
+  table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 14px; }
+  th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid #e0e0e0; }
+  th { background: #f5f5f5; font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; color: #555; }
+  ul, ol { padding-left: 20px; margin-bottom: 14px; }
+  li { margin-bottom: 6px; font-size: 15px; }
+  .footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid #ddd; font-size: 13px; color: #999; text-align: center; }
+  @media print { body { padding: 20px; background: white; } .card { box-shadow: none; border: 1px solid #ddd; } }
+  .shortcut-grid { display: grid; grid-template-columns: auto 1fr; gap: 6px 18px; align-items: baseline; }
+  .shortcut-grid .key-combo { white-space: nowrap; }
+  .feature-card { background: white; border-radius: 10px; padding: 16px 20px; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+  .feature-card strong:first-child { color: #e50914; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>Netflix Subtitle Translator</h1>
+<p class="subtitle">Your quick reference for using the translator while watching. Open this anytime from the <span class="key-combo">Help</span> button in settings.</p>
+
+<h2>Keyboard Shortcuts</h2>
+<p>All shortcuts work while the Netflix player is active.</p>
+
+<div class="card">
+<h3 style="margin-top:0;">Playback</h3>
+<div class="shortcut-grid">
+  <span><span class="key-combo">S</span></span><span>Toggle translated subtitles on / off</span>
+  <span><span class="key-combo">O</span></span><span>Dual subtitles — show original + translation together</span>
+  <span><span class="key-combo">Shift</span> + <span class="key-combo">O</span></span><span>Show original text for flagged (uncertain) lines</span>
+  <span><span class="key-combo">L</span></span><span>Transcript panel — full scrollable transcript</span>
+  <span><span class="key-combo">D</span></span><span>Delay subtitles (push timing later)</span>
+  <span><span class="key-combo">E</span></span><span>Earlier subtitles (pull timing earlier)</span>
+</div>
+</div>
+
+<div class="card">
+<h3 style="margin-top:0;">Translation</h3>
+<div class="shortcut-grid">
+  <span><span class="key-combo">R</span></span><span>Retry the current chunk — fixes a few bad lines</span>
+  <span><span class="key-combo">Shift</span> + <span class="key-combo">A</span></span><span>Retranslate the entire episode from current position</span>
+  <span><span class="key-combo">Shift</span> + <span class="key-combo">C</span></span><span>Clear translation cache for this episode</span>
+</div>
+</div>
+
+<div class="card">
+<h3 style="margin-top:0;">Settings</h3>
+<div class="shortcut-grid">
+  <span><span class="key-combo">Shift</span> + <span class="key-combo">T</span></span><span>Open / close the settings panel</span>
+  <span><span class="key-combo">Shift</span> + <span class="key-combo">S</span></span><span>Master on / off — pause all translation activity</span>
+</div>
+</div>
+
+<h2>How It Works</h2>
+<div class="card">
+<p>When Netflix delivers subtitles to your browser, the script intercepts the data, splits it into chunks, and sends each chunk to your chosen AI for translation. Translated subtitles appear as an overlay on the video.</p>
+<p><strong>Fast Start</strong> — the first chunk is sent at half size so you see results as quickly as possible. The full-size pass follows, refining those lines with more context and validation.</p>
+<p><strong>Seek-aware</strong> — if you skip ahead mid-translation, the script reprioritizes chunks near your new position so what you're watching gets translated first.</p>
+<p><strong>Validation &amp; retry</strong> — every chunk is checked for missing lines, wrong-language output, and formatting issues. Problematic lines are automatically retried with diagnostic feedback to the AI. Remaining issues are flagged.</p>
+<p><strong>Speaker name normalization</strong> — as chunks are completed, the script learns how source-language character names map to their target-language forms. It picks canonical names (using cast data when available) and applies them consistently across all chunks.</p>
+<p><strong>Caching</strong> — translations are saved per subtitle track. Rewatching, refreshing, or coming back later loads instantly with zero API calls. Cache is keyed by provider, model, target language, and subtitle content — changing any of these starts fresh.</p>
+</div>
+
+<h2>Settings Reference</h2>
+
+<div class="feature-card">
+<strong>Provider &amp; Model</strong> — which AI translates. These providers have free tiers with no credit card required:
+<ul style="margin:8px 0 0;padding-left:18px;">
+  <li><strong>Gemini</strong> — recommended starting point. Get a key at <a class="link" href="https://aistudio.google.com/apikey">aistudio.google.com/apikey</a>. Not available in EU/EEA/UK/CH.</li>
+  <li><strong>Groq</strong> — very fast inference, highest free daily quota. Get a key at <a class="link" href="https://console.groq.com">console.groq.com</a></li>
+  <li><strong>Mistral</strong> — strong multilingual. Phone verification required. <a class="link" href="https://console.mistral.ai">console.mistral.ai</a></li>
+  <li><strong>OpenRouter</strong> — many free models through one API. <a class="link" href="https://openrouter.ai">openrouter.ai</a></li>
+  <li><strong>Ollama</strong> — fully local &amp; private, no data sent anywhere. Runs on your machine. <a class="link" href="https://ollama.com">ollama.com</a></li>
+</ul>
+</div>
+
+<div class="feature-card">
+<strong>Target Language</strong> — the language you want subtitles in. Be specific — "Brazilian Portuguese" works better than just "Portuguese".
+</div>
+
+<div class="feature-card">
+<strong>Chunk Size</strong> — subtitle lines sent per request (default varies by provider). Smaller = faster per request, more requests total. Larger = fewer requests but slower first results. Most users don't need to change this.
+</div>
+
+<div class="feature-card">
+<strong>Second Model</strong> (Advanced) — run a second, stronger model after the first pass. Example: a fast small model first, then a larger model for cleanup. Two modes:
+<ul style="margin:8px 0 0;padding-left:18px;">
+  <li><strong>Cleanup mode</strong> — re-does only lines flagged as problematic by the validator</li>
+  <li><strong>Full pass mode</strong> — re-does all lines in the background (higher quality, more API calls)</li>
+</ul>
+</div>
+
+<div class="feature-card">
+<strong>Character Names</strong> — fetches show metadata (title, episode info, character names from Cinemeta) and includes it in the AI prompt. Helps produce consistent character names. Recommended for anime and shows with non-Latin names.
+</div>
+
+<div class="feature-card">
+<strong>Fast Start</strong> — sends a smaller first chunk so translations appear sooner. The full pass then re-processes those lines with validation and more context. On by default.
+</div>
+
+<div class="feature-card">
+<strong>Per-chunk Glossary</strong> — after each chunk, extract character names and key terms, then feed them forward into subsequent chunks. Improves consistency within an episode without extra API calls upfront.
+</div>
+
+<div class="feature-card">
+<strong>Upfront Glossary</strong> — scan the full subtitle script for names and terms before translating begins. One extra API call, but produces better consistency from the very first chunk. Best for shows with many character names.
+</div>
+
+<div class="feature-card">
+<strong>Source Language</strong> — override auto-detection. Useful for anime (set "Japanese") or mixed-language content. Blank = auto-detect.
+</div>
+
+<h2>Advanced Settings</h2>
+<p>Click <strong>Show advanced settings</strong> in the panel to reveal additional options:</p>
+<div class="card">
+<ul style="margin-bottom:0;">
+  <li><strong>Chunk Size</strong> — lines per translation request</li>
+  <li><strong>Second Model</strong> — cleanup or full-quality second pass</li>
+  <li><strong>Subtitles toggle</strong> — show/hide the overlay independently of translation</li>
+  <li><strong>Dual subtitles</strong> — display original above translation</li>
+  <li><strong>Orig on flagged</strong> — show original text for uncertain lines</li>
+  <li><strong>Transcript view</strong> — open scrollable full-episode transcript</li>
+  <li><strong>Font Size</strong> — subtitle overlay size</li>
+  <li><strong>Timing Offset</strong> — shift all subtitles earlier or later in milliseconds</li>
+  <li><strong>Retry Current Chunk</strong> — retranslate the few lines currently on screen</li>
+  <li><strong>Retry All</strong> — retranslate the entire episode from your current position (ignores cache)</li>
+  <li><strong>Clear Cache</strong> — delete saved translations for this episode</li>
+</ul>
+</div>
+
+<h2>Free Provider Limits</h2>
+<p>A typical episode (~300–400 subtitle lines) uses 8–12 API requests. All providers below are free with no credit card required.</p>
+
+<h3 style="margin-top:0;">Google Gemini</h3>
+<table>
+<tr><th>Model</th><th>Req / min</th><th>Req / day</th><th>Best for</th></tr>
+<tr><td>3.1 Flash Lite</td><td>15</td><td>500</td><td>Recommended — best free quota (~60 episodes/day)</td></tr>
+<tr><td>Gemma 3 27B</td><td>30</td><td>14,400</td><td>Huge daily quota (low throughput — 15K tokens/min)</td></tr>
+<tr><td>2.5 Flash</td><td>5</td><td>20</td><td>Best quality (very low daily limit — ~2 episodes/day)</td></tr>
+<tr><td>2.5 Flash-Lite</td><td>10</td><td>20</td><td>Fast (very low daily limit)</td></tr>
+</table>
+<div class="callout info">Per-minute throttling is handled automatically with backoff — translation pauses briefly and continues. Daily limits reset at midnight Pacific. Not available in EU/EEA/UK/CH. <a class="link" href="https://aistudio.google.com/apikey">Get a free key →</a></div>
+
+<h3>Groq</h3>
+<table>
+<tr><th>Model</th><th>Req / min</th><th>Req / day</th><th>Best for</th></tr>
+<tr><td>Llama 3.3 70B</td><td>30</td><td>14,400</td><td>Best quality, very high quota</td></tr>
+<tr><td>Llama 3.1 8B</td><td>30</td><td>14,400</td><td>Fastest, lightweight</td></tr>
+</table>
+<p>Extremely fast inference. Highest free daily quota of any provider. <a class="link" href="https://console.groq.com">Get a free key →</a></p>
+
+<h3>Mistral</h3>
+<p>Free Experiment plan: 1 req/sec, up to 1 billion tokens/month across all models. Phone verification required. <a class="link" href="https://console.mistral.ai">Get a free key →</a></p>
+
+<h3>OpenRouter</h3>
+<p>20 req/min, 200 req/day on free models (model IDs ending in <code>:free</code>). Many models available including Llama, Mistral, Qwen, Gemma. <a class="link" href="https://openrouter.ai">Get a free key →</a></p>
+
+<h3>Ollama (Local)</h3>
+<p>No limits — runs entirely on your machine. Requires <a class="link" href="https://ollama.com">ollama.com</a>. Recommended models:</p>
+<ul>
+  <li><code>qwen2.5:3b</code> — fast, good quality for most content</li>
+  <li><code>qwen2.5:7b</code> — better quality, use as second model for cleanup</li>
+</ul>
+<p>The script fetches your installed models automatically. Pair 3b (first pass) + 7b (second model) for the best speed/quality tradeoff.</p>
+
+<h2>Troubleshooting</h2>
+
+<div class="card">
+<h3 style="margin-top:0;">Subtitles aren't appearing</h3>
+<p style="margin-bottom:0;">Enable subtitles in Netflix first (speech bubble icon → select a track). The translator intercepts Netflix's subtitle data — no source subtitles means nothing to translate.</p>
+</div>
+
+<div class="card">
+<h3 style="margin-top:0;">Rate limit / quota errors</h3>
+<p style="margin-bottom:0;">Per-minute limit: the script backs off and retries automatically — no action needed. Daily quota exhausted: consider switching to Groq (14,400 req/day free) or adding it as a second provider. A banner will appear offering to swap models when a rate limit is hit.</p>
+</div>
+
+<div class="card">
+<h3 style="margin-top:0;">Some lines look wrong</h3>
+<p style="margin-bottom:0;">Press <span class="key-combo">R</span> to retry the current chunk or <span class="key-combo">Shift</span> + <span class="key-combo">A</span> to redo everything from your current position. Enabling <strong>Character Names</strong> or <strong>Upfront Glossary</strong> in Advanced often helps with name accuracy. For anime, set Source Language to "Japanese".</p>
+</div>
+
+<div class="card">
+<h3 style="margin-top:0;">Translation is slow</h3>
+<p style="margin-bottom:0;">Switch to a faster model or provider. With Ollama, use a smaller model (qwen2.5:3b). <strong>Fast Start</strong> gets initial results on screen sooner while the rest translates in the background.</p>
+</div>
+
+<div class="card">
+<h3 style="margin-top:0;">Nothing happens at all</h3>
+<p style="margin-bottom:0;">Check Tampermonkey is enabled (icon should be active). Refresh the Netflix page. Open browser console (<span class="key-combo">F12</span> → Console) and look for <code>[SubTranslator]</code> messages.</p>
+</div>
+
+<h2>Privacy &amp; Legal</h2>
+<div class="card">
+<p><strong>Your data:</strong> API keys stay in your browser (Tampermonkey storage). Zero analytics or tracking.</p>
+<p><strong>Cloud providers:</strong> Subtitle text is sent to Gemini/Groq/Mistral/etc. for translation — similar to pasting into Google Translate. Netflix subtitle text is copyrighted material; sending it to a third-party server may be against Netflix's TOS and/or applicable law depending on your jurisdiction. <strong>Use Ollama for fully local, private translation if this is a concern.</strong></p>
+<p><strong>Netflix TOS:</strong> This is an independent tool for personal, non-commercial use by Netflix subscribers. It does not bypass DRM, download, or redistribute video content. Users are responsible for compliance with <a class="link" href="https://help.netflix.com/legal/termsofuse">Netflix's Terms of Use</a>.</p>
+<p style="font-size:13px;color:#888;margin-bottom:0;">Provided "as is" without warranty. Use at your own risk.</p>
+</div>
+
+<div class="footer">
+  Netflix Subtitle Translator — Usage Guide
+</div>
+
+</div>
+</body>
+</html>

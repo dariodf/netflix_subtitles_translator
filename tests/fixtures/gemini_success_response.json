@@ -1,0 +1,14 @@
+{
+  "_description": "Minimal Gemini generateContent success response with [N]-indexed translation output.",
+  "candidates": [
+    {
+      "content": {
+        "parts": [
+          {
+            "text": "[0] Hola\n[1] Mundo"
+          }
+        ]
+      }
+    }
+  ]
+}

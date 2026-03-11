@@ -1,0 +1,91 @@
+[
+    [
+        [
+            "Hello how are you?\n",
+            "Hola, \u00bfc\u00f3mo est\u00e1s?\n",
+            null,
+            null,
+            10,
+            null,
+            null,
+            null,
+            [
+                [
+                    null,
+                    true
+                ]
+            ]
+        ],
+        [
+            "I'm fine thanks.\n",
+            "Estoy bien, gracias.\n",
+            null,
+            null,
+            10,
+            null,
+            null,
+            null,
+            [
+                [
+                    null,
+                    true
+                ]
+            ]
+        ],
+        [
+            "What time is it?\n",
+            "\u00bfQu\u00e9 hora es?\n",
+            null,
+            null,
+            10,
+            null,
+            null,
+            null,
+            [
+                [
+                    null,
+                    true
+                ]
+            ]
+        ],
+        [
+            "It's three in the afternoon.",
+            "Son las tres de la tarde.",
+            null,
+            null,
+            3,
+            null,
+            null,
+            [
+                []
+            ],
+            [
+                [
+                    [
+                        "d0311b314139639afa8d9993705f8a28",
+                        "es_en_2023q1.md"
+                    ]
+                ]
+            ]
+        ]
+    ],
+    null,
+    "es",
+    null,
+    null,
+    null,
+    1,
+    [],
+    [
+        [
+            "es"
+        ],
+        null,
+        [
+            1
+        ],
+        [
+            "es"
+        ]
+    ]
+]

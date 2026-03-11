@@ -1,0 +1,132 @@
+{
+    "query": "Stranger Things",
+    "rank": 33.125,
+    "cacheMaxAge": 86400,
+    "metas": [
+        {
+            "id": "tt4574334",
+            "imdb_id": "tt4574334",
+            "type": "series",
+            "name": "Stranger Things",
+            "poster": "https://m.media-amazon.com/images/M/MV5BNjRiMTA4NWUtNmE0ZC00NGM0LWJhMDUtZWIzMDM5ZDIzNTg3XkEyXkFqcGc@._V1_SX250.jpg",
+            "background": "https://images.metahub.space/background/medium/tt4574334/img",
+            "releaseInfo": "2016-2025",
+            "links": [],
+            "behaviorHints": {
+                "defaultVideoId": null,
+                "hasScheduledVideos": true
+            }
+        },
+        {
+            "id": "tt27486290",
+            "imdb_id": "tt27486290",
+            "type": "series",
+            "name": "Stranger Things: Tales from '85",
+            "poster": "https://m.media-amazon.com/images/M/MV5BZjQxOWNjNzMtZWNiYS00NmQ3LWE4NGEtNDg2ZGQzZWE5YTQwXkEyXkFqcGc@._V1_SX250.jpg",
+            "background": "https://images.metahub.space/background/medium/tt27486290/img",
+            "releaseInfo": "2026-",
+            "links": [],
+            "behaviorHints": {
+                "defaultVideoId": null,
+                "hasScheduledVideos": true
+            }
+        },
+        {
+            "id": "tt39183779",
+            "imdb_id": "tt39183779",
+            "type": "series",
+            "name": "Stranger Things: Stranger Morning Cartoons",
+            "poster": "https://m.media-amazon.com/images/M/MV5BY2ZiYzM1YWMtMmJhNi00NjliLTkwNjUtNDc3ZTdlYmMwY2M3XkEyXkFqcGc@._V1_SX250.jpg",
+            "background": "https://images.metahub.space/background/medium/tt39183779/img",
+            "releaseInfo": "2022",
+            "links": [],
+            "behaviorHints": {
+                "defaultVideoId": null,
+                "hasScheduledVideos": true
+            }
+        },
+        {
+            "id": "tt7570990",
+            "imdb_id": "tt7570990",
+            "type": "series",
+            "name": "Beyond Stranger Things",
+            "poster": "https://m.media-amazon.com/images/M/MV5BN2YyY2U2MTAtMTExYi00ODNiLTgyYmYtMDdlMGM5OGIxMjExXkEyXkFqcGc@._V1_SX250.jpg",
+            "background": "https://images.metahub.space/background/medium/tt7570990/img",
+            "releaseInfo": "2017",
+            "links": [],
+            "behaviorHints": {
+                "defaultVideoId": null,
+                "hasScheduledVideos": true
+            }
+        },
+        {
+            "id": "tt21228028",
+            "imdb_id": "tt21228028",
+            "type": "series",
+            "name": "Untitled Stranger Things Spinoff Series",
+            "poster": "https://images.metahub.space/poster/small/tt21228028/img",
+            "background": "https://images.metahub.space/background/medium/tt21228028/img",
+            "links": [],
+            "behaviorHints": {
+                "defaultVideoId": null,
+                "hasScheduledVideos": true
+            }
+        },
+        {
+            "id": "tt21222712",
+            "imdb_id": "tt21222712",
+            "type": "series",
+            "name": "Geeked Week Unlocked: Stranger Things",
+            "poster": "https://m.media-amazon.com/images/M/MV5BMGE2ZDdlN2UtZDJiOS00MTYzLTkwOGQtYTg5ZjczNjk5MmI5XkEyXkFqcGc@._V1_SX250.jpg",
+            "background": "https://images.metahub.space/background/medium/tt21222712/img",
+            "releaseInfo": "2022",
+            "links": [],
+            "behaviorHints": {
+                "defaultVideoId": null,
+                "hasScheduledVideos": true
+            }
+        },
+        {
+            "id": "tt39073147",
+            "imdb_id": "tt39073147",
+            "type": "series",
+            "name": "Stranger Things 5: Behind the Episode",
+            "poster": "https://m.media-amazon.com/images/M/MV5BOWNmZTc0ZTgtZjgyMi00OThjLTk3MzItNjQ3YmRmZDFmZWE5XkEyXkFqcGc@._V1_SX250.jpg",
+            "background": "https://images.metahub.space/background/medium/tt39073147/img",
+            "releaseInfo": "2025-2026",
+            "links": [],
+            "behaviorHints": {
+                "defaultVideoId": null,
+                "hasScheduledVideos": true
+            }
+        },
+        {
+            "id": "tt1460534",
+            "imdb_id": "tt1460534",
+            "type": "series",
+            "name": "Stranger Things",
+            "poster": "https://m.media-amazon.com/images/M/MV5BNjY2NTkzODY0MV5BMl5BanBnXkFtZTgwNjk3NDA1OTE@._V1_SX250.jpg",
+            "background": "https://images.metahub.space/background/medium/tt1460534/img",
+            "releaseInfo": "2008-2009",
+            "links": [],
+            "behaviorHints": {
+                "defaultVideoId": null,
+                "hasScheduledVideos": true
+            }
+        },
+        {
+            "id": "tt11225622",
+            "imdb_id": "tt11225622",
+            "type": "series",
+            "name": "Stranger Things: Spotlight",
+            "poster": "https://m.media-amazon.com/images/M/MV5BOWU2NjY5NWQtMjdkZi00ODJlLThkZTAtMzFlYmJmMGE2NjZkXkEyXkFqcGc@._V1_SX250.jpg",
+            "background": "https://images.metahub.space/background/medium/tt11225622/img",
+            "releaseInfo": "2018",
+            "links": [],
+            "behaviorHints": {
+                "defaultVideoId": null,
+                "hasScheduledVideos": true
+            }
+        }
+    ]
+}

@@ -1,0 +1,9 @@
+{
+  "_source": "Google AI Developer Forum — https://discuss.ai.google.dev/t/429-resource-exhausted/111737",
+  "_description": "Per-minute rate limit (RPM/TPM). Generic message, no quota metric details. Should trigger silent retry with backoff, NOT the daily quota banner.",
+  "error": {
+    "code": 429,
+    "message": "Resource has been exhausted (e.g. check quota).",
+    "status": "RESOURCE_EXHAUSTED"
+  }
+}

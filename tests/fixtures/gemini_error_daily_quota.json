@@ -1,0 +1,9 @@
+{
+  "_source": "Google AI Developer Forum — https://discuss.ai.google.dev/t/429-resource-exhausted/111737",
+  "_description": "Daily quota exhaustion (RPD). Contains 'exceeded your current quota' and 'free_tier_requests' metric. Should trigger the persistent daily quota banner.",
+  "error": {
+    "code": 429,
+    "message": "You exceeded your current quota, please check your plan and billing details. \n* Quota exceeded for metric: [generativelanguage.googleapis.com/generate_content_free_tier_requests], limit: 20, model: gemini-2.5-flash\nPlease retry in 45.06576809s.",
+    "status": "RESOURCE_EXHAUSTED"
+  }
+}

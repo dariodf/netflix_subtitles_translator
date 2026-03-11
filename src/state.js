@@ -1,0 +1,29 @@
+// ============================
+// SHARED MUTABLE STATE
+// ============================
+export const state = {
+  translatedCues: [],
+  overlayEl: null,
+  statusEl: null,
+  panelEl: null,
+  transcriptPanelEl: null,
+  transcriptVisible: false,
+  dualSubs: false,
+  showOrigOnFlagged: true,
+  origOverlayEl: null,
+  enabled: true,
+  isTranslating: false,
+  originalCues: null,
+  activeCacheKey: null,
+  flaggedLines: new Set(),
+  flagReasons: new Map(),
+  translationPassLabel: '',
+  latestTtmlMetadata: null,
+  fabEl: null,
+  rateLimitBannerEl: null,
+  rateLimitHit: false,
+  onRetranslate: null,
+  transcriptLastHighlightIndex: -2,
+  transcriptLineElements: [],
+  cueHead: 0,
+};

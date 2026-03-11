@@ -1,0 +1,24 @@
+node_modules/
+dist/
+coverage/
+netflix_subtitles_translator.js
+*.log
+.DS_Store
+.claude/
+
+# Personal notes and config presets — not tracked
+TODO.md
+EVALUATION.md
+CLAUDE.md
+configs/
+
+# Local episodes (copyrighted Netflix subtitles) — only synthetic smoke episodes are tracked
+episodes-local/
+
+# Translation output (derived from copyrighted content)
+runs/
+
+# Headless config output artifacts
+configs/*/*/output.*.json
+configs/*/*/cache*.json
+# Tracked: configs/*/runs.jsonl (run history)
