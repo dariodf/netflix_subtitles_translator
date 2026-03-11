@@ -1,4 +1,4 @@
-# Netflix Subtitle Translator
+# Netflix Subtitles Translator
 
 A Tampermonkey userscript that translates Netflix subtitles in real-time using AI. It intercepts subtitle data, translates it via your chosen provider, and overlays the result on the video player.
 
