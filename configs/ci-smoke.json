@@ -1,0 +1,10 @@
+{
+  "provider": "groq",
+  "model": "gpt-4o-mini",
+  "providerUrl": "https://models.inference.ai.azure.com/chat/completions",
+  "targetLang": "English",
+  "chunkSize": 50,
+  "fastStart": false,
+  "showMetadata": false,
+  "debugLog": true
+}

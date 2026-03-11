@@ -1,0 +1,8 @@
+{
+  "provider": "ollama",
+  "ollamaUrl": "http://localhost:11434",
+  "targetLang": "English",
+  "chunkSize": 50,
+  "fastStart": true,
+  "debugLog": true
+}

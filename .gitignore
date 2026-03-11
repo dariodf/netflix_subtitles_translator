@@ -6,11 +6,16 @@ netflix_subtitles_translator.js
 .DS_Store
 .claude/
 
-# Personal notes and config presets — not tracked
+# Personal notes — not tracked
 TODO.md
 EVALUATION.md
 CLAUDE.md
-configs/
+
+# Config presets — only examples are tracked
+configs/*
+!configs/ci-smoke.json
+!configs/example-ollama.json
+!configs/example-ollama-3b.json
 
 # Local episodes (copyrighted Netflix subtitles) — only synthetic smoke episodes are tracked
 episodes-local/
