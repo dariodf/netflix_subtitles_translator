@@ -1,5 +1,8 @@
 import { defineConfig } from 'vite';
 import monkey from 'vite-plugin-monkey';
+import { readFileSync } from 'fs';
+
+const { version } = JSON.parse(readFileSync('./package.json', 'utf-8'));
 
 export default defineConfig({
   test: {
@@ -18,7 +21,7 @@ export default defineConfig({
       userscript: {
         name: 'Netflix Subtitle Translator',
         namespace: 'http://tampermonkey.net/',
-        version: '2.4',
+        version,
         description: 'Intercept Netflix subtitles, translate via multiple providers, overlay on video',
         match: [
           'https://www.netflix.com/*',

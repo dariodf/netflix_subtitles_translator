@@ -9,7 +9,7 @@ const LOGO_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" 
       <stop offset="100%" stop-color="#b5000a"/>
     </linearGradient>
   </defs>
-  <circle cx="64" cy="64" r="60" fill="#e8e8e8"/>
+  <circle cx="64" cy="64" r="60" fill="#ffffff"/>
   <circle cx="64" cy="64" r="60" fill="none" stroke="#ccc" stroke-width="1"/>
   <rect x="22" y="38" width="84" height="18" rx="4" fill="rgba(0,0,0,0.08)"/>
   <text x="64" y="51" font-family="Helvetica Neue,Arial,sans-serif" font-size="11" font-weight="600" fill="rgba(0,0,0,0.35)" text-anchor="middle">字幕!</text>

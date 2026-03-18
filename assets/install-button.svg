@@ -11,7 +11,7 @@
 
   <!-- Inset mini-logo: light circle with subtitle bars — larger -->
   <g transform="translate(6, 3)">
-    <circle cx="25" cy="25" r="23" fill="#e8e8e8"/>
+    <circle cx="25" cy="25" r="23" fill="#ffffff"/>
     <circle cx="25" cy="25" r="23" fill="none" stroke="#ccc" stroke-width="0.5"/>
 
     <rect x="10" y="15" width="30" height="7" rx="2" fill="rgba(0,0,0,0.08)"/>
