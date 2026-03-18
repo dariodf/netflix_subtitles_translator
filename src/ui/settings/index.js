@@ -185,8 +185,8 @@ export function togglePanel() {
 
       ${!CONFIG.apiKey && currentProvider.needsKey ? `<div style="padding:12px 14px;background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.3);border-radius:8px;margin-bottom:14px;font-size:12px;line-height:1.6;">
         👋 <strong>Welcome!</strong> To get started:<br>
-        1. Pick a provider below (Gemini is a good default)<br>
-        2. Get a free API key using the link below the key field<br>
+        1. Pick a provider below — Ollama is local &amp; private, or choose a cloud provider<br>
+        2. Get an API key if needed (link below the key field)<br>
         3. Set your target language and hit Save<br>
         4. Enable subtitles in Netflix — the translator handles the rest
       </div>` : ''}

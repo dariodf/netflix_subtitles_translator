@@ -19,7 +19,7 @@ function getJson(key) {
 }
 
 export const CONFIG = {
-  provider: GM_getValue('provider', 'gemini'),
+  provider: GM_getValue('provider', 'ollama'),
   apiKey: GM_getValue('apiKey', ''),
   model: GM_getValue('model', ''),
   ollamaUrl: GM_getValue('ollamaUrl', 'http://localhost:11434'),

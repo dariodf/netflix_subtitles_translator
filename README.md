@@ -12,7 +12,7 @@
 ## Features
 
 - **Real-time translation** — translated subtitles appear as you watch
-- **Multiple AI providers** — Gemini (free), Groq (free), Mistral (free), OpenAI, DeepSeek, Ollama (local/private), and more
+- **Multiple AI providers** — Ollama (local/private), Gemini, Groq, Mistral, OpenAI, DeepSeek, and more
 - **Caching** — translations persist locally, rewatching is instant
 - **Dual subtitles** — show original and translated text together
 - **Show-aware** — fetches character names and episode info to improve translations
@@ -27,8 +27,10 @@
 |------|------|
 | Chrome or Firefox | Free |
 | [Tampermonkey](https://www.tampermonkey.net/) | Free |
-| [Google Gemini API key](https://aistudio.google.com/apikey) | Free |
+| Local [Ollama](https://ollama.com/) or free cloud LLM | Free |
 | Netflix subscription | Your existing plan |
+
+> **Privacy note:** Cloud providers (Gemini, OpenAI, etc.) send subtitle text to third-party servers. For fully private translation, use [Ollama](https://ollama.com/) — it runs entirely on your machine. See [disclaimer](#disclaimer) for details.
 
 1. **Install Tampermonkey** from [Chrome Web Store](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo) or [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/)
 
@@ -38,9 +40,9 @@
      <img src="assets/install-button.svg" alt="Install Userscript" width="280">
    </a>
 
-3. **Get a free Gemini API key** from [aistudio.google.com/apikey](https://aistudio.google.com/apikey)
+3. **Get an LLM provider** — [Ollama](https://ollama.com/) (local, private), [Google Gemini](https://aistudio.google.com/apikey), [Groq](https://console.groq.com/keys), [Mistral](https://console.mistral.ai/api-keys/)
 
-4. **Configure** — play any show on Netflix, press `Shift + T`, select Gemini, paste your key, set your target language. Settings are saved automatically.
+4. **Configure** — play any show on Netflix, press `Shift + T`, select your provider, paste your API key if needed, set your target language. Settings are saved automatically.
 
 5. **Watch** — enable subtitles in the Netflix player. The translator handles the rest.
 
@@ -63,15 +65,15 @@
 
 ## Translation Providers
 
-| Provider | Cost | Notes |
-|----------|------|-------|
-| **Ollama** (local) | Free | Fully private, runs on your machine. Requires [Ollama](https://ollama.com/). |
-| **Google Gemini** | Free tier | ~60 episodes/day with Flash Lite. Not available in EU/EEA/UK/CH. |
-| **Groq** | Free tier | Very fast inference. Highest free daily quota. |
-| **Mistral** | Free tier | Strong multilingual. Phone verification required. |
-| **DeepSeek** | Very cheap | Good quality. [deepseek.com](https://platform.deepseek.com/) |
-| **OpenAI** | Paid | GPT-4o-mini is affordable. [platform.openai.com](https://platform.openai.com/) |
-| **OpenRouter** | Varies | Many models, one API. Pay-per-use. |
+| Provider | Notes |
+|----------|-------|
+| **Ollama** (local) | Fully private, runs on your machine. Requires [Ollama](https://ollama.com/). |
+| **Google Gemini** | ~60 episodes/day with Flash Lite. Not available in EU/EEA/UK/CH. |
+| **Groq** | Very fast inference. High daily quota. |
+| **Mistral** | Strong multilingual. Phone verification required. |
+| **DeepSeek** | Good quality. [deepseek.com](https://platform.deepseek.com/) |
+| **OpenAI** | GPT-4o-mini recommended. [platform.openai.com](https://platform.openai.com/) |
+| **OpenRouter** | Many models, one API. [openrouter.ai](https://openrouter.ai/) |
 
 ### Ollama (Local & Private)
 
@@ -87,7 +89,7 @@ The script intercepts Netflix's subtitle data (TTML/XML), translates the text vi
 
 ### Architecture
 
-Single self-contained userscript (~3800 lines). Here's the processing pipeline:
+Single self-contained userscript. Here's the processing pipeline:
 
 ```mermaid
 flowchart TD

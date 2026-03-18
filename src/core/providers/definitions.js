@@ -8,40 +8,8 @@ function extractOpenAiCompatibleText(data) {
   return data.choices?.[0]?.message?.content || '';
 }
 export const PROVIDERS = {
-  gemini: {
-    name: 'Google Gemini (free tier)',
-    paid: false,
-    needsKey: true,
-    type: 'llm',
-    defaultModel: 'gemini-3.1-flash-lite-preview',
-    defaultChunkSize: 50,
-    models: [
-      { id: 'gemini-3.1-flash-lite-preview', name: '3.1 Flash Lite — 500 req/day, recommended' },
-      { id: 'gemma-3-27b-it', name: 'Gemma 3 27B — 14,400 req/day (low throughput)' },
-      { id: 'gemini-2.5-flash', name: '2.5 Flash — best quality (20 req/day)' },
-      { id: 'gemini-2.5-flash-lite', name: '2.5 Flash-Lite — fast (20 req/day)' },
-    ],
-    url: 'https://generativelanguage.googleapis.com/v1beta/models/',
-    buildRequest(system, userMsg, model, apiKey) {
-      return {
-        // API key in header instead of URL for security
-        urlSuffix: `${model}:generateContent`,
-        headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },
-        data: JSON.stringify({
-          ...(system ? { systemInstruction: { parts: [{ text: system }] } } : {}),
-          contents: [{ role: 'user', parts: [{ text: userMsg }] }],
-          generationConfig: { maxOutputTokens: 8192 },
-        }),
-      };
-    },
-    extractText(data) {
-      if (data.error) throw new Error(data.error.message || data.error.status);
-      return data.candidates?.[0]?.content?.parts?.[0]?.text || '';
-    },
-  },
-
   ollama: {
-    name: 'Ollama (local, free)',
+    name: 'Ollama (local, private)',
     paid: false,
     needsKey: false,
     type: 'llm',
@@ -75,6 +43,38 @@ export const PROVIDERS = {
     extractText(data) {
       if (data.error) throw new Error(data.error);
       return data.message?.content || '';
+    },
+  },
+
+  gemini: {
+    name: 'Google Gemini',
+    paid: false,
+    needsKey: true,
+    type: 'llm',
+    defaultModel: 'gemini-3.1-flash-lite-preview',
+    defaultChunkSize: 50,
+    models: [
+      { id: 'gemini-3.1-flash-lite-preview', name: '3.1 Flash Lite — 500 req/day, recommended' },
+      { id: 'gemma-3-27b-it', name: 'Gemma 3 27B — 14,400 req/day (low throughput)' },
+      { id: 'gemini-2.5-flash', name: '2.5 Flash — best quality (20 req/day)' },
+      { id: 'gemini-2.5-flash-lite', name: '2.5 Flash-Lite — fast (20 req/day)' },
+    ],
+    url: 'https://generativelanguage.googleapis.com/v1beta/models/',
+    buildRequest(system, userMsg, model, apiKey) {
+      return {
+        // API key in header instead of URL for security
+        urlSuffix: `${model}:generateContent`,
+        headers: { 'Content-Type': 'application/json', 'x-goog-api-key': apiKey },
+        data: JSON.stringify({
+          ...(system ? { systemInstruction: { parts: [{ text: system }] } } : {}),
+          contents: [{ role: 'user', parts: [{ text: userMsg }] }],
+          generationConfig: { maxOutputTokens: 8192 },
+        }),
+      };
+    },
+    extractText(data) {
+      if (data.error) throw new Error(data.error.message || data.error.status);
+      return data.candidates?.[0]?.content?.parts?.[0]?.text || '';
     },
   },
 
@@ -112,7 +112,7 @@ export const PROVIDERS = {
   },
 
   groq: {
-    name: 'Groq (free, fast)',
+    name: 'Groq',
     paid: false,
     needsKey: true,
     type: 'llm',
@@ -125,7 +125,7 @@ export const PROVIDERS = {
       { id: 'mistral-saba-24b', name: 'Mistral Saba 24B — strong multilingual' },
     ],
     url: 'https://api.groq.com/openai/v1/chat/completions',
-    note: 'Free, no credit card. Very fast inference. Get a key at <a href="https://console.groq.com" target="_blank" style="color:rgba(100,200,255,0.9);">console.groq.com</a>',
+    note: 'Very fast inference. Get a key at <a href="https://console.groq.com" target="_blank" style="color:rgba(100,200,255,0.9);">console.groq.com</a>',
     buildRequest(system, userMsg, model, apiKey) {
       return {
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
@@ -143,7 +143,7 @@ export const PROVIDERS = {
   },
 
   mistral: {
-    name: 'Mistral (free tier)',
+    name: 'Mistral',
     paid: false,
     needsKey: true,
     type: 'llm',
@@ -154,7 +154,7 @@ export const PROVIDERS = {
       { id: 'mistral-large-latest', name: 'Mistral Large — highest quality' },
     ],
     url: 'https://api.mistral.ai/v1/chat/completions',
-    note: 'Free Experiment plan, no credit card. Phone verification required. Get a key at <a href="https://console.mistral.ai" target="_blank" style="color:rgba(100,200,255,0.9);">console.mistral.ai</a>',
+    note: 'Strong multilingual. Phone verification required. Get a key at <a href="https://console.mistral.ai" target="_blank" style="color:rgba(100,200,255,0.9);">console.mistral.ai</a>',
     buildRequest(system, userMsg, model, apiKey) {
       return {
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
@@ -172,7 +172,7 @@ export const PROVIDERS = {
   },
 
   openrouter: {
-    name: 'OpenRouter (free models)',
+    name: 'OpenRouter',
     paid: false,
     needsKey: true,
     type: 'llm',
@@ -185,7 +185,7 @@ export const PROVIDERS = {
       { id: 'google/gemma-3-27b-it:free', name: 'Gemma 3 27B — solid all-rounder' },
     ],
     url: 'https://openrouter.ai/api/v1/chat/completions',
-    note: 'Many free models, no credit card. 20 req/min, 200 req/day. Get a key at <a href="https://openrouter.ai" target="_blank" style="color:rgba(100,200,255,0.9);">openrouter.ai</a>',
+    note: 'Many models through one API. Get a key at <a href="https://openrouter.ai" target="_blank" style="color:rgba(100,200,255,0.9);">openrouter.ai</a>',
     buildRequest(system, userMsg, model, apiKey) {
       return {
         headers: {
@@ -208,7 +208,7 @@ export const PROVIDERS = {
   },
 
   libretranslate: {
-    name: 'LibreTranslate (free)',
+    name: 'LibreTranslate',
     paid: false,
     needsKey: false,
     type: 'simple',
@@ -217,7 +217,7 @@ export const PROVIDERS = {
   },
 
   lingva: {
-    name: 'Lingva Translate (free)',
+    name: 'Lingva Translate',
     paid: false,
     needsKey: false,
     type: 'simple',
@@ -229,7 +229,7 @@ export const PROVIDERS = {
   },
 
   google_free: {
-    name: 'Google Translate (free, unofficial)',
+    name: 'Google Translate (unofficial)',
     paid: false,
     needsKey: false,
     type: 'simple',
