@@ -6,7 +6,7 @@
 import { readFileSync, writeFileSync, existsSync, readdirSync, statSync } from 'fs';
 import { join } from 'path';
 import { escapeHtml } from '../core/utils.js';
-import { getGitInfo, openInBrowser } from './run-history.js';
+import { openInBrowser } from './run-history.js';
 
 // ============================
 // DATA ASSEMBLY

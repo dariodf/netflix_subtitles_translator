@@ -18,16 +18,16 @@ async function nodeFetch(url, headers, data, timeout = 30000) {
     try {
       parsed = JSON.parse(text);
     } catch (err) {
-      throw new Error('Parse error: ' + err.message);
+      throw new Error('Parse error: ' + err.message, { cause: err });
     }
 
     return { status: response.status, data: parsed };
   } catch (err) {
     if (err.name === 'AbortError') {
-      throw new Error('Request timed out');
+      throw new Error('Request timed out', { cause: err });
     }
     if (err.message.startsWith('Parse error:')) throw err;
-    throw new Error('Network error');
+    throw new Error('Network error', { cause: err });
   } finally {
     clearTimeout(timer);
   }

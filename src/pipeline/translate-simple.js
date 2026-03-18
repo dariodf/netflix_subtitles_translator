@@ -63,8 +63,8 @@ async function translateLibreTranslate(text, src, tgt, config, context) {
     if (data.error) throw new Error(data.error);
     return data.translatedText || text;
   } catch (err) {
-    if (err.message === 'Network error') throw new Error('LibreTranslate request failed. Is the server running?');
-    if (err.message === 'Request timed out') throw new Error('LibreTranslate timed out');
+    if (err.message === 'Network error') throw new Error('LibreTranslate request failed. Is the server running?', { cause: err });
+    if (err.message === 'Request timed out') throw new Error('LibreTranslate timed out', { cause: err });
     if (err.message.startsWith('Parse error')) return text;
     throw err;
   }

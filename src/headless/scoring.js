@@ -118,7 +118,7 @@ export function computeQualityScores(translationOutput, analysisOutput, semantic
  * @param {boolean} lowerIsBetter - If true, negative delta is good
  * @returns {string}
  */
-function formatPct(value, previous, lowerIsBetter = false) {
+function formatPct(value, previous, _lowerIsBetter = false) {
   if (value === null) return '  n/a';
   let str = `${value.toFixed(1)}%`;
   if (previous !== null && previous !== undefined) {

@@ -1,6 +1,6 @@
 DIST       := dist
 OUTPUT     := $(DIST)/netflix-subtitle-translator.user.js
-SRC        := $(shell find src -name '*.js')
+SRC        := $(shell find src -name '*.js' -o -name '*.html')
 NODE_BIN   := node_modules/.bin
 
 .PHONY: all build dev clean install lint check validate test coverage size smoke smoke-3b smoke-7b smoke-all headless headless-all headless-evaluate headless-analyze headless-replay headless-history headless-viewer simulate-normalization release help
@@ -27,6 +27,7 @@ install: node_modules  ## Install npm dependencies
 
 node_modules: package.json
 	npm install
+	@git config core.hooksPath .githooks
 	@touch node_modules
 
 # ── Validation ───────────────────────────────────────────────

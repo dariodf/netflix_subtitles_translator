@@ -273,7 +273,7 @@ export function analyzeTranslation(output, sourceFileCues, referenceCues) {
     if (!translationGroups[key]) translationGroups[key] = [];
     translationGroups[key].push(cue.index);
   }
-  for (const [translation, indices] of Object.entries(translationGroups)) {
+  for (const [_translation, indices] of Object.entries(translationGroups)) {
     if (indices.length < 2) continue;
     // Check if originals are actually different
     const originals = new Set(indices.map(i => originalCues[i]?.text));
