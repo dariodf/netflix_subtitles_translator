@@ -14,6 +14,8 @@ export default [
         GM_setValue: 'readonly',
         GM_xmlhttpRequest: 'readonly',
         GM_registerMenuCommand: 'readonly',
+        // Vite build-time constants
+        __APP_VERSION__: 'readonly',
       },
     },
     rules: {

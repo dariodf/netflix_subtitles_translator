@@ -20,8 +20,10 @@ function getJson(key) {
 
 export const CONFIG = {
   provider: GM_getValue('provider', 'ollama'),
-  apiKey: GM_getValue('apiKey', ''),
-  model: GM_getValue('model', ''),
+  apiKeys: getJson('apiKeys'),
+  apiKey: '', // active value — overwritten below from per-provider keys
+  models: getJson('models'),
+  model: '', // active value — overwritten below from per-provider models
   ollamaUrl: GM_getValue('ollamaUrl', 'http://localhost:11434'),
   libreTranslateUrl: GM_getValue('libreTranslateUrl', 'https://libretranslate.com'),
   targetLang: GM_getValue('targetLang', 'English'),
@@ -54,10 +56,8 @@ export const CONFIG = {
   replaceCharacterNames: getBool('replaceCharacterNames', false),
 };
 
-if (!CONFIG.model) {
-  const p = PROVIDERS[CONFIG.provider];
-  CONFIG.model = p?.defaultModel || '';
-}
+// Set active model from per-provider storage (legacy fallback for existing users)
+CONFIG.model = CONFIG.models[CONFIG.provider] || GM_getValue('model', '') || PROVIDERS[CONFIG.provider]?.defaultModel || '';
 if (!CONFIG.secondModel) {
   const secondProviderConfig = PROVIDERS[CONFIG.secondProvider];
   CONFIG.secondModel = secondProviderConfig?.defaultModel || '';
@@ -65,11 +65,17 @@ if (!CONFIG.secondModel) {
 // Set active chunk sizes from per-provider storage (or provider defaults)
 CONFIG.chunkSize = CONFIG.chunkSizes[CONFIG.provider] || PROVIDERS[CONFIG.provider]?.defaultChunkSize || 50;
 CONFIG.secondChunkSize = CONFIG.secondChunkSizes[CONFIG.secondProvider] || PROVIDERS[CONFIG.secondProvider]?.defaultChunkSize || 50;
+// Set active API key from per-provider storage (legacy fallback for existing users)
+CONFIG.apiKey = CONFIG.apiKeys[CONFIG.provider] || GM_getValue('apiKey', '');
 
 export function saveConfig() {
   GM_setValue('provider', CONFIG.provider);
-  GM_setValue('apiKey', CONFIG.apiKey);
-  GM_setValue('model', CONFIG.model);
+  // Save per-provider API keys
+  CONFIG.apiKeys[CONFIG.provider] = CONFIG.apiKey;
+  GM_setValue('apiKeys', JSON.stringify(CONFIG.apiKeys));
+  // Save per-provider models
+  CONFIG.models[CONFIG.provider] = CONFIG.model;
+  GM_setValue('models', JSON.stringify(CONFIG.models));
   GM_setValue('ollamaUrl', CONFIG.ollamaUrl);
   GM_setValue('libreTranslateUrl', CONFIG.libreTranslateUrl);
   GM_setValue('targetLang', CONFIG.targetLang);

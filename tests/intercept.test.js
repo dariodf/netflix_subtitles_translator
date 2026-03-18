@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { isXmlSubtitle, handleSubtitleData } from '../src/browser/intercept.js';
+import { isXmlSubtitle, isMetadataUrl, handleSubtitleData } from '../src/browser/intercept.js';
 import { CONFIG } from '../src/config.js';
 
 vi.mock('../src/pipeline/handler.js', () => ({ handleSubtitlePayload: vi.fn() }));
@@ -42,6 +42,29 @@ describe('isXmlSubtitle', () => {
     const { resolve } = require('path');
     const xml = readFileSync(resolve(__dirname, 'fixtures', 'netflix_ttml_sample1.xml'), 'utf-8');
     expect(isXmlSubtitle(xml)).toBe(true);
+  });
+});
+
+describe('isMetadataUrl', () => {
+  it('detects Netflix metadata API URL', () => {
+    expect(isMetadataUrl('https://www.netflix.com/nq/website/memberapi/release/metadata?movieid=81727843&imageFormat=webp')).toBe(true);
+  });
+
+  it('detects URL with extra query params', () => {
+    expect(isMetadataUrl('https://www.netflix.com/nq/website/memberapi/release/metadata?movieid=123&_=1773843760327')).toBe(true);
+  });
+
+  it('rejects subtitle URLs', () => {
+    expect(isMetadataUrl('https://ipv4-c001-nrt002.nflxvideo.net/textstream?o=AQE')).toBeFalsy();
+  });
+
+  it('rejects null/undefined', () => {
+    expect(isMetadataUrl(null)).toBeFalsy();
+    expect(isMetadataUrl(undefined)).toBeFalsy();
+  });
+
+  it('rejects unrelated Netflix URLs', () => {
+    expect(isMetadataUrl('https://www.netflix.com/watch/81727843')).toBeFalsy();
   });
 });
 

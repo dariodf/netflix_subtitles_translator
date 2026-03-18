@@ -46,7 +46,7 @@ GM_registerMenuCommand('Set API Key', () => {
 // ============================
 // INIT
 // ============================
-logInfo(`v2.4 loaded | ${CONFIG.provider}/${CONFIG.model || 'default'} | ${CONFIG.sourceLang || 'auto'}→${CONFIG.targetLang} | chunk:${CONFIG.chunkSize}`);
+logInfo(`v${typeof __APP_VERSION__ !== 'undefined' ? __APP_VERSION__ : 'dev'} loaded | ${CONFIG.provider}/${CONFIG.model || 'default'} | ${CONFIG.sourceLang || 'auto'}→${CONFIG.targetLang} | chunk:${CONFIG.chunkSize}`);
 
 // Wire retranslation callback so non-browser layers can trigger it via state
 state.onRetranslate = retranslateAll;
@@ -107,6 +107,7 @@ function onUrlChange() {
   state.cueHead = 0;
   handleSubtitlePayload._lastUrl = null;
   clearShowMetadata();
+  state.interceptedNetflixMetadata = null;
   state.flaggedLines = new Set();
   glossary.clear();
   if (state.overlayEl) {

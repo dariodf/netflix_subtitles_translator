@@ -390,6 +390,9 @@ export function togglePanel() {
         </div>` : ''}
         ` : ''}
 
+        <div id="st-metadata-status" style="padding:10px 12px;background:rgba(255,255,255,0.05);border-radius:8px;margin-top:6px;font-size:11px;line-height:1.6;color:rgba(255,255,255,0.6);">
+        </div>
+
       </div>
 
       <div id="st-advanced-toggle" style="text-align:center;margin:10px 0 14px;cursor:pointer;">
@@ -428,6 +431,34 @@ export function togglePanel() {
         GM_setValue('welcomeDismissed', true);
         state.panelEl.querySelector('#st-welcome').remove();
       });
+    }
+
+    // Live metadata status updates — listener removes itself once fully loaded
+    function updateMetadataStatus() {
+      const el = state.panelEl?.querySelector('#st-metadata-status');
+      if (!el) return;
+      const meta = getShowMetadata();
+      const intercepted = !!state.interceptedNetflixMetadata?.video?.title;
+      let html = '<div style="font-weight:600;margin-bottom:4px;color:rgba(255,255,255,0.8);">Metadata</div>';
+      if (!meta) {
+        html += `<div>Netflix: ${intercepted ? '✓ intercepted, awaiting processing' : '— not available yet'}</div>`;
+        html += '<div>External sources: — not fetched yet</div>';
+      } else {
+        html += `<div>Netflix: ✓ ${meta.title}${meta.episode ? ` S${meta.episode.season}E${meta.episode.episode}` : ''}</div>`;
+        const castCount = (meta.cast || []).filter(c => c.character).length;
+        const sources = meta.metadataEnriched && meta.metadataSources?.length > 0
+          ? `✓ ${meta.metadataSources.join(' + ')}${castCount > 0 ? ` (${castCount} characters)` : ''}`
+          : meta.metadataEnriched ? '✓ fetched (no results)' : '⏳ loading...';
+        html += `<div>External sources: ${sources}</div>`;
+      }
+      el.innerHTML = html;
+      if (meta?.metadataEnriched) {
+        document.removeEventListener('st-metadata-updated', updateMetadataStatus);
+      }
+    }
+    updateMetadataStatus();
+    if (!getShowMetadata()?.metadataEnriched) {
+      document.addEventListener('st-metadata-updated', updateMetadataStatus);
     }
 
     state.panelEl.querySelector('#st-master-toggle').addEventListener('click', () => {
@@ -498,10 +529,25 @@ export function togglePanel() {
       if (e.target.value === '_custom') customInput.focus();
     });
 
+    let providerSwitching = false;
     state.panelEl.querySelector('#st-provider').addEventListener('change', (e) => {
+      providerSwitching = true;
+      // Save current provider's API key and model before switching
+      const keyInput = state.panelEl.querySelector('#st-apikey');
+      if (keyInput) CONFIG.apiKeys[CONFIG.provider] = keyInput.value.trim();
+      const modelSelect = state.panelEl.querySelector('#st-model');
+      const modelCustom = state.panelEl.querySelector('#st-model-custom');
+      if (modelSelect) {
+        CONFIG.models[CONFIG.provider] = modelSelect.value === '_custom'
+          ? (modelCustom?.value.trim() || CONFIG.model)
+          : modelSelect.value;
+      }
       CONFIG.provider = e.target.value;
       const selectedProvider = PROVIDERS[CONFIG.provider];
-      CONFIG.model = selectedProvider?.defaultModel || '';
+      // Load user's saved model for this provider, or provider default
+      CONFIG.model = CONFIG.models[CONFIG.provider] || selectedProvider?.defaultModel || '';
+      // Load user's saved API key for this provider
+      CONFIG.apiKey = CONFIG.apiKeys[CONFIG.provider] || '';
       // Load user's saved chunk size for this provider, or provider default
       CONFIG.chunkSize = CONFIG.chunkSizes[CONFIG.provider] || selectedProvider?.defaultChunkSize || 50;
       // Auto-set second model defaults when switching to Ollama (only if user hasn't configured second model yet)
@@ -509,6 +555,7 @@ export function togglePanel() {
         CONFIG.secondProvider = 'ollama';
         CONFIG.secondModel = selectedProvider.defaultSecondModel;
       }
+      saveConfig();
       state.panelEl.remove(); state.panelEl = null;
       togglePanel();
     });
@@ -596,6 +643,7 @@ export function togglePanel() {
 
     // Collect current settings from panel inputs and persist
     function collectAndSave() {
+      if (providerSwitching) return; // provider switch handler already saved
       CONFIG.provider = state.panelEl.querySelector('#st-provider').value;
 
       const keyInput = state.panelEl.querySelector('#st-apikey');

@@ -285,11 +285,15 @@ async function _applyProviderMetadata(metadata, fetchJson) {
     metadata.cast = fetched.cast;
     metadata.hasCharacterNames = fetched.hasCharacterNames;
 
+    metadata.metadataSources = fetched.sources;
     const castCount = fetched.cast.filter(c => c.character).length;
     logInfo(`🎬 ${fetched.sources.join(' + ')}: ${fetched.cast.length} cast${castCount > 0 ? ` (${castCount} with character names)` : ''}`);
   }
 
   metadata.metadataEnriched = true;
+  if (typeof document !== 'undefined') {
+    document.dispatchEvent(new CustomEvent('st-metadata-updated'));
+  }
 }
 
 /** Set source language from metadata if not already configured. */

@@ -130,9 +130,13 @@ export async function _sendLLMRequest(cues, scriptLines, { retryNote = '', prevT
         waitMs = 2000;
         logError(`⏱️ Request timed out (model: ${modelLabel}, ${lineCount} lines)`);
         if (isLast) context.reportStatus('LLM request timed out — try a smaller chunk size or faster model', 'error');
+      } else {
+        // Provider/parse errors (e.g. invalid model, auth failure)
+        waitMs = 0;
+        logWarn(`⚠️ Request error: ${err.message}`);
       }
       if (isLast) {
-        logError(`❌ All ${MAX_RETRIES} retries exhausted`);
+        logError(`❌ All ${MAX_RETRIES} retries exhausted — last error: ${err.message}`);
         return fallback;
       }
       if (waitMs) await sleep(waitMs);

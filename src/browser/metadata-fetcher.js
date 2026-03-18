@@ -2,7 +2,6 @@ import { CONFIG } from '../config.js';
 import { state } from '../state.js';
 import { sleep } from '../core/utils.js';
 import { logInfo, logWarn } from '../core/utils.js';
-import { fetchJsonViaGM } from './http.js';
 import { buildContextFromNetflix } from '../core/metadata.js';
 
 // ============================
@@ -69,19 +68,33 @@ async function _fetchShowMetadataInner() {
     logInfo('🎬 Could not determine Netflix video ID');
     return null;
   }
-  logInfo(`🎬 Fetching Netflix metadata for video ID: ${netflixVideoId}`);
 
-  const netflixMetadataUrl = `https://www.netflix.com/nq/website/memberapi/release/metadata?movieid=${netflixVideoId}&imageFormat=webp&withSize=true&materialize=true`;
-  const netflixMetadata = await fetchJsonViaGM(netflixMetadataUrl);
-  const video = netflixMetadata?.video;
+  // Use intercepted metadata if available (no extra request needed)
+  let video = null;
+  if (state.interceptedNetflixMetadata?.video?.title) {
+    video = state.interceptedNetflixMetadata.video;
+    logInfo(`🎬 Using intercepted Netflix metadata for video ID: ${netflixVideoId}`);
+  } else {
+    // Wait briefly for interception to arrive, then retry
+    for (let attempt = 0; attempt < 3; attempt++) {
+      await sleep(1000);
+      if (state.interceptedNetflixMetadata?.video?.title) {
+        video = state.interceptedNetflixMetadata.video;
+        logInfo(`🎬 Using intercepted Netflix metadata for video ID: ${netflixVideoId}`);
+        break;
+      }
+    }
+  }
+
   if (!video?.title) {
-    logInfo(`🎬 Netflix metadata API returned no title for ID ${netflixVideoId}`);
+    logInfo(`🎬 No intercepted metadata available for ID ${netflixVideoId}`);
     return null;
   }
 
   const context = buildContextFromNetflix(video, netflixVideoId);
 
   logInfo(`🎬 Netflix: "${context.title}" (${context.year})${context.episode ? ` S${context.episode.season}E${context.episode.episode}: "${context.episode.title}"` : ''}`);
+  document.dispatchEvent(new CustomEvent('st-metadata-updated'));
 
   return context;
   } catch (err) {

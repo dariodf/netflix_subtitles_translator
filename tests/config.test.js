@@ -19,8 +19,8 @@ describe('saveConfig', () => {
 
     const keys = setValueCalls.map(c => c.key);
     expect(keys).toContain('provider');
-    expect(keys).toContain('apiKey');
-    expect(keys).toContain('model');
+    expect(keys).toContain('apiKeys');
+    expect(keys).toContain('models');
     expect(keys).toContain('ollamaUrl');
     expect(keys).toContain('libreTranslateUrl');
     expect(keys).toContain('targetLang');
@@ -56,6 +56,24 @@ describe('saveConfig', () => {
     const fullPass = setValueCalls.find(c => c.key === 'fullPassEnabled');
     expect(secondEnabled.value).toBe(true);
     expect(fullPass.value).toBe(false);
+  });
+
+  it('stores API keys per-provider as JSON strings', async () => {
+    const { saveConfig, CONFIG } = await import('../src/config.js');
+    const originalProvider = CONFIG.provider;
+    CONFIG.provider = 'gemini';
+    CONFIG.apiKey = 'gemini-key-123';
+
+    saveConfig();
+
+    const apiKeys = setValueCalls.find(c => c.key === 'apiKeys');
+    expect(typeof apiKeys.value).toBe('string');
+    const parsed = JSON.parse(apiKeys.value);
+    expect(parsed.gemini).toBe('gemini-key-123');
+    // Restore
+    CONFIG.provider = originalProvider;
+    CONFIG.apiKey = '';
+    delete CONFIG.apiKeys.gemini;
   });
 
   it('stores chunk sizes as JSON strings', async () => {

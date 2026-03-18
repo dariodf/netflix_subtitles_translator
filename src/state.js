@@ -22,6 +22,7 @@ export const state = {
   fabEl: null,
   rateLimitBannerEl: null,
   rateLimitHit: false,
+  interceptedNetflixMetadata: null,
   onRetranslate: null,
   transcriptLastHighlightIndex: -2,
   transcriptLineElements: [],

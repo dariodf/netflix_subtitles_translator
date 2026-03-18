@@ -15,6 +15,9 @@ export default defineConfig({
       reportsDirectory: 'coverage',
     },
   },
+  define: {
+    __APP_VERSION__: JSON.stringify(version),
+  },
   plugins: [
     monkey({
       entry: 'src/browser/main.js',

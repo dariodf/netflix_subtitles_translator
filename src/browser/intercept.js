@@ -1,12 +1,29 @@
 import { isSubtitleUrl } from '../core/parser.js';
 import { handleSubtitlePayload } from '../pipeline/handler.js';
-import { logError, logWarn } from '../core/utils.js';
+import { logError, logWarn, logInfo } from '../core/utils.js';
 import { createBrowserContext } from './context.js';
 import { CONFIG } from '../config.js';
+import { state } from '../state.js';
 
 /** Check if text looks like XML subtitle data (TTML/DFXP) */
 export function isXmlSubtitle(text) {
   return text && (text.includes('<tt') || text.includes('<body') || text.includes('<?xml'));
+}
+
+/** Check if URL is a Netflix metadata API call */
+export function isMetadataUrl(url) {
+  return url && url.includes('/nq/website/memberapi/release/metadata');
+}
+
+function handleMetadataResponse(text) {
+  try {
+    const data = JSON.parse(text);
+    if (data?.video?.title) {
+      state.interceptedNetflixMetadata = data;
+      logInfo(`🎬 Intercepted Netflix metadata: "${data.video.title}"`);
+      document.dispatchEvent(new CustomEvent('st-metadata-updated'));
+    }
+  } catch { /* not valid JSON, ignore */ }
 }
 
 export function handleSubtitleData(xml, url) {
@@ -36,14 +53,14 @@ try {
     window.fetch = async function (...args) {
       const response = await nativeMethods.fetch(...args);
       const url = typeof args[0] === 'string' ? args[0] : args[0]?.url;
-      if (url && isSubtitleUrl(url)) {
+      if (url && (isSubtitleUrl(url) || isMetadataUrl(url))) {
         try {
           const clone = response.clone();
           clone.text().then((text) => {
-            const isXml = isXmlSubtitle(text);
-
-            if (isXml) {
+            if (isSubtitleUrl(url) && isXmlSubtitle(text)) {
               handleSubtitleData(text, url);
+            } else if (isMetadataUrl(url)) {
+              handleMetadataResponse(text);
             }
           }).catch(() => {});
         } catch (e) { logWarn('Clone error:', e); }
@@ -62,11 +79,12 @@ try {
   const xhrOpenDesc = Object.getOwnPropertyDescriptor(XMLHttpRequest.prototype, 'open');
   if (!xhrOpenDesc || xhrOpenDesc.configurable !== false) {
     XMLHttpRequest.prototype.open = function (method, url, ...rest) {
-      this._subtitleUrl = url;
+      this._interceptUrl = url;
       return nativeMethods.xhrOpen.call(this, method, url, ...rest);
     };
     XMLHttpRequest.prototype.send = function (...args) {
-      if (this._subtitleUrl && isSubtitleUrl(this._subtitleUrl)) {
+      const url = this._interceptUrl;
+      if (url && (isSubtitleUrl(url) || isMetadataUrl(url))) {
         this.addEventListener('load', () => {
           try {
             let text;
@@ -78,17 +96,20 @@ try {
               catch { logWarn('⚠️ Failed to decode arraybuffer'); return; }
             } else if (this.responseType === 'blob' && this.response) {
               this.response.text().then((t) => {
-                if (isXmlSubtitle(t)) {
-                  handleSubtitleData(t, this._subtitleUrl);
+                if (isSubtitleUrl(url) && isXmlSubtitle(t)) {
+                  handleSubtitleData(t, url);
+                } else if (isMetadataUrl(url)) {
+                  handleMetadataResponse(t);
                 }
               }).catch(() => {});
               return;
             } else {
               return;
             }
-            const isXml = text && (isXmlSubtitle(text));
-            if (isXml) {
-              handleSubtitleData(text, this._subtitleUrl);
+            if (isSubtitleUrl(url) && text && isXmlSubtitle(text)) {
+              handleSubtitleData(text, url);
+            } else if (isMetadataUrl(url) && text) {
+              handleMetadataResponse(text);
             }
           } catch (e) { logWarn('XHR intercept error:', e); }
         });
@@ -104,7 +125,7 @@ try {
 }
 
 // ============================
-// FALLBACK: PerformanceObserver to detect subtitle URLs
+// FALLBACK: PerformanceObserver to detect subtitle & metadata URLs
 // ============================
 let observerActive = false;
 
@@ -112,11 +133,13 @@ export function startNetworkObserver() {
   if (observerActive) return;
   try {
     const seen = new Set();
+    let metadataCaptured = false;
     const observer = new PerformanceObserver((list) => {
       for (const entry of list.getEntries()) {
-        if (entry.name && isSubtitleUrl(entry.name) && !seen.has(entry.name)) {
-          seen.add(entry.name);
+        if (!entry.name || seen.has(entry.name)) continue;
 
+        if (isSubtitleUrl(entry.name)) {
+          seen.add(entry.name);
           GM_xmlhttpRequest({
             method: 'GET',
             url: entry.name,
@@ -125,6 +148,17 @@ export function startNetworkObserver() {
               if (isXmlSubtitle(resp.responseText)) {
                 handleSubtitleData(resp.responseText, entry.name);
               }
+            },
+          });
+        } else if (isMetadataUrl(entry.name) && !metadataCaptured) {
+          metadataCaptured = true;
+          seen.add(entry.name);
+          GM_xmlhttpRequest({
+            method: 'GET',
+            url: entry.name,
+            timeout: 10000,
+            onload(resp) {
+              handleMetadataResponse(resp.responseText);
             },
           });
         }
