@@ -94,14 +94,14 @@ export function togglePanel() {
       }
     }
 
-    // API key (paid only)
+    // API key
     let keySection = '';
-    if (currentProvider.needsKey) {
+    if (currentProvider.type === 'llm') {
       const keyLinks = {
-        gemini: { url: 'https://aistudio.google.com/apikey', label: '🔑 Get a free Gemini API key →' },
-        groq: { url: 'https://console.groq.com/keys', label: '🔑 Get a free Groq API key →' },
-        mistral: { url: 'https://console.mistral.ai/api-keys', label: '🔑 Get a free Mistral API key →' },
-        openrouter: { url: 'https://openrouter.ai/keys', label: '🔑 Get a free OpenRouter API key →' },
+        gemini: { url: 'https://aistudio.google.com/apikey', label: '🔑 Get a Gemini API key →' },
+        groq: { url: 'https://console.groq.com/keys', label: '🔑 Get a Groq API key →' },
+        mistral: { url: 'https://console.mistral.ai/api-keys', label: '🔑 Get a Mistral API key →' },
+        openrouter: { url: 'https://openrouter.ai/keys', label: '🔑 Get an OpenRouter API key →' },
       };
       const link = keyLinks[CONFIG.provider];
       const keyLinkHtml = link
@@ -113,10 +113,11 @@ export function togglePanel() {
         mistral: 'Paste your Mistral API key here',
         openrouter: 'sk-or-...',
         anthropic: 'sk-ant-...',
+        ollama: 'Optional — for remote/authenticated instances',
       };
       keySection = `
         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;">
-          <label style="font-size:12px;font-weight:600;opacity:0.8;">API Key</label>
+          <label style="font-size:12px;font-weight:600;opacity:0.8;">API Key${!currentProvider.needsKey ? ' <span style="opacity:0.5;font-weight:400;">(optional)</span>' : ''}</label>
           ${keyLinkHtml}
         </div>
         <input id="st-apikey" type="password" value="${CONFIG.apiKey}" placeholder="${placeholders[CONFIG.provider] || 'API key'}" style="${inputStyle}" />
@@ -180,14 +181,15 @@ export function togglePanel() {
       <div id="st-main-content" style="display:${CONFIG.masterEnabled ? 'block' : 'none'};">
 
       ${state.rateLimitHit ? `<div style="padding:10px 12px;background:rgba(245,158,11,0.2);border:1px solid rgba(245,158,11,0.4);border-radius:8px;margin-bottom:14px;font-size:12px;line-height:1.5;">
-        ⚠️ <strong>Rate limit was hit this session.</strong> Try switching to a model with higher quota, or use a different provider. Gemini Flash-Lite and Groq have the most generous free limits.
+        ⚠️ <strong>Rate limit was hit this session.</strong> Try switching to a model with higher quota, or use a different provider.
       </div>` : ''}
 
-      ${!CONFIG.apiKey && currentProvider.needsKey ? `<div style="padding:12px 14px;background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.3);border-radius:8px;margin-bottom:14px;font-size:12px;line-height:1.6;">
+      ${!GM_getValue('welcomeDismissed', false) ? `<div id="st-welcome" style="padding:12px 14px;background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.3);border-radius:8px;margin-bottom:14px;font-size:12px;line-height:1.6;position:relative;">
+        <div id="st-welcome-dismiss" style="position:absolute;top:8px;right:10px;cursor:pointer;opacity:0.5;font-size:14px;" title="Dismiss">✕</div>
         👋 <strong>Welcome!</strong> To get started:<br>
         1. Pick a provider below — Ollama is local &amp; private, or choose a cloud provider<br>
         2. Get an API key if needed (link below the key field)<br>
-        3. Set your target language and hit Save<br>
+        3. Set your target language<br>
         4. Enable subtitles in Netflix — the translator handles the rest
       </div>` : ''}
 
@@ -419,6 +421,14 @@ export function togglePanel() {
 
     // --- Events ---
     state.panelEl.querySelector('#st-close').addEventListener('click', () => togglePanel());
+
+    const welcomeDismiss = state.panelEl.querySelector('#st-welcome-dismiss');
+    if (welcomeDismiss) {
+      welcomeDismiss.addEventListener('click', () => {
+        GM_setValue('welcomeDismissed', true);
+        state.panelEl.querySelector('#st-welcome').remove();
+      });
+    }
 
     state.panelEl.querySelector('#st-master-toggle').addEventListener('click', () => {
       applyMasterToggle();

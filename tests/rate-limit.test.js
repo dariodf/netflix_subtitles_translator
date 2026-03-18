@@ -71,7 +71,7 @@ describe('rate limit handling', () => {
     await _sendLLMRequest(makeCues(), scriptLines, {}, context);
 
     expect(calls.reportRateLimit.length).toBeGreaterThan(0);
-    expect(calls.reportRateLimit[0]).toBe('Google Gemini (free tier)');
+    expect(calls.reportRateLimit[0]).toBe('Google Gemini');
   });
 
   it('detects daily quota from HTTP 429 with quota message in body', async () => {

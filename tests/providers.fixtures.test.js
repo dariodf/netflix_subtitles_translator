@@ -68,6 +68,22 @@ describe('ollama buildRequest', () => {
     expect(body.messages).toHaveLength(1);
     expect(body.messages[0].role).toBe('user');
   });
+
+  it('includes Authorization header when API key is provided', () => {
+    const req = PROVIDERS.ollama.buildRequest('System', 'Translate', 'qwen2.5:3b', 'my-secret-key');
+    expect(req.headers['Authorization']).toBe('Bearer my-secret-key');
+    expect(req.headers['Content-Type']).toBe('application/json');
+  });
+
+  it('omits Authorization header when API key is empty', () => {
+    const req = PROVIDERS.ollama.buildRequest('System', 'Translate', 'qwen2.5:3b', '');
+    expect(req.headers['Authorization']).toBeUndefined();
+  });
+
+  it('omits Authorization header when API key is not provided', () => {
+    const req = PROVIDERS.ollama.buildRequest('System', 'Translate', 'qwen2.5:3b');
+    expect(req.headers['Authorization']).toBeUndefined();
+  });
 });
 
 // ── Ollama tags fixture (model discovery parsing) ──────────

@@ -26,9 +26,12 @@ export const PROVIDERS = {
       { id: 'aya', name: 'Aya — built for multilingual' },
     ],
     url: 'http://localhost:11434/api/chat',
-    buildRequest(system, userMsg, model) {
+    buildRequest(system, userMsg, model, apiKey) {
       return {
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          ...(apiKey ? { 'Authorization': `Bearer ${apiKey}` } : {}),
+        },
         data: JSON.stringify({
           model,
           stream: false,

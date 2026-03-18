@@ -75,7 +75,7 @@ describe('CONFIG defaults', () => {
   it('has expected default values from GM_getValue stubs', async () => {
     const { CONFIG } = await import('../src/config.js');
     // GM_getValue returns defaultValue in tests, so these should match the defaults
-    expect(CONFIG.provider).toBe('gemini');
+    expect(CONFIG.provider).toBe('ollama');
     expect(CONFIG.apiKey).toBe('');
     expect(CONFIG.ollamaUrl).toBe('http://localhost:11434');
     expect(CONFIG.targetLang).toBe('English');
