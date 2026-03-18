@@ -181,7 +181,7 @@ function showFirstTimeTooltip() {
     tooltip.style.opacity = '0';
     tooltip.style.transform = 'translateY(8px)';
     setTimeout(() => tooltip.remove(), 300);
-    try { localStorage.setItem(STORAGE_KEY, '1'); } catch {}
+    try { localStorage.setItem(STORAGE_KEY, '1'); } catch { /* localStorage unavailable */ }
   }
 
   tooltip.querySelector('#st-tooltip-dismiss').addEventListener('click', (e) => {
