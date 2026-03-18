@@ -3,7 +3,7 @@ OUTPUT     := $(DIST)/netflix-subtitle-translator.user.js
 SRC        := $(shell find src -name '*.js')
 NODE_BIN   := node_modules/.bin
 
-.PHONY: all build dev clean install lint check validate test coverage size smoke smoke-3b smoke-7b smoke-all headless headless-all headless-evaluate headless-analyze headless-replay headless-history headless-viewer simulate-normalization help
+.PHONY: all build dev clean install lint check validate test coverage size smoke smoke-3b smoke-7b smoke-all headless headless-all headless-evaluate headless-analyze headless-replay headless-history headless-viewer simulate-normalization release help
 
 all: install build validate  ## Full pipeline: install, build, validate
 
@@ -139,6 +139,28 @@ ifdef EPISODE
 else
 	node src/headless/run-history.js --config $(CONFIG) $(if $(HTML),--html --open)
 endif
+
+# ── Release ──────────────────────────────────────────────────
+
+VERSION := $(shell node -p "require('./package.json').version")
+
+release: clean build check  ## Build, validate, tag, and publish a GitHub release
+	@if git diff --quiet && git diff --cached --quiet; then \
+		echo "Working tree clean — proceeding with release v$(VERSION)"; \
+	else \
+		echo "ERROR: uncommitted changes — commit everything before releasing"; exit 1; \
+	fi
+	@if gh release view "v$(VERSION)" >/dev/null 2>&1; then \
+		echo "ERROR: release v$(VERSION) already exists — bump version in package.json"; exit 1; \
+	fi
+	git tag -a "v$(VERSION)" -m "v$(VERSION)"
+	git push origin "v$(VERSION)"
+	gh release create "v$(VERSION)" $(OUTPUT) \
+		--title "v$(VERSION)" \
+		--generate-notes
+	@echo ""
+	@echo "✓ Released v$(VERSION)"
+	@echo "  https://github.com/dariodf/netflix_subtitles_translator/releases/tag/v$(VERSION)"
 
 # ── Help ─────────────────────────────────────────────────────
 

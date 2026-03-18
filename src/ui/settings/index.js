@@ -152,7 +152,19 @@ export function togglePanel() {
 
     state.panelEl.innerHTML = `
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;">
-        <div style="font-size:16px;font-weight:700;">🎬 Subtitle Translator</div>
+        <div style="font-size:16px;font-weight:700;display:flex;align-items:center;gap:8px;">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="32" height="32">
+            <defs><linearGradient id="st-hdr-bar" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ff2030"/><stop offset="100%" stop-color="#b5000a"/></linearGradient></defs>
+            <circle cx="64" cy="64" r="60" fill="#e8e8e8"/>
+            <circle cx="64" cy="64" r="60" fill="none" stroke="#ccc" stroke-width="1"/>
+            <rect x="22" y="38" width="84" height="18" rx="4" fill="rgba(0,0,0,0.08)"/>
+            <text x="64" y="51" font-family="Helvetica Neue,Arial,sans-serif" font-size="11" font-weight="600" fill="rgba(0,0,0,0.35)" text-anchor="middle">字幕!</text>
+            <path d="M64 60L64 68M58 64L64 68L70 64" stroke="rgba(0,0,0,0.25)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect x="22" y="74" width="84" height="18" rx="4" fill="url(#st-hdr-bar)"/>
+            <text x="64" y="87" font-family="Helvetica Neue,Arial,sans-serif" font-size="11" font-weight="700" fill="rgba(255,255,255,0.95)" text-anchor="middle">Subtitles!</text>
+          </svg>
+          Subtitle Translator
+        </div>
         <div style="display:flex;gap:10px;align-items:center;">
           <div id="st-master-toggle" style="display:flex;align-items:center;gap:6px;cursor:pointer;" title="Enable/disable all translation">
             <div style="width:32px;height:18px;border-radius:9px;background:${CONFIG.masterEnabled ? PILL_ON : PILL_OFF};position:relative;transition:background 0.2s;" id="st-master-switch">

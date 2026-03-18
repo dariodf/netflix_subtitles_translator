@@ -1,6 +1,13 @@
-# Netflix Subtitles Translator
+<p align="center">
+  <img src="assets/logo.svg" alt="Netflix Subtitle Translator" width="128" height="128">
+</p>
 
-A Tampermonkey userscript that translates Netflix subtitles in real-time using AI. It intercepts subtitle data, translates it via your chosen provider, and overlays the result on the video player.
+<h1 align="center">Netflix Subtitle Translator</h1>
+
+<p align="center">
+  A Tampermonkey userscript that translates Netflix subtitles in real-time using AI.<br>
+  It intercepts subtitle data, translates it via your chosen provider, and overlays the result on the video player.
+</p>
 
 ## Features
 
@@ -25,10 +32,11 @@ A Tampermonkey userscript that translates Netflix subtitles in real-time using A
 
 1. **Install Tampermonkey** from [Chrome Web Store](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo) or [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/)
 
-2. **Install the script** — click below or paste the raw URL into Tampermonkey:
+2. **Install the script:**
 
-   > [Install netflix-subtitle-translator.user.js](#)
-   > *(Replace with your raw GitHub URL after uploading)*
+   <a href="https://github.com/dariodf/netflix_subtitles_translator/releases/latest/download/netflix-subtitle-translator.user.js">
+     <img src="assets/install-button.svg" alt="Install Userscript" width="280">
+   </a>
 
 3. **Get a free Gemini API key** from [aistudio.google.com/apikey](https://aistudio.google.com/apikey)
 
