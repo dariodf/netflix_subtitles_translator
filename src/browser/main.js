@@ -21,7 +21,7 @@ import { handleKeydown, retranslateAll } from './shortcuts.js';
 import { glossary } from '../core/glossary.js';
 import { clearShowMetadata } from './metadata-fetcher.js';
 import { createBrowserContext } from './context.js';
-import { handleSubtitlePayload } from '../pipeline/handler.js';
+import { resetSubtitlePayloadUrl } from '../pipeline/handler.js';
 import { runFullPass } from '../pipeline/cleanup.js';
 import { restoreImageCuesFromCache, clearImageCues } from './image-translate.js';
 
@@ -95,7 +95,7 @@ restoreImageCuesFromCache();
 let lastPathname = location.pathname;
 
 // Keep _lastUrl on the handleSubtitleData function for URL change detection
-handleSubtitlePayload._lastUrl = null;
+resetSubtitlePayloadUrl();
 
 function onUrlChange() {
   if (location.pathname === lastPathname) return;
@@ -107,7 +107,7 @@ function onUrlChange() {
   state.isTranslating = false;
   resetVideoCache();
   state.cueHead = 0;
-  handleSubtitlePayload._lastUrl = null;
+  resetSubtitlePayloadUrl();
   clearShowMetadata();
   state.interceptedNetflixMetadata = null;
   state.flaggedLines = new Set();

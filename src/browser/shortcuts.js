@@ -4,7 +4,7 @@ import { state } from '../state.js';
 import { cacheSetWithUrl, cacheClear } from './cache.js';
 import { logInfo, logError } from '../core/utils.js';
 import { getSecondProviderOverride } from '../providers/secondary.js';
-import { buildCacheKey } from '../pipeline/handler.js';
+import { buildCacheKey, resetSubtitlePayloadUrl } from '../pipeline/handler.js';
 import { showStatus } from '../ui/status.js';
 import { togglePanel } from '../ui/settings/index.js';
 import { toggleTranscript } from '../ui/transcript.js';
@@ -184,8 +184,16 @@ export function applyMasterToggle() {
   CONFIG.masterEnabled = !CONFIG.masterEnabled;
   GM_setValue('masterEnabled', CONFIG.masterEnabled);
   if (!CONFIG.masterEnabled) {
-    if (state.overlayEl) state.overlayEl.textContent = '';
-    if (state.origOverlayEl) state.origOverlayEl.textContent = '';
+    // Stop in-progress translation so re-enable can start fresh
+    state.isTranslating = false;
+    // Hide all overlays — clear content AND set display:none so they don't show as empty boxes
+    if (state.overlayEl) { state.overlayEl.textContent = ''; state.overlayEl.style.display = 'none'; }
+    if (state.origOverlayEl) { state.origOverlayEl.textContent = ''; state.origOverlayEl.style.display = 'none'; }
+    if (state.imageOverlayEl) state.imageOverlayEl.style.display = 'none';
+    if (state.statusEl) state.statusEl.style.display = 'none';
+  } else {
+    // Re-enable: allow subtitle payload to be reprocessed so translation resumes
+    resetSubtitlePayloadUrl();
   }
   syncPill('st-master-switch', CONFIG.masterEnabled);
   if (state.panelEl) {

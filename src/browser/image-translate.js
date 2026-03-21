@@ -5,6 +5,7 @@ import { buildOcrPrompt, NO_TEXT } from '../core/vision-prompts.js';
 import { translateChunkLLM } from '../pipeline/translate.js';
 import { createBrowserContext } from './context.js';
 import { postJsonViaGM } from './http.js';
+import { logInfo } from '../core/utils.js';
 import { showStatus } from '../ui/status.js';
 import { cacheGet, cacheSet } from './cache.js';
 
@@ -123,13 +124,16 @@ export async function triggerImageTranslation() {
     }
 
     // OCR via vision LLM
+    logInfo('📷 Image capture complete, sending to vision LLM...');
     showStatus('Extracting image text...', 'working', true);
     const ocrText = await callVisionOcr(imageBase64);
 
     if (!ocrText || ocrText.trim() === NO_TEXT) {
+      logInfo('📷 No text detected in image');
       showStatus('No text detected in image', 'info', true);
       return;
     }
+    logInfo(`📷 OCR result: ${ocrText.replace(/\n/g, ' | ').slice(0, 200)}`);
 
     // Build image cue — encode line breaks as emdash (same as subtitle cues)
     // so the translation pipeline preserves them, and formatCueTextForDisplay converts back
@@ -156,6 +160,7 @@ export async function triggerImageTranslation() {
       imageTranslatedCues: state.imageTranslatedCues,
     });
 
+    logInfo(`📷 Image translated: ${translatedText.replace(/\n/g, ' | ').slice(0, 200)}`);
     showStatus('Image text translated', 'success', true);
   } catch (err) {
     showStatus(`Image translation failed: ${err.message}`, 'error', true);

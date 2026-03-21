@@ -7,7 +7,7 @@ vi.mock('../src/ui/settings/index.js', () => ({ togglePanel: vi.fn() }));
 vi.mock('../src/ui/status.js', () => ({ showStatus: vi.fn() }));
 vi.mock('../src/ui/transcript.js', () => ({ toggleTranscript: vi.fn(), refreshTranscriptContent: vi.fn() }));
 vi.mock('../src/providers/secondary.js', () => ({ getSecondProviderOverride: vi.fn(() => null) }));
-vi.mock('../src/pipeline/handler.js', () => ({ buildCacheKey: vi.fn(() => 'key') }));
+vi.mock('../src/pipeline/handler.js', () => ({ buildCacheKey: vi.fn(() => 'key'), resetSubtitlePayloadUrl: vi.fn() }));
 vi.mock('../src/pipeline/translate.js', () => ({ translateWithLLM: vi.fn(), translateChunkLLM: vi.fn() }));
 vi.mock('../src/pipeline/cleanup.js', () => ({ runFullPass: vi.fn() }));
 vi.mock('../src/pipeline/request.js', () => ({ _callLLMTranslate: vi.fn() }));

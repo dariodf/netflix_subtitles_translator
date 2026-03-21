@@ -37,7 +37,9 @@ async function runTranslationPipeline(xml, context, { startTime = null } = {}) {
 
   // Warn about common misconfigurations
   if (config.sourceLang && config.sourceLang.toLowerCase() === config.targetLang.toLowerCase()) {
-    logWarn('⚠️ Source and target language are the same — translation will have no effect');
+    logWarn('⚠️ Source and target language are the same — skipping translation');
+    context.reportStatus('Source and target language are the same — nothing to translate', 'info');
+    return { cached: false, skipped: true, cues: [] };
   }
   if (config.glossaryPerChunk && config.glossaryUpfront) {
     logWarn('⚠️ Both glossaryPerChunk and glossaryUpfront are enabled — upfront glossary already covers per-chunk extraction');
@@ -403,6 +405,10 @@ export async function handleSubtitlePayload(xml, url, context) {
   context.commitTranslation(sharedTranslationState.translatedCues);
 }
 handleSubtitlePayload._lastUrl = null;
+
+export function resetSubtitlePayloadUrl() {
+  handleSubtitlePayload._lastUrl = null;
+}
 
 // ============================
 // HEADLESS ENTRY POINT
