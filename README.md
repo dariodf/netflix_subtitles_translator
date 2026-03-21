@@ -62,6 +62,9 @@
 | `Shift + A` | Retranslate everything from current position |
 | `Shift + C` | Clear translation cache |
 | `D` / `E` | Timing offset (Delay / Earlier) |
+| `I` | Image capture + translate (requires vision model) |
+| `Shift + I` | Toggle image overlay on/off |
+| `K` | Toggle raw OCR text vs translation in image overlay |
 
 ## Translation Providers
 
@@ -82,6 +85,39 @@
 3. Select Ollama in the script settings (default URL: `http://localhost:11434`)
 
 The script auto-discovers your installed models. For better quality, pair a fast small model (qwen2.5:3b) as first pass with a larger one (qwen2.5:7b) as second model.
+
+## Image Translation
+
+On-screen text (signs, title cards, phone screens) is not part of the subtitle stream — it is baked into the video frame. The image translation feature captures the current frame, extracts visible text via a vision-capable LLM, and translates it through the same pipeline used for subtitles. The result appears in a separate overlay at the top of the screen, synced to the video timeline.
+
+### How to enable
+
+Select a vision-capable model in the **Image Model** dropdown in the settings panel (`Shift + T`). That is the only toggle — picking a model enables the feature, clearing it disables it.
+
+By default, the vision provider is the same as your subtitle provider (reuses the same API key and URL). If you want a different provider for vision (e.g., Ollama for subtitles but Gemini for vision), configure **Vision provider** and **Vision API key** in the advanced settings section.
+
+### Recommended vision models
+
+| Provider | Models |
+|----------|--------|
+| **Ollama** (local) | `qwen2.5vl`, `moondream`, `gemma3` — Ollama auto-detects vision capability |
+| **Gemini** | `gemini-2.0-flash` (recommended) |
+| **Groq** | `llama-4-scout-17b-16e-instruct` |
+| **OpenRouter** | `google/gemini-2.0-flash-001:free`, `google/gemma-3-4b-it:free` |
+
+### Keyboard shortcuts
+
+| Key | Action |
+|-----|--------|
+| `I` | Capture frame + extract and translate text |
+| `Shift + I` | Toggle image overlay on/off |
+| `K` | Toggle between translated text and raw OCR output |
+
+All three keys are no-ops when no image model is configured.
+
+### Privacy note
+
+When using a cloud vision provider, **video frames (screenshots) are sent to the provider's servers** for OCR processing. This is more sensitive than subtitle text — frames contain the actual video content. For fully private image translation, use a local Ollama vision model.
 
 ## How It Works
 
@@ -214,6 +250,15 @@ make headless-analyze CONFIG=example-ollama EPISODE=smoke-test
 
 # View run history with quality scores
 make headless-history CONFIG=example-ollama
+
+# Translate text in episode images (signs, title cards, etc.)
+make headless-images CONFIG=example-ollama EPISODE=smoke-test
+
+# Translate images for all discovered episodes
+make headless-images CONFIG=example-ollama
+
+# Open the image translation viewer (self-contained HTML)
+make headless-images-viewer CONFIG=example-ollama EPISODE=smoke-test
 ```
 
 Output goes to `runs/<config>/<episode>/<run>/`.

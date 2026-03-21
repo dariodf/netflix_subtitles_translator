@@ -85,6 +85,15 @@
 </div>
 </div>
 
+<div class="card">
+<h3 style="margin-top:0;">Image Translation</h3>
+<div class="shortcut-grid">
+  <span><span class="key-combo">I</span></span><span>Capture current frame and translate on-screen text</span>
+  <span><span class="key-combo">Shift</span> + <span class="key-combo">I</span></span><span>Toggle image overlay on / off</span>
+  <span><span class="key-combo">K</span></span><span>Switch between OCR text and translation in image overlay</span>
+</div>
+</div>
+
 <h2>How It Works</h2>
 <div class="card">
 <p>When Netflix delivers subtitles to your browser, the script intercepts the data, splits it into chunks, and sends each chunk to your chosen AI for translation. Translated subtitles appear as an overlay on the video.</p>
@@ -144,6 +153,17 @@
 <strong>Source Language</strong> — override auto-detection. Useful for anime (set "Japanese") or mixed-language content. Blank = auto-detect.
 </div>
 
+<div class="feature-card">
+<strong>Image Model</strong> — enable on-screen text translation (title cards, signs, etc). Select a vision-capable model to enable the feature. Press <span class="key-combo">I</span> during playback to capture a frame and translate visible text.
+<ul style="margin:8px 0 0;padding-left:18px;">
+  <li>A vision-capable model is required — Ollama models with vision support (e.g. moondream, gemma3), or cloud providers like Gemini, Anthropic, Groq</li>
+  <li>Results appear in a separate overlay at the top of the screen</li>
+  <li>Press <span class="key-combo">K</span> to toggle between OCR text and translation</li>
+  <li>Image translations are cached and visible in the transcript panel</li>
+</ul>
+<div class="callout warn" style="margin:12px 0 0;">When using cloud providers, video frames (screenshots) are sent to the provider's servers. Use Ollama for fully local/private image translation.</div>
+</div>
+
 <h2>Advanced Settings</h2>
 <p>Click <strong>Show advanced settings</strong> in the panel to reveal additional options:</p>
 <div class="card">
@@ -159,6 +179,10 @@
   <li><strong>Retry Current Chunk</strong> — retranslate the few lines currently on screen</li>
   <li><strong>Retry All</strong> — retranslate the entire episode from your current position (ignores cache)</li>
   <li><strong>Clear Cache</strong> — delete saved translations for this episode</li>
+  <li><strong>Vision Provider</strong> — use a different provider for image OCR (e.g. Gemini for vision, Ollama for subtitles)</li>
+  <li><strong>Vision API Key</strong> — separate key for the vision provider (blank = use primary key)</li>
+  <li><strong>Image Display Duration</strong> — how long image translations stay on screen (default 3000ms)</li>
+  <li><strong>Image Source Language</strong> — override OCR language detection (blank = follow main source language)</li>
 </ul>
 </div>
 

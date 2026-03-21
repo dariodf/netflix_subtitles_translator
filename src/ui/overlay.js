@@ -1,6 +1,7 @@
 import { CONFIG } from '../config.js';
 import { state } from '../state.js';
 import { reparentToFullscreen } from './fullscreen.js';
+import { createImageOverlay, reparentImageOverlay, updateImageOverlay } from './image-overlay.js';
 
 // ============================
 // OVERLAY UI
@@ -70,6 +71,9 @@ export function createOverlay() {
 
   document.body.appendChild(containerEl);
 
+  // Create image overlay (top-center, separate from subtitle overlays)
+  createImageOverlay();
+
   // Move overlay into/out of fullscreen element so it stays visible
   document.addEventListener('fullscreenchange', reparentOverlay);
   document.addEventListener('webkitfullscreenchange', reparentOverlay);
@@ -83,11 +87,14 @@ export function reparentOverlay() {
   if (!containerEl) return;
   reparentToFullscreen(containerEl);
   reparentToFullscreen(state.transcriptPanelEl);
+  reparentImageOverlay();
 }
 
 function tick() {
   if (!state.overlayEl) { requestAnimationFrame(tick); return; }
-  if (!state.enabled || !CONFIG.masterEnabled || state.translatedCues.length === 0) {
+  const hasSubtitleCues = state.translatedCues.length > 0;
+  const hasImageCues = state.imageTranslatedCues.length > 0;
+  if (!state.enabled || !CONFIG.masterEnabled || (!hasSubtitleCues && !hasImageCues)) {
     if (state.overlayEl.textContent) state.overlayEl.textContent = '';
     if (state.origOverlayEl?.textContent) { state.origOverlayEl.textContent = ''; state.origOverlayEl.style.display = 'none'; }
     requestAnimationFrame(tick);
@@ -166,6 +173,9 @@ function tick() {
     if (state.transcriptVisible && state.transcriptPanelEl) {
       updateTranscriptHighlight(activeIdx);
     }
+
+    // Image overlay (separate from subtitle overlay)
+    updateImageOverlay(currentMs);
   }
 
   requestAnimationFrame(tick);

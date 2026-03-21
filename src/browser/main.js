@@ -23,6 +23,7 @@ import { clearShowMetadata } from './metadata-fetcher.js';
 import { createBrowserContext } from './context.js';
 import { handleSubtitlePayload } from '../pipeline/handler.js';
 import { runFullPass } from '../pipeline/cleanup.js';
+import { restoreImageCuesFromCache, clearImageCues } from './image-translate.js';
 
 // ============================
 // MENU COMMANDS
@@ -88,6 +89,7 @@ function tryRestoreFromCache() {
 }
 // Try to restore cached translations (data only, no DOM)
 tryRestoreFromCache();
+restoreImageCuesFromCache();
 
 // Detect Netflix SPA navigation (episode changes without page reload)
 let lastPathname = location.pathname;
@@ -110,6 +112,7 @@ function onUrlChange() {
   state.interceptedNetflixMetadata = null;
   state.flaggedLines = new Set();
   glossary.clear();
+  clearImageCues();
   if (state.overlayEl) {
     state.overlayEl.textContent = '';
     state.overlayEl.style.display = 'none';
@@ -120,6 +123,7 @@ function onUrlChange() {
   }
   state.enabled = true;
   tryRestoreFromCache();
+  restoreImageCuesFromCache();
 }
 window.addEventListener('popstate', onUrlChange);
 const _origPush = History.prototype.pushState;

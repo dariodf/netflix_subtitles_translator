@@ -1,48 +1,17 @@
 #!/usr/bin/env node
 
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, existsSync } from 'fs';
-import { join, resolve } from 'path';
-import { setupJsdom, resolveConfigFile } from './jsdom-setup.js';
+import { join } from 'path';
+import { setupJsdom } from './jsdom-setup.js';
 setupJsdom();
 
 import { parseTTML, extractLanguageCode } from '../core/parser.js';
 import { langToCode } from '../core/providers/definitions.js';
-import { buildContextFromNetflix } from '../core/metadata.js';
 import { translateTtml } from '../pipeline/handler.js';
 import { createHeadlessContext, nodePostJson } from './context.js';
 import { runQualityPipeline, writeQualityArtifacts } from './quality-pipeline.js';
 import { getGitInfo } from './run-history.js';
-
-const DEFAULT_CONFIG = {
-  provider: 'ollama',
-  model: 'qwen2.5:3b',
-  apiKey: '',
-  ollamaUrl: 'http://localhost:11434',
-  targetLang: 'Spanish',
-  sourceLang: '',
-  chunkSize: 50,
-  chunkOverlap: 5,
-  prevContextLines: 3,
-  fastStart: false,
-  glossaryPerChunk: false,
-  glossaryUpfront: false,
-  showMetadata: false,
-  showSynopsis: false,
-  episodeSynopsis: false,
-  secondEnabled: false,
-  secondProvider: '',
-  secondModel: '',
-  secondApiKey: '',
-  secondChunkSize: 50,
-  fullPassEnabled: false,
-  glossaryUpfrontSecond: false,
-  anilistNames: true,
-  replaceCharacterNames: false,
-};
-
-const EPISODES_DIRS = [resolve('episodes'), resolve('episodes-local')];
-const CONFIGS_DIR = resolve('configs');
-const RUNS_DIR = resolve('runs');
+import { DEFAULT_CONFIG, RUNS_DIR, loadConfig, findEpisodeDir, discoverEpisodes, loadEpisodeMetadata } from './shared.js';
 
 function usage() {
   console.log(`
@@ -178,79 +147,20 @@ async function runLegacy(ttmlPath, configPath) {
 
 // ─── Episode mode ───
 
-function loadConfig(configName) {
-  const configPath = join(CONFIGS_DIR, `${configName}.json`);
-  if (!existsSync(configPath)) {
-    console.error(`No config found at ${configPath}`);
-    console.error(`Create configs/${configName}.json with your translation settings.`);
-    process.exit(1);
-  }
-  try {
-    const merged = resolveConfigFile(configPath, CONFIGS_DIR);
-    const config = { ...DEFAULT_CONFIG, ...merged };
-    // Allow env var override for API key (useful for CI)
-    if (!config.apiKey && process.env.PROVIDER_API_KEY) {
-      config.apiKey = process.env.PROVIDER_API_KEY;
-    }
-    return config;
-  } catch (err) {
-    console.error(`Error reading config: ${err.message}`);
-    process.exit(1);
-  }
-}
-
-function findEpisodeDir(episodeName) {
-  for (const dir of EPISODES_DIRS) {
-    const candidate = join(dir, episodeName);
-    if (existsSync(candidate)) return candidate;
-  }
-  return null;
-}
-
-function discoverEpisodes() {
-  const episodes = new Set();
-  for (const dir of EPISODES_DIRS) {
-    if (!existsSync(dir)) continue;
-    for (const entry of readdirSync(dir, { withFileTypes: true })) {
-      if (entry.isDirectory()) episodes.add(entry.name);
-    }
-  }
-  if (episodes.size === 0) {
+// discoverEpisodes with exit-on-empty (CLI behavior)
+function discoverEpisodesOrExit() {
+  const episodes = discoverEpisodes();
+  if (episodes.length === 0) {
     console.error('No episode directories found in episodes/ or episodes-local/');
     console.error('Create an episodes/ folder with episode subfolders containing TTML files.');
     process.exit(1);
   }
-  return [...episodes].sort();
+  return episodes;
 }
 
 function listTtmlFiles(episodeDir) {
   return readdirSync(episodeDir)
     .filter(f => f.toLowerCase().endsWith('.ttml'));
-}
-
-function loadEpisodeMetadata(episodeDir) {
-  const metadataPath = join(episodeDir, 'metadata.json');
-  if (!existsSync(metadataPath)) return null;
-  try {
-    const raw = JSON.parse(readFileSync(metadataPath, 'utf-8'));
-
-    // Raw Netflix API format: has a "video" key at top level
-    if (raw.video) {
-      // Use videoId from the JSON if present, otherwise pick the first episode
-      let videoId = raw.videoId || '';
-      if (!videoId && raw.video.type === 'show' && raw.video.seasons) {
-        const firstEp = raw.video.seasons[0]?.episodes?.[0];
-        videoId = firstEp?.id || firstEp?.episodeId || '';
-      }
-      return buildContextFromNetflix(raw.video, String(videoId));
-    }
-
-    // Already normalized format
-    return raw;
-  } catch (err) {
-    console.warn(`  Warning: could not parse metadata.json: ${err.message}`);
-    return null;
-  }
 }
 
 async function runEpisode(episodeName, config, configName, evaluateOnly, sourceLangOverride = null) {
@@ -555,7 +465,7 @@ async function main() {
   if (episodeName) {
     episodeNames = [episodeName];
   } else {
-    episodeNames = discoverEpisodes();
+    episodeNames = discoverEpisodesOrExit();
     if (episodeNames.length === 0) {
       console.error('No episode folders found in episodes/');
       process.exit(1);

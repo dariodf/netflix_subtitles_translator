@@ -140,12 +140,88 @@ function createTranscriptPanel() {
   const countEl = state.transcriptPanelEl.querySelector('#st-transcript-count');
   updateTranscriptCount(countEl, cues, originals);
 
+  // Image translations section (collapsible, below subtitle lines)
+  buildImageTranscriptSection(state.transcriptPanelEl);
+
   document.body.appendChild(state.transcriptPanelEl);
   state.transcriptVisible = true;
   state.transcriptLastHighlightIndex = -2;
 
   reparentToFullscreen(state.transcriptPanelEl);
   showStatus('Transcript view — L to close', 'success');
+}
+
+function buildImageTranscriptSection(panelEl) {
+  if (!state.imageTranslatedCues || state.imageTranslatedCues.length === 0) return;
+
+  const divider = document.createElement('div');
+  Object.assign(divider.style, {
+    margin: '12px 16px', borderTop: '1px solid rgba(255,255,255,0.1)',
+  });
+  panelEl.appendChild(divider);
+
+  const header = document.createElement('div');
+  Object.assign(header.style, {
+    padding: '8px 16px', cursor: 'pointer', display: 'flex',
+    justifyContent: 'space-between', alignItems: 'center',
+  });
+  header.innerHTML = `
+    <span style="font-size:12px;font-weight:600;opacity:0.7;">Image Translations</span>
+    <span style="font-size:11px;opacity:0.4;" id="st-image-transcript-count">${state.imageTranslatedCues.length} image translation${state.imageTranslatedCues.length !== 1 ? 's' : ''}</span>
+  `;
+
+  const imageContainer = document.createElement('div');
+  imageContainer.id = 'st-image-transcript-lines';
+  Object.assign(imageContainer.style, { padding: '0 0 8px 0' });
+
+  header.addEventListener('click', () => {
+    imageContainer.style.display = imageContainer.style.display === 'none' ? 'block' : 'none';
+  });
+
+  panelEl.appendChild(header);
+  panelEl.appendChild(imageContainer);
+
+  renderImageTranscriptLines(imageContainer);
+}
+
+function renderImageTranscriptLines(container) {
+  container.innerHTML = '';
+  const originals = state.imageOriginalCues || [];
+  const translated = state.imageTranslatedCues || [];
+
+  translated.forEach((cue, idx) => {
+    const lineEl = document.createElement('div');
+    Object.assign(lineEl.style, {
+      padding: '8px 16px', borderLeft: '3px solid rgba(30, 60, 120, 0.7)',
+      lineHeight: '1.5', marginBottom: '2px',
+    });
+
+    const mins = Math.floor(cue.begin / 60000);
+    const secs = Math.floor((cue.begin % 60000) / 1000);
+    const timeStr = `${mins}:${secs.toString().padStart(2, '0')}`;
+
+    const orig = originals[idx];
+    const ocrText = orig ? orig.text : '';
+
+    lineEl.innerHTML = `
+      <div style="display:flex;gap:8px;align-items:flex-start;">
+        <span style="font-size:11px;opacity:0.3;min-width:36px;padding-top:1px;font-variant-numeric:tabular-nums;">${timeStr}</span>
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:500;">${escapeHtml(cue.text)}</div>
+          ${ocrText && ocrText !== cue.text ? `<div style="font-size:11px;opacity:0.35;margin-top:2px;">${escapeHtml(ocrText)}</div>` : ''}
+        </div>
+      </div>
+    `;
+
+    // Click to seek video
+    lineEl.style.cursor = 'pointer';
+    lineEl.addEventListener('click', () => {
+      const video = document.querySelector('video');
+      if (video) video.currentTime = cue.begin / 1000;
+    });
+
+    container.appendChild(lineEl);
+  });
 }
 
 export function refreshTranscriptContent() {
@@ -190,4 +266,15 @@ export function refreshTranscriptContent() {
 
   const countEl = state.transcriptPanelEl.querySelector('#st-transcript-count');
   updateTranscriptCount(countEl, cues, originals);
+
+  // Refresh image transcript section (only if cue count changed)
+  const imageContainer = state.transcriptPanelEl.querySelector('#st-image-transcript-lines');
+  if (imageContainer && state.imageTranslatedCues?.length > 0) {
+    const currentCount = imageContainer.childElementCount;
+    if (currentCount !== state.imageTranslatedCues.length) {
+      renderImageTranscriptLines(imageContainer);
+      const imageCount = state.transcriptPanelEl.querySelector('#st-image-transcript-count');
+      if (imageCount) imageCount.textContent = `${state.imageTranslatedCues.length} image translation${state.imageTranslatedCues.length !== 1 ? 's' : ''}`;
+    }
+  }
 }

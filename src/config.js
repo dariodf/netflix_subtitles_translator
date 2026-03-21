@@ -54,6 +54,12 @@ export const CONFIG = {
   glossaryUpfrontSecond: getBool('glossaryUpfrontSecond', false),
   anilistNames: getBool('anilistNames', true),
   replaceCharacterNames: getBool('replaceCharacterNames', false),
+  // Image translation (vision)
+  imageVisionModel: GM_getValue('imageVisionModel', ''),
+  imageVisionProvider: GM_getValue('imageVisionProvider', ''),
+  imageVisionApiKey: GM_getValue('imageVisionApiKey', ''),
+  imageDisplayDuration: parseInt(GM_getValue('imageDisplayDuration', '3000')) || 3000,
+  imageSourceLang: GM_getValue('imageSourceLang', ''),
 };
 
 // Set active model from per-provider storage (legacy fallback for existing users)
@@ -67,6 +73,15 @@ CONFIG.chunkSize = CONFIG.chunkSizes[CONFIG.provider] || PROVIDERS[CONFIG.provid
 CONFIG.secondChunkSize = CONFIG.secondChunkSizes[CONFIG.secondProvider] || PROVIDERS[CONFIG.secondProvider]?.defaultChunkSize || 50;
 // Set active API key from per-provider storage (legacy fallback for existing users)
 CONFIG.apiKey = CONFIG.apiKeys[CONFIG.provider] || GM_getValue('apiKey', '');
+// Auto-select default vision model if provider supports vision and user hasn't touched the setting
+// GM storage returns undefined/null for keys never written; '' means user explicitly chose "Disabled"
+if (GM_getValue('imageVisionModel', null) === null) {
+  const visionProviderKey = CONFIG.imageVisionProvider || CONFIG.provider;
+  const visionProvider = PROVIDERS[visionProviderKey];
+  if (visionProvider?.defaultVisionModel) {
+    CONFIG.imageVisionModel = visionProvider.defaultVisionModel;
+  }
+}
 
 export function saveConfig() {
   GM_setValue('provider', CONFIG.provider);
@@ -99,6 +114,12 @@ export function saveConfig() {
   GM_setValue('glossaryUpfrontSecond', CONFIG.glossaryUpfrontSecond);
   GM_setValue('anilistNames', CONFIG.anilistNames);
   GM_setValue('replaceCharacterNames', CONFIG.replaceCharacterNames);
+  // Image translation (vision)
+  GM_setValue('imageVisionModel', CONFIG.imageVisionModel);
+  GM_setValue('imageVisionProvider', CONFIG.imageVisionProvider);
+  GM_setValue('imageVisionApiKey', CONFIG.imageVisionApiKey);
+  GM_setValue('imageDisplayDuration', CONFIG.imageDisplayDuration);
+  GM_setValue('imageSourceLang', CONFIG.imageSourceLang);
   // Save per-provider chunk sizes
   CONFIG.chunkSizes[CONFIG.provider] = CONFIG.chunkSize;
   CONFIG.secondChunkSizes[CONFIG.secondProvider] = CONFIG.secondChunkSize;

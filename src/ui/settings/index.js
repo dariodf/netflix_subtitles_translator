@@ -149,6 +149,11 @@ export function togglePanel() {
 
     const isAdvancedMode = CONFIG.advancedMode;
 
+    // Pre-compute vision model state for the template
+    const _visionProviderKey = CONFIG.imageVisionProvider || CONFIG.provider;
+    const _visionProvider = PROVIDERS[_visionProviderKey];
+    const _isImageModelCustom = CONFIG.imageVisionModel && !_visionProvider?.visionModels?.find(m => m.id === CONFIG.imageVisionModel);
+
     const _showMetadata = getShowMetadata();
 
     state.panelEl.innerHTML = `
@@ -220,6 +225,23 @@ export function togglePanel() {
         <input id="st-target-custom" value="${isCustom ? CONFIG.targetLang : ''}" placeholder="e.g. Catalan, Swahili" style="${inputStyle}display:${isCustom ? 'block' : 'none'};" />`;
       })()}
 
+
+      <div style="margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.08);">
+        <label style="${labelStyle}">Image Model <span style="opacity:0.5">(vision OCR — disabled if empty)</span></label>
+        <select id="st-image-model" style="${selectStyle}">
+          <option value="" ${!CONFIG.imageVisionModel ? 'selected' : ''}>Disabled</option>
+          ${!_visionProvider?.supportsVision
+            ? '<option value="" disabled>No vision models — switch provider or use advanced settings</option>'
+            : (_visionProvider.visionModels || []).map(m =>
+                `<option value="${m.id}" ${CONFIG.imageVisionModel === m.id ? 'selected' : ''}>${m.name}</option>`
+              ).join('')}
+          <option value="_custom" ${_isImageModelCustom ? 'selected' : ''}>Custom...</option>
+        </select>
+        <input id="st-image-model-custom" placeholder="Vision model name (e.g. moondream)" value="${_isImageModelCustom ? CONFIG.imageVisionModel : ''}" style="${inputStyle}display:none;" />
+        <div id="st-image-privacy-hint" style="display:${CONFIG.imageVisionModel && _visionProviderKey !== 'ollama' ? 'block' : 'none'};padding:6px 10px;background:rgba(245,158,11,0.15);border:1px solid rgba(245,158,11,0.25);border-radius:6px;margin:-8px 0 14px;font-size:11px;line-height:1.4;">
+          ⚠️ Video frames are sent to <strong>${_visionProvider?.name || 'the provider'}</strong> for processing. Use Ollama for local/private vision.
+        </div>
+      </div>
 
       <div id="st-advanced-section" style="display:${isAdvancedMode ? 'block' : 'none'};">
 
@@ -390,6 +412,23 @@ export function togglePanel() {
         </div>` : ''}
         ` : ''}
 
+        <div style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.08);">
+          <div style="font-size:12px;font-weight:600;margin-bottom:10px;opacity:0.7;">Image Translation (Advanced)</div>
+          <label style="${labelStyle}">Vision Provider <span style="opacity:0.5">(blank = same as main)</span></label>
+          <select id="st-image-provider" style="${selectStyle}">
+            <option value="" ${!CONFIG.imageVisionProvider ? 'selected' : ''}>Same as main provider</option>
+            ${Object.entries(PROVIDERS).filter(([,p]) => p.supportsVision).map(([key, p]) =>
+              `<option value="${key}" ${CONFIG.imageVisionProvider === key ? 'selected' : ''}>${p.name}</option>`
+            ).join('')}
+          </select>
+          <label style="${labelStyle}">Vision API Key <span style="opacity:0.5">(blank = use primary key)</span></label>
+          <input id="st-image-apikey" type="password" value="${CONFIG.imageVisionApiKey}" placeholder="Leave blank to use primary key" style="${inputStyle}" />
+          <label style="${labelStyle}">Display Duration (ms)</label>
+          <input id="st-image-duration" type="number" value="${CONFIG.imageDisplayDuration}" placeholder="3000" min="1000" max="30000" step="500" style="${inputStyle}" />
+          <label style="${labelStyle}">Image Source Language <span style="opacity:0.5">(blank = follow main source)</span></label>
+          <input id="st-image-source-lang" value="${CONFIG.imageSourceLang}" placeholder="e.g. Japanese, Korean (blank = auto)" style="${inputStyle}" />
+        </div>
+
         <div id="st-metadata-status" style="padding:10px 12px;background:rgba(255,255,255,0.05);border-radius:8px;margin-top:6px;font-size:11px;line-height:1.6;color:rgba(255,255,255,0.6);">
         </div>
 
@@ -414,6 +453,9 @@ export function togglePanel() {
           <kbd style="background:rgba(255,255,255,0.12);padding:2px 6px;border-radius:3px;font-size:11px;font-family:monospace;white-space:nowrap;">R</kbd><span style="opacity:0.6;">Retry current chunk</span>
           <kbd style="background:rgba(255,255,255,0.12);padding:2px 6px;border-radius:3px;font-size:11px;font-family:monospace;white-space:nowrap;">Shift+A</kbd><span style="opacity:0.6;">Retranslate everything</span>
           <kbd style="background:rgba(255,255,255,0.12);padding:2px 6px;border-radius:3px;font-size:11px;font-family:monospace;white-space:nowrap;">Shift+C</kbd><span style="opacity:0.6;">Clear translation cache</span>
+          <kbd style="background:rgba(255,255,255,0.12);padding:2px 6px;border-radius:3px;font-size:11px;font-family:monospace;white-space:nowrap;">I</kbd><span style="opacity:0.6;">Capture frame + translate image text</span>
+          <kbd style="background:rgba(255,255,255,0.12);padding:2px 6px;border-radius:3px;font-size:11px;font-family:monospace;white-space:nowrap;">Shift+I</kbd><span style="opacity:0.6;">Toggle image overlay on/off</span>
+          <kbd style="background:rgba(255,255,255,0.12);padding:2px 6px;border-radius:3px;font-size:11px;font-family:monospace;white-space:nowrap;">K</kbd><span style="opacity:0.6;">Toggle image OCR text / translation</span>
           <kbd style="background:rgba(255,255,255,0.12);padding:2px 6px;border-radius:3px;font-size:11px;font-family:monospace;white-space:nowrap;">D / E</kbd><span style="opacity:0.6;">Delay / Earlier timing</span>
           <kbd style="background:rgba(255,255,255,0.12);padding:2px 6px;border-radius:3px;font-size:11px;font-family:monospace;white-space:nowrap;">Shift+T</kbd><span style="opacity:0.6;">This settings panel</span>
         </div>
@@ -691,6 +733,23 @@ export function togglePanel() {
       const secondChunkInput = state.panelEl.querySelector('#st-second-chunksize');
       if (secondChunkInput) CONFIG.secondChunkSize = Math.max(20, Math.min(300, parseInt(secondChunkInput.value) || 100));
 
+      // Image translation settings
+      const imageModelSelect = state.panelEl.querySelector('#st-image-model');
+      const imageModelCustom = state.panelEl.querySelector('#st-image-model-custom');
+      if (imageModelSelect) {
+        CONFIG.imageVisionModel = imageModelSelect.value === '_custom'
+          ? (imageModelCustom?.value.trim() || '')
+          : imageModelSelect.value;
+      }
+      const imageProviderSelect = state.panelEl.querySelector('#st-image-provider');
+      if (imageProviderSelect) CONFIG.imageVisionProvider = imageProviderSelect.value;
+      const imageKeyInput = state.panelEl.querySelector('#st-image-apikey');
+      if (imageKeyInput) CONFIG.imageVisionApiKey = imageKeyInput.value.trim();
+      const imageDurationInput = state.panelEl.querySelector('#st-image-duration');
+      if (imageDurationInput) CONFIG.imageDisplayDuration = Math.max(1000, Math.min(30000, parseInt(imageDurationInput.value) || 3000));
+      const imageSourceInput = state.panelEl.querySelector('#st-image-source-lang');
+      if (imageSourceInput) CONFIG.imageSourceLang = imageSourceInput.value.trim();
+
       saveConfig();
     }
 
@@ -733,4 +792,22 @@ export function togglePanel() {
     state.panelEl.querySelector('#st-transcript').addEventListener('click', () => {
       applyTranscriptToggle();
     });
+
+    // Image model custom input toggle
+    const imageModelSelect = state.panelEl.querySelector('#st-image-model');
+    const imageModelCustom = state.panelEl.querySelector('#st-image-model-custom');
+    if (imageModelSelect) {
+      imageModelSelect.addEventListener('change', (e) => {
+        if (imageModelCustom) {
+          imageModelCustom.style.display = e.target.value === '_custom' ? 'block' : 'none';
+          if (e.target.value === '_custom') imageModelCustom.focus();
+        }
+        // Update privacy hint
+        const hint = state.panelEl.querySelector('#st-image-privacy-hint');
+        if (hint) {
+          const provKey = CONFIG.imageVisionProvider || CONFIG.provider;
+          hint.style.display = e.target.value && provKey !== 'ollama' ? 'block' : 'none';
+        }
+      });
+    }
   }

@@ -14,6 +14,7 @@ import { createBrowserContext } from './context.js';
 import { _callLLMTranslate } from '../pipeline/request.js';
 import { translateWithLLM, translateChunkLLM } from '../pipeline/translate.js';
 import { runFullPass } from '../pipeline/cleanup.js';
+import { triggerImageTranslation, isImageTranslationEnabled } from './image-translate.js';
 
 // ============================
 // KEYBOARD SHORTCUTS
@@ -287,5 +288,22 @@ export function handleKeydown(e) {
     cacheClear();
     state.translatedCues = [];
     showStatus('Translation cache cleared', 'success', true);
+  } else if (e.key === 'i' && !e.shiftKey && !e.ctrlKey && !e.altKey && !e.metaKey) {
+    if (!isImageTranslationEnabled()) return;
+    e.preventDefault();
+    e.stopPropagation();
+    triggerImageTranslation();
+  } else if (e.key === 'I' && e.shiftKey && !e.ctrlKey && !e.altKey && !e.metaKey) {
+    if (!isImageTranslationEnabled()) return;
+    e.preventDefault();
+    e.stopPropagation();
+    state.imageOverlayEnabled = !state.imageOverlayEnabled;
+    showStatus(state.imageOverlayEnabled ? 'Image overlay ON' : 'Image overlay OFF', 'success', true);
+  } else if ((e.key === 'k' || e.key === 'K') && !e.shiftKey && !e.ctrlKey && !e.altKey && !e.metaKey) {
+    if (!isImageTranslationEnabled()) return;
+    e.preventDefault();
+    e.stopPropagation();
+    state.imageShowOriginal = !state.imageShowOriginal;
+    showStatus(state.imageShowOriginal ? 'Image: showing OCR text' : 'Image: showing translation', 'success', true);
   }
 }

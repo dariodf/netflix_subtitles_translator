@@ -3,7 +3,7 @@ OUTPUT     := $(DIST)/netflix-subtitle-translator.user.js
 SRC        := $(shell find src -name '*.js' -o -name '*.html')
 NODE_BIN   := node_modules/.bin
 
-.PHONY: all build dev clean install lint check validate test coverage size smoke smoke-3b smoke-7b smoke-all headless headless-all headless-evaluate headless-analyze headless-replay headless-history headless-viewer simulate-normalization release help
+.PHONY: all build dev clean install lint check validate test coverage size smoke smoke-3b smoke-7b smoke-all headless headless-all headless-evaluate headless-analyze headless-replay headless-history headless-viewer headless-images headless-images-viewer headless-images-history simulate-normalization release help
 
 all: install build validate  ## Full pipeline: install, build, validate
 
@@ -145,6 +145,19 @@ ifdef EPISODE
 else
 	node src/headless/run-history.js --config $(CONFIG) $(if $(HTML),--html --open)
 endif
+
+headless-images: | node_modules  ## Translate images via vision LLM
+ifdef EPISODE
+	node src/headless/image-translate.js --config $(CONFIG) --episode $(EPISODE)
+else
+	node src/headless/image-translate.js --config $(CONFIG)
+endif
+
+headless-images-viewer: | node_modules  ## Generate and open image translation viewer
+	node src/headless/image-viewer.js --config $(CONFIG) --episode $(EPISODE) $(if $(COMMIT),--commit $(COMMIT)) --open
+
+headless-images-history: | node_modules  ## Show image translation run history
+	node src/headless/image-history.js --config $(CONFIG) $(if $(EPISODE),--episode $(EPISODE))
 
 # ── Release ──────────────────────────────────────────────────
 

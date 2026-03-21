@@ -27,4 +27,10 @@ export const state = {
   transcriptLastHighlightIndex: -2,
   transcriptLineElements: [],
   cueHead: 0,
+  // Image translation
+  imageOriginalCues: [],
+  imageTranslatedCues: [],
+  imageOverlayEnabled: true,
+  imageShowOriginal: false,
+  imageOverlayEl: null,
 };

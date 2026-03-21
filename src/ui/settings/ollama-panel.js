@@ -1,6 +1,6 @@
 import { CONFIG } from '../../config.js';
 import { PROVIDERS } from '../../core/providers/definitions.js';
-import { fetchOllamaModels, buildOllamaModelOptions, clearOllamaModelsCache } from '../../providers/ollama.js';
+import { fetchOllamaModels, buildOllamaModelOptions, clearOllamaModelsCache, fetchOllamaVisionModels } from '../../providers/ollama.js';
 
 /** Check if Ollama is reachable at the given URL */
 function checkOllamaUrl(urlInput, checkBtn) {
@@ -138,6 +138,27 @@ export function wireOllamaPanel(panelEl, modelSelect, modelCustom) {
         ollamaSecondRefreshBtn.textContent = '↻ Refresh';
         ollamaSecondRefreshBtn.disabled = false;
       });
+    });
+  }
+
+  // Populate image model dropdown with vision-capable Ollama models
+  const imageModelSelect = panelEl.querySelector('#st-image-model');
+  const visionProviderKey = CONFIG.imageVisionProvider || CONFIG.provider;
+  if (imageModelSelect && visionProviderKey === 'ollama') {
+    fetchOllamaVisionModels().then(visionModels => {
+      if (!visionModels || !imageModelSelect.isConnected) return;
+      const currentVal = CONFIG.imageVisionModel;
+      let opts = '<option value="">Disabled</option>';
+      opts += visionModels.map(m => {
+        const label = m.paramSize ? `${m.id} (${m.paramSize})` : m.id;
+        return `<option value="${m.id}" ${m.id === currentVal ? 'selected' : ''}>${label}</option>`;
+      }).join('');
+      // Keep current value if not in list
+      if (currentVal && !visionModels.find(m => m.id === currentVal)) {
+        opts += `<option value="${currentVal}" selected>${currentVal} (not installed)</option>`;
+      }
+      opts += '<option value="_custom">Custom...</option>';
+      imageModelSelect.innerHTML = opts;
     });
   }
 

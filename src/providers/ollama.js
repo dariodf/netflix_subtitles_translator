@@ -53,6 +53,52 @@ export function buildOllamaModelOptions(models, selectedModel, recommendedId) {
   }).join('') + `<option value="_custom">Custom...</option>`;
 }
 
+let _ollamaVisionModelsCache = null;
+let _ollamaVisionModelsFetchTime = 0;
+
+export function clearOllamaVisionModelsCache() {
+  _ollamaVisionModelsCache = null;
+}
+
+/**
+ * Fetch Ollama models and filter to vision-capable ones via /api/show.
+ * Caches for 60s since /api/show calls are expensive.
+ */
+export function fetchOllamaVisionModels() {
+  const CACHE_TTL = 60000;
+  if (_ollamaVisionModelsCache && Date.now() - _ollamaVisionModelsFetchTime < CACHE_TTL) {
+    return Promise.resolve(_ollamaVisionModelsCache);
+  }
+  return fetchOllamaModels().then(models => {
+    if (!models) return null;
+    const url = CONFIG.ollamaUrl.replace(/\/+$/, '') + '/api/show';
+    const checks = models.map(m => new Promise(resolve => {
+      GM_xmlhttpRequest({
+        method: 'POST', url,
+        headers: { 'Content-Type': 'application/json' },
+        data: JSON.stringify({ model: m.id }),
+        timeout: 5000,
+        onload(resp) {
+          try {
+            const data = JSON.parse(resp.responseText);
+            const hasVision = Array.isArray(data.capabilities) && data.capabilities.includes('vision');
+            resolve(hasVision ? m : null);
+          } catch { resolve(null); }
+        },
+        onerror() { resolve(null); },
+        ontimeout() { resolve(null); },
+      });
+    }));
+    return Promise.all(checks).then(results => {
+      const visionModels = results.filter(Boolean);
+      _ollamaVisionModelsCache = visionModels;
+      _ollamaVisionModelsFetchTime = Date.now();
+      logInfo(`🔍 Found ${visionModels.length} vision-capable Ollama model(s): ${visionModels.map(m => m.id).join(', ') || 'none'}`);
+      return visionModels;
+    });
+  });
+}
+
 export function warmupPrimaryModel() {
   if (CONFIG.provider !== 'ollama' || CONFIG.secondProvider !== 'ollama' || CONFIG.model === CONFIG.secondModel) return;
   const warmupUrl = CONFIG.ollamaUrl.replace(/\/+$/, '') + '/api/chat';
