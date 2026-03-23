@@ -2,6 +2,7 @@ import { CONFIG, saveConfig } from '../../config.js';
 import { PROVIDERS } from '../../core/providers/definitions.js';
 import { state } from '../../state.js';
 import { cacheClear } from '../../browser/cache.js';
+import { escapeHtml, isValidHttpUrl } from '../../core/utils.js';
 import { showStatus } from '../status.js';
 import { INSTRUCTIONS_HTML } from '../instructions.js';
 import { getShowMetadata } from '../../browser/metadata-fetcher.js';
@@ -21,23 +22,20 @@ function wireToggle(panelEl, id, configKey) {
   });
 }
 
+// Shadow DOM host — isolates settings panel from page JS (API keys not readable via querySelector)
+let _shadowHost = null;
+let _shadowRoot = null;
+
 export function togglePanel() {
-    if (state.panelEl) { state.panelEl.remove(); state.panelEl = null; return; }
+    if (state.panelEl) {
+      if (_shadowHost) _shadowHost.remove();
+      _shadowHost = null;
+      _shadowRoot = null;
+      state.panelEl = null;
+      return;
+    }
 
     const currentProvider = PROVIDERS[CONFIG.provider];
-
-    if (!document.getElementById('st-panel-styles')) {
-      const style = document.createElement('style');
-      style.id = 'st-panel-styles';
-      style.textContent = `
-        #st-settings-panel { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.2) transparent; }
-        #st-settings-panel::-webkit-scrollbar { width: 4px; }
-        #st-settings-panel::-webkit-scrollbar-track { background: transparent; }
-        #st-settings-panel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 2px; }
-        #st-settings-panel::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.35); }
-      `;
-      document.head.appendChild(style);
-    }
 
     state.panelEl = document.createElement('div');
     state.panelEl.id = 'st-settings-panel';
@@ -462,7 +460,22 @@ export function togglePanel() {
       </div>
     `;
 
-    document.body.appendChild(state.panelEl);
+    // Mount inside a closed shadow DOM so page JS can't read API keys from inputs
+    _shadowHost = document.createElement('div');
+    _shadowHost.id = 'subtranslator-settings-host';
+    _shadowRoot = _shadowHost.attachShadow({ mode: 'closed' });
+    // Scrollbar styles must be inside the shadow root (page CSS can't reach in)
+    const shadowStyle = document.createElement('style');
+    shadowStyle.textContent = `
+      #st-settings-panel { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.2) transparent; }
+      #st-settings-panel::-webkit-scrollbar { width: 4px; }
+      #st-settings-panel::-webkit-scrollbar-track { background: transparent; }
+      #st-settings-panel::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 2px; }
+      #st-settings-panel::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.35); }
+    `;
+    _shadowRoot.appendChild(shadowStyle);
+    _shadowRoot.appendChild(state.panelEl);
+    document.body.appendChild(_shadowHost);
 
     // --- Events ---
     state.panelEl.querySelector('#st-close').addEventListener('click', () => togglePanel());
@@ -486,7 +499,7 @@ export function togglePanel() {
         html += `<div>Netflix: ${intercepted ? '✓ intercepted, awaiting processing' : '— not available yet'}</div>`;
         html += '<div>External sources: — not fetched yet</div>';
       } else {
-        html += `<div>Netflix: ✓ ${meta.title}${meta.episode ? ` S${meta.episode.season}E${meta.episode.episode}` : ''}</div>`;
+        html += `<div>Netflix: ✓ ${escapeHtml(meta.title)}${meta.episode ? ` S${meta.episode.season}E${meta.episode.episode}` : ''}</div>`;
         const castCount = (meta.cast || []).filter(c => c.character).length;
         const sources = meta.metadataEnriched && meta.metadataSources?.length > 0
           ? `✓ ${meta.metadataSources.join(' + ')}${castCount > 0 ? ` (${castCount} characters)` : ''}`
@@ -552,8 +565,8 @@ export function togglePanel() {
           ? showMeta.cast.slice(0, 8).filter(x => x.character).map(x => x.character).join(', ')
             + (showMeta.cast.filter(x => x.character).length > 8 ? ` +${showMeta.cast.filter(x => x.character).length - 8} more` : '')
           : 'actor names only (no character names available)';
-        charnamesInfo.innerHTML = `🎬 <strong>${showMeta.title}</strong>${showMeta.year ? ` (${showMeta.year})` : ''}${showMeta.episode ? ` · S${showMeta.episode.season}E${showMeta.episode.episode}` : ''}<br>` +
-          `<span style="opacity:0.7;">Cast: ${castSummary}</span>`;
+        charnamesInfo.innerHTML = `🎬 <strong>${escapeHtml(showMeta.title)}</strong>${showMeta.year ? ` (${showMeta.year})` : ''}${showMeta.episode ? ` · S${showMeta.episode.season}E${showMeta.episode.episode}` : ''}<br>` +
+          `<span style="opacity:0.7;">Cast: ${escapeHtml(castSummary)}</span>`;
         charnamesInfo.style.display = 'block';
       }
     }
@@ -692,7 +705,14 @@ export function togglePanel() {
       if (keyInput) CONFIG.apiKey = keyInput.value.trim();
 
       const ollamaInput = state.panelEl.querySelector('#st-ollama-url');
-      if (ollamaInput) CONFIG.ollamaUrl = ollamaInput.value.trim() || 'http://localhost:11434';
+      if (ollamaInput) {
+        const ollamaVal = ollamaInput.value.trim() || 'http://localhost:11434';
+        if (isValidHttpUrl(ollamaVal)) {
+          CONFIG.ollamaUrl = ollamaVal;
+        } else {
+          showStatus('Invalid Ollama URL — must start with http:// or https://', 'error', true);
+        }
+      }
 
       const libreInput = state.panelEl.querySelector('#st-libre-url');
       if (libreInput) CONFIG.libreTranslateUrl = libreInput.value.trim() || 'https://libretranslate.com';

@@ -1,5 +1,6 @@
 import { CONFIG } from '../../config.js';
 import { PROVIDERS } from '../../core/providers/definitions.js';
+import { escapeHtml } from '../../core/utils.js';
 import { fetchOllamaModels, buildOllamaModelOptions, clearOllamaModelsCache, fetchOllamaVisionModels } from '../../providers/ollama.js';
 
 /** Check if Ollama is reachable at the given URL */
@@ -42,7 +43,7 @@ function populateOllamaDropdown(selectEl, customEl, hintEl, selectedModel, recom
       ).join('') + `<option value="_custom">Custom...</option>`;
       if (hintEl) {
         hintEl.style.display = 'block';
-        hintEl.innerHTML = '⚠️ Could not reach Ollama at <code>' + CONFIG.ollamaUrl + '</code>. Is it running? Start it with <code>ollama serve</code>';
+        hintEl.innerHTML = '⚠️ Could not reach Ollama at <code>' + escapeHtml(CONFIG.ollamaUrl) + '</code>. Is it running? Start it with <code>ollama serve</code>';
       }
       return;
     }

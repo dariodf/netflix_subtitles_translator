@@ -155,7 +155,7 @@ async function runTranslationPipeline(xml, context, { startTime = null } = {}) {
   }
 
   // Initialize translated cues with originals if not populated by partial cache
-  if (sharedTranslationState.translatedCues.length === 0 || resumeFromLine === 0 && !cached) {
+  if (sharedTranslationState.translatedCues.length === 0 || (resumeFromLine === 0 && !cached)) {
     sharedTranslationState.translatedCues = cues.map(c => makeCue(c, c.text));
   }
   context.commitTranslation(sharedTranslationState.translatedCues);
@@ -171,8 +171,10 @@ async function runTranslationPipeline(xml, context, { startTime = null } = {}) {
   const originalCommitTranslation = context.commitTranslation;
   context.commitTranslation = (translatedArray, ...args) => {
     changedLabels.clear();
+    let highestTranslatedIndex = speakerProcessedUpTo;
     for (let i = speakerProcessedUpTo; i < translatedArray.length; i++) {
       if (!translatedArray[i] || translatedArray[i].text === cues[i]?.text) continue;
+      highestTranslatedIndex = i + 1;
       const sourceLabel = extractLeadingSpeakerLabel(cues[i]?.text);
       if (!sourceLabel) continue;
       const translatedLabel = extractLeadingSpeakerLabel(translatedArray[i].text);
@@ -182,7 +184,8 @@ async function runTranslationPipeline(xml, context, { startTime = null } = {}) {
       counts.set(translatedLabel, (counts.get(translatedLabel) || 0) + 1);
       changedLabels.add(sourceLabel);
     }
-    speakerProcessedUpTo = translatedArray.length;
+    // Only advance past lines that were actually translated (not initial fill with originals)
+    speakerProcessedUpTo = highestTranslatedIndex;
 
     // Update characterNameMap only for labels whose counts changed this commit
     if (changedLabels.size > 0 && context.showMetadata) {
@@ -284,8 +287,10 @@ async function _applyProviderMetadata(metadata, fetchJson) {
     if (fetched.year && !metadata.year) metadata.year = fetched.year;
     if (!metadata.country && fetched.country) metadata.country = fetched.country;
     if (!metadata.language && fetched.language) metadata.language = fetched.language;
-    metadata.cast = fetched.cast;
-    metadata.hasCharacterNames = fetched.hasCharacterNames;
+    if (!metadata.cast?.length || fetched.hasCharacterNames) {
+      metadata.cast = fetched.cast;
+      metadata.hasCharacterNames = fetched.hasCharacterNames;
+    }
 
     metadata.metadataSources = fetched.sources;
     const castCount = fetched.cast.filter(c => c.character).length;
@@ -402,7 +407,12 @@ export async function handleSubtitlePayload(xml, url, context) {
   }
 
   sharedTranslationState.isTranslating = false;
-  context.commitTranslation(sharedTranslationState.translatedCues);
+  // Skip commit if URL changed during translation (user navigated away)
+  if (!url || url === handleSubtitlePayload._lastUrl) {
+    context.commitTranslation(sharedTranslationState.translatedCues);
+  } else {
+    logInfo('⏭️ URL changed during translation, skipping commit');
+  }
 }
 handleSubtitlePayload._lastUrl = null;
 

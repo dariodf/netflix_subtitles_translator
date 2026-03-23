@@ -370,7 +370,7 @@ export async function hasOllamaVisionCapability(postJson, ollamaUrl, model) {
     const response = await postJson(
       `${baseUrl}/api/show`,
       { 'Content-Type': 'application/json' },
-      JSON.stringify({ model }),
+      { model },
       8000,
     );
     const capabilities = response?.data?.capabilities;

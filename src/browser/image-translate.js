@@ -146,10 +146,21 @@ export async function triggerImageTranslation() {
     state.imageTranslatedCues.push({ ...cue });
     const insertedIndex = state.imageTranslatedCues.length - 1;
 
-    // Translate via pipeline
+    // Translate via pipeline — isolate flaggedLines so image translation
+    // at globalOffset=0 doesn't pollute subtitle cue 0's flagged status
     showStatus('Translating image text...', 'working', true);
     const context = createBrowserContext();
-    const [translatedText] = await translateChunkLLM([cue], [], 0, context);
+    const savedFlagged = state.flaggedLines;
+    const savedReasons = state.flagReasons;
+    state.flaggedLines = new Set();
+    state.flagReasons = new Map();
+    let translatedText;
+    try {
+      [translatedText] = await translateChunkLLM([cue], [], 0, context);
+    } finally {
+      state.flaggedLines = savedFlagged;
+      state.flagReasons = savedReasons;
+    }
 
     // Update translated cue
     state.imageTranslatedCues[insertedIndex].text = translatedText;

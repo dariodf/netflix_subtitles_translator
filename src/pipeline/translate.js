@@ -22,7 +22,7 @@ export function reorderFromPosition(ms, cues, allChunkStarts, step, completedChu
   if (currentLineIdx < 0) {
     currentLineIdx = cues.findIndex(c => c.begin > ms) - 1;
   }
-  if (currentLineIdx <= 0) return null;
+  if (currentLineIdx < 0) return null;
 
   const priorityStart = Math.floor(currentLineIdx / step) * step;
   const idx = allChunkStarts.indexOf(priorityStart);

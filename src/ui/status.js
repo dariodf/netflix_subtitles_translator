@@ -1,4 +1,5 @@
 import { state } from '../state.js';
+import { escapeHtml } from '../core/utils.js';
 import { getFullscreenParent, reparentToFullscreen } from './fullscreen.js';
 
 // ============================
@@ -62,7 +63,7 @@ export function showRateLimitBanner(providerName, { onSwapModel } = {}) {
       <strong style="font-size:14px;">⚠️ Daily Quota Reached</strong>
       <div id="st-ratelimit-close" style="cursor:pointer;font-size:16px;opacity:0.6;padding:0 4px;margin:-2px -4px 0 0;">✕</div>
     </div>
-    <div id="st-ratelimit-body">${providerName} daily quota exceeded. Switch to another model or wait for the quota to reset (midnight Pacific).</div>
+    <div id="st-ratelimit-body">${escapeHtml(providerName)} daily quota exceeded. Switch to another model or wait for the quota to reset (midnight Pacific).</div>
     ${onSwapModel ? `<div style="margin-top:8px;">
       <button id="st-ratelimit-swap" style="background:#1a1a2e;color:white;border:none;border-radius:6px;padding:6px 14px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;width:100%;">Try next model →</button>
     </div>` : ''}
