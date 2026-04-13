@@ -171,7 +171,7 @@ flowchart TD
 
 **Fast Start** — A half-size chunk at the current position is translated immediately before the main loop begins. Gets subtitles on screen in seconds. The main loop retranslates this range later with full context.
 
-**Validation & flagging** — Each chunk is checked for correct line count and untranslated text (detected by script-family analysis, e.g. CJK remaining when target is English). Bad lines are flagged for the cleanup pass or manual retry with `R`.
+**Validation & flagging** — Each chunk is checked for correct line count and untranslated text (detected by script-family analysis, e.g. CJK remaining when target is English). Bad lines are flagged for the cleanup pass or manual retry with `R`. The headless `analyze` command runs a deeper static pass after translation: name consistency, ruby artifacts, hallucination detection (expansion ratio), chunk corruption (>35% of a chunk flagged), and cross-chunk-boundary issue runs.
 
 **Show context** — The script fetches the Netflix video ID, queries Netflix's metadata API for title/synopsis/episode, then searches Cinemeta for character names. This is injected into the LLM system prompt so names are translated correctly.
 
@@ -245,8 +245,9 @@ make headless-all CONFIG=example-ollama
 # Re-evaluate existing translations (no LLM calls)
 make headless-evaluate CONFIG=example-ollama
 
-# Analyze translation quality (name consistency, artifacts, etc.)
+# Analyze translation quality (name consistency, artifacts, chunk corruption, etc.)
 make headless-analyze CONFIG=example-ollama EPISODE=smoke-test
+make headless-analyze CONFIG=example-ollama EPISODE=smoke-test CHUNK_SIZE=25
 
 # View run history with quality scores
 make headless-history CONFIG=example-ollama
@@ -262,6 +263,35 @@ make headless-images-viewer CONFIG=example-ollama EPISODE=smoke-test
 ```
 
 Output goes to `runs/<config>/<episode>/<run>/`.
+
+#### Analysis output
+
+`headless-analyze` writes `output.analysis.json` alongside the translated output. Key fields:
+
+| Field | Description |
+|-------|-------------|
+| `summary.issueCount` | Total flagged lines |
+| `summary.corruptedChunks` | Chunks where >35% of lines were flagged (and at least 3 lines) — indicates the model lost track of the chunk |
+| `summary.consecutiveIssueRuns` | Runs of 3+ adjacent flagged lines |
+| `consecutiveRuns[].crossesChunkBoundary` | `true` when a run spans a chunk boundary — a stronger signal of model confusion |
+| `corruptedChunks[]` | Per-chunk breakdown with `chunkIdx`, `issueRate`, and line range |
+
+**Issue categories:**
+
+| Category | What it means |
+|----------|---------------|
+| `speakerLabelLost` | `（Name）` in source but no `(Name)` in translation |
+| `untranslatedCharacters` | Source-script characters (CJK, Hangul) remaining in translation |
+| `rubyArtifact` | Hyphenated romanization leaked from furigana markup |
+| `nameInconsistency` | Same source speaker name translated differently across chunks |
+| `tooLong` | Translation is >4× the source length — likely hallucination |
+| `repetition` | Same translation for different source lines |
+| `truncatedDualSpeaker` | Line with `—` separator had the second speaker dropped |
+| `numberMismatch` | Digits in source not present in translation |
+| `lineBreakMismatch` | Multi-line cue structure changed |
+| `chunkCorruption` | >35% of a chunk's lines triggered issues, minimum 3 lines |
+
+**How `—` gets into subtitle lines:** Netflix TTML files use `<br>` tags to split a single cue across two speakers (e.g. one character interrupting another). The parser encodes each `<br>` as `—` before sending the line to the LLM, so the model sees one line with a `—` in the middle and should produce one translated line with the same separator. On output, the `—` is decoded back to a line break. `truncatedDualSpeaker` fires when this structural separator is dropped — the second speaker's line was lost. It does **not** fire on trailing `—` added by the model for stylistic trailing-off speech (e.g. `行くよー` → `I'm going—`), which is correct behavior.
 
 Run `make help` for the full list of commands.
 

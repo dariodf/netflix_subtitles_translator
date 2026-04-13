@@ -26,10 +26,12 @@ export const LANG_SIGNATURES = [
 
 /**
  * Check for ruby text artifacts — hyphenated romanization from furigana leaking.
- * Matches patterns like "Na-tsume", "shi-no-ha-ra" (2+ hyphens between short segments).
+ * Matches patterns like "Na-tsu-me", "shi-no-ha-ra" (2+ hyphens between short segments).
+ * Segments are capped at 3 chars: Japanese romaji mora are ≤3 chars (ka, shi, tsu…),
+ * while common English compounds have longer segments (year, date, face…).
  */
 export function hasRubyArtifact(text) {
-  return /\b[A-Za-z]{1,4}(?:-[A-Za-z]{1,4}){2,}\b/.test(text);
+  return /\b[A-Za-z]{1,3}(?:-[A-Za-z]{1,3}){2,}\b/.test(text);
 }
 
 // ── Validation Rules ──────────────────────────────────────────

@@ -122,9 +122,9 @@ endif
 
 headless-analyze: | node_modules  ## Analyze translation quality
 ifdef EPISODE
-	node src/headless/analyze.js --config $(CONFIG) --episode $(EPISODE) $(if $(SOURCE_LANG),--source-lang $(SOURCE_LANG))
+	node src/headless/analyze.js --config $(CONFIG) --episode $(EPISODE) $(if $(SOURCE_LANG),--source-lang $(SOURCE_LANG)) $(if $(CHUNK_SIZE),--chunk-size $(CHUNK_SIZE))
 else
-	node src/headless/analyze.js --config $(CONFIG)
+	node src/headless/analyze.js --config $(CONFIG) $(if $(CHUNK_SIZE),--chunk-size $(CHUNK_SIZE))
 endif
 
 headless-replay: | node_modules  ## Re-evaluate with current rules (no LLM)

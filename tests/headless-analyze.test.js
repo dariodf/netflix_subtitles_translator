@@ -195,12 +195,16 @@ describe('analyzeTranslation', () => {
     expect(analysis.issues.some(i => i.category === 'untranslatedCharacters')).toBe(true);
   });
 
-  it('detects em dash count mismatch', () => {
+  // emDashCountMismatch was removed: Japanese trailing ー (prolonged sound) is correctly rendered
+  // as — in English subtitles, causing ~95% false positives. The check was noise, not signal.
+  it('does not flag em dash added by model for trailing-off speech (ー → —)', () => {
     const output = makeAnalysisOutput([
-      { index: 0, original: '（生徒）めっちゃかわいいじゃん', translated: 'The students—Cute—So cute' },
+      { index: 0, original: '行くよー', translated: "I'm going—" },
+      { index: 1, original: 'ありがとうー', translated: 'Thank you—' },
+      { index: 2, original: '（太郎）待ってよー', translated: "(Taro) Wait—" },
     ]);
     const analysis = analyzeTranslation(output, null, null);
-    expect(analysis.issues.some(i => i.category === 'emDashCountMismatch')).toBe(true);
+    expect(analysis.issues.some(i => i.category === 'emDashCountMismatch')).toBe(false);
   });
 
   it('detects repetitions with different originals', () => {
@@ -341,6 +345,80 @@ describe('analyzeTranslation', () => {
     const analysis = analyzeTranslation(output, null, null);
     expect(analysis.summary.consecutiveIssueRuns).toBe(0);
     expect(analysis.summary.longestConsecutiveRun).toBe(0);
+  });
+
+  it('annotates consecutive runs with chunk index and boundary info', () => {
+    // All 3 flagged lines fall within chunk 0 when chunkSize=10
+    const output = makeAnalysisOutput([
+      { index: 0, original: '（太郎）行くぞ！！', translated: 'Some wrong content' },
+      { index: 1, original: '（太郎）待って！！！', translated: 'More wrong stuff here' },
+      { index: 2, original: '（太郎）やめろ！！！', translated: 'Even more wrong text' },
+      { index: 3, original: '自由だ', translated: 'Freedom' },
+    ]);
+    const analysis = analyzeTranslation(output, null, null, 10);
+    const run = analysis.consecutiveRuns[0];
+    expect(run.indices).toEqual([0, 1, 2]);
+    expect(run.length).toBe(3);
+    expect(run.startChunk).toBe(0);
+    expect(run.endChunk).toBe(0);
+    expect(run.crossesChunkBoundary).toBe(false);
+  });
+
+  it('detects consecutive run crossing chunk boundary', () => {
+    // chunkSize=3: chunk 0 = positions 0-2, chunk 1 = positions 3-5
+    // Flagged positions 2, 3, 4 span both chunks
+    const cues = [
+      { index: 0, original: '自由だ', translated: 'Freedom' },
+      { index: 1, original: '元気だ', translated: "I'm fine" },
+      { index: 2, original: '（太郎）行くぞ！', translated: 'Missing label A' },
+      { index: 3, original: '（花子）待って！', translated: 'Missing label B' },
+      { index: 4, original: '（次郎）やめろ！', translated: 'Missing label C' },
+      { index: 5, original: '終わり', translated: 'The end' },
+    ];
+    const analysis = analyzeTranslation(makeAnalysisOutput(cues), null, null, 3);
+    const crossRun = analysis.consecutiveRuns.find(r => r.crossesChunkBoundary);
+    expect(crossRun).toBeDefined();
+    expect(crossRun.startChunk).toBe(0);
+    expect(crossRun.endChunk).toBe(1);
+  });
+
+  it('detects chunk corruption when more than 35% of a chunk is flagged', () => {
+    // chunkSize=5: positions 0-2 have speakerLabelLost = 3/5 = 60% → corrupt
+    const cues = [
+      { index: 0, original: '（太郎）行くぞ', translated: 'Missing label one' },
+      { index: 1, original: '（花子）待って', translated: 'Missing label two' },
+      { index: 2, original: '（次郎）やめろ', translated: 'Missing label three' },
+      { index: 3, original: '自由だ', translated: 'Freedom' },
+      { index: 4, original: '元気だ', translated: "I'm fine" },
+    ];
+    const analysis = analyzeTranslation(makeAnalysisOutput(cues), null, null, 5);
+    expect(analysis.summary.corruptedChunks).toBe(1);
+    expect(analysis.corruptedChunks).toHaveLength(1);
+    expect(analysis.corruptedChunks[0].chunkIdx).toBe(0);
+    expect(analysis.corruptedChunks[0].issueRate).toBeGreaterThanOrEqual(0.35);
+  });
+
+  it('does not flag chunk corruption below the 35% threshold', () => {
+    // chunkSize=5: only 1 issue out of 5 = 20% — below threshold
+    const cues = [
+      { index: 0, original: '（太郎）行くぞ', translated: 'Missing label' },
+      { index: 1, original: '自由だ', translated: 'Freedom' },
+      { index: 2, original: '元気だ', translated: "I'm fine" },
+      { index: 3, original: '行くよ', translated: "Let's go" },
+      { index: 4, original: 'ありがとう', translated: 'Thank you' },
+    ];
+    const analysis = analyzeTranslation(makeAnalysisOutput(cues), null, null, 5);
+    expect(analysis.summary.corruptedChunks).toBe(0);
+    expect(analysis.corruptedChunks).toHaveLength(0);
+  });
+
+  it('reports corruptedChunks in summary even when none found', () => {
+    const output = makeAnalysisOutput([
+      { index: 0, original: '自由だー！', translated: 'Freedom!' },
+    ]);
+    const analysis = analyzeTranslation(output, null, null);
+    expect(analysis.summary.corruptedChunks).toBe(0);
+    expect(analysis.corruptedChunks).toEqual([]);
   });
 
   it('performs time-aligned evaluation when reference provided', () => {

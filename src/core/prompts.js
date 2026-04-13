@@ -93,6 +93,7 @@ Rules:
 
   if (source) systemPrompt += `\nSource language: ${source}.`;
   systemPrompt += buildMetadataPrompt(config, metadata);
+  if (config.disableThinking) systemPrompt += ' /no_think';
   return systemPrompt;
 }
 

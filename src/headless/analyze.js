@@ -147,9 +147,10 @@ export function alignCuesByTime(sourceCues, referenceCues) {
  * @param {object} output - The parsed output.translated.json
  * @param {Array|null} sourceFileCues - Cues parsed from original source TTML (for timing verification)
  * @param {Array|null} referenceCues - Cues parsed from reference TTML (for time-aligned evaluation)
+ * @param {number} chunkSize - Lines per translation chunk (default 50)
  * @returns {object} Analysis result
  */
-export function analyzeTranslation(output, sourceFileCues, referenceCues) {
+export function analyzeTranslation(output, sourceFileCues, referenceCues, chunkSize = 50) {
   const { cues, originalCues, episode } = output;
   const issues = [];
   const categories = {};
@@ -215,18 +216,12 @@ export function analyzeTranslation(output, sourceFileCues, referenceCues) {
       addIssue(i, 'rubyArtifact', `hyphenated romanization detected: "${trans.match(/\b[A-Za-z]{1,4}(?:-[A-Za-z]{1,4}){2,}\b/)?.[0]}"`);
     }
 
-    // Em dash count mismatch
+    // Truncated dual-speaker line — original had a line-break separator (—) but translation dropped the second speaker
     const origEmDashes = (orig.match(/—/g) || []).length;
-    const transEmDashes = (trans.match(/—/g) || []).length;
-    if (transEmDashes > origEmDashes) {
-      addIssue(i, 'emDashCountMismatch', `original has ${origEmDashes} separators, translation has ${transEmDashes}`);
-    }
-
-    // Truncated dual-speaker line — translation has "—" but ends right after, or original has "—" but translation doesn't
     if (origEmDashes > 0 && trans.length > 0) {
       if (/—$/.test(trans.trim())) {
         addIssue(i, 'truncatedDualSpeaker', `translation ends with trailing "—" — second speaker missing`);
-      } else if (!trans.includes('—') && origEmDashes > 0) {
+      } else if (!trans.includes('—')) {
         addIssue(i, 'truncatedDualSpeaker', `original has ${origEmDashes} "—" separator(s) but translation has none`);
       }
     }
@@ -299,6 +294,41 @@ export function analyzeTranslation(output, sourceFileCues, referenceCues) {
   }
   if (currentRun.length >= 3) consecutiveRuns.push(currentRun);
 
+  // Annotate each run with chunk context
+  const annotatedRuns = consecutiveRuns.map(run => {
+    const startChunk = Math.floor(run[0] / chunkSize);
+    const endChunk = Math.floor(run[run.length - 1] / chunkSize);
+    return {
+      indices: run,
+      length: run.length,
+      startChunk,
+      endChunk,
+      crossesChunkBoundary: startChunk !== endChunk,
+    };
+  });
+
+  // 5b. Chunk corruption — chunks where >35% of lines have issues
+  const totalChunks = Math.ceil(cues.length / chunkSize);
+  const chunkIssueCounts = new Array(totalChunks).fill(0);
+  for (const idx of issueIndices) {
+    const chunkIdx = Math.floor(idx / chunkSize);
+    if (chunkIdx < totalChunks) chunkIssueCounts[chunkIdx]++;
+  }
+  const corruptedChunks = chunkIssueCounts
+    .map((count, chunkIdx) => {
+      const chunkStart = chunkIdx * chunkSize;
+      const chunkEnd = Math.min(chunkStart + chunkSize, cues.length);
+      const chunkLen = chunkEnd - chunkStart;
+      const issueRate = count / chunkLen;
+      return { chunkIdx, chunkStart, chunkEnd, issueCount: count, issueRate };
+    })
+    .filter(c => c.issueRate >= 0.35 && c.issueCount >= 3);
+
+  for (const c of corruptedChunks) {
+    addIssue(c.chunkStart, 'chunkCorruption',
+      `chunk ${c.chunkIdx} (lines ${c.chunkStart}-${c.chunkEnd - 1}): ${c.issueCount}/${c.chunkEnd - c.chunkStart} lines flagged (${Math.round(c.issueRate * 100)}%)`);
+  }
+
   // 6. Normalization simulation — run on a copy to show what would be fixed
   const sourceCuesForNormalization = originalCues.map(c => ({ text: c.text }));
   const translatedCuesForNormalization = cues.map(c => ({
@@ -357,13 +387,16 @@ export function analyzeTranslation(output, sourceFileCues, referenceCues) {
       totalCues: cues.length,
       issueCount: issues.length,
       categories,
-      consecutiveIssueRuns: consecutiveRuns.length,
-      longestConsecutiveRun: consecutiveRuns.reduce((max, r) => Math.max(max, r.length), 0),
+      consecutiveIssueRuns: annotatedRuns.length,
+      longestConsecutiveRun: annotatedRuns.reduce((max, r) => Math.max(max, r.length), 0),
+      corruptedChunks: corruptedChunks.length,
+      chunkSize,
     },
     nameMap,
     normalizationSimulation,
     issues,
-    consecutiveRuns,
+    consecutiveRuns: annotatedRuns,
+    corruptedChunks,
     timeAlignedEvaluation,
   };
 }
@@ -409,11 +442,20 @@ export function formatAnalysisSummary(analysis) {
     }
   }
 
+  // Corrupted chunks
+  if (analysis.corruptedChunks && analysis.corruptedChunks.length > 0) {
+    parts.push(`\n  Corrupted chunks (>35% flagged): ${analysis.corruptedChunks.length}`);
+    for (const c of analysis.corruptedChunks) {
+      parts.push(`    chunk ${c.chunkIdx} lines ${c.chunkStart}-${c.chunkEnd - 1}: ${c.issueCount} issues (${Math.round(c.issueRate * 100)}%)`);
+    }
+  }
+
   // Consecutive issue runs
   if (analysis.consecutiveRuns.length > 0) {
     parts.push(`\n  Consecutive issue runs: ${analysis.consecutiveRuns.length} (longest: ${summary.longestConsecutiveRun} lines)`);
     for (const run of analysis.consecutiveRuns.slice(0, 5)) {
-      parts.push(`    lines ${run[0]}-${run[run.length - 1]} (${run.length} lines)`);
+      const cross = run.crossesChunkBoundary ? ` ⚠ crosses chunk boundary (${run.startChunk}→${run.endChunk})` : ` chunk ${run.startChunk}`;
+      parts.push(`    lines ${run.indices[0]}-${run.indices[run.indices.length - 1]} (${run.length} lines)${cross}`);
     }
     if (analysis.consecutiveRuns.length > 5) {
       parts.push(`    ... and ${analysis.consecutiveRuns.length - 5} more`);
@@ -461,7 +503,7 @@ against source TTML and reference TTML. Writes output.analysis.json with quality
 `);
 }
 
-async function runAnalysis(configName, episodeName, sourceLangSuffix = '', commit = null) {
+async function runAnalysis(configName, episodeName, sourceLangSuffix = '', commit = null, chunkSize = 50) {
   const gitCommit = commit || getGitInfo().commit;
   const outputDir = join(RUNS_DIR, configName, episodeName, gitCommit);
   const translatedPath = join(outputDir, `output.translated${sourceLangSuffix}.json`);
@@ -511,7 +553,17 @@ async function runAnalysis(configName, episodeName, sourceLangSuffix = '', commi
     }
   }
 
-  const analysis = analyzeTranslation(output, sourceFileCues, referenceCues);
+  // Try to read chunkSize from config file
+  let resolvedChunkSize = chunkSize;
+  try {
+    const configPath = join(resolve('configs'), `${configName}.json`);
+    if (existsSync(configPath)) {
+      const cfg = JSON.parse(readFileSync(configPath, 'utf-8'));
+      if (cfg.chunkSize) resolvedChunkSize = cfg.chunkSize;
+    }
+  } catch { /* ignore, use default */ }
+
+  const analysis = analyzeTranslation(output, sourceFileCues, referenceCues, resolvedChunkSize);
   const analysisPath = join(outputDir, `output.analysis${sourceLangSuffix}.json`);
   writeFileSync(analysisPath, JSON.stringify(analysis, null, 2), 'utf-8');
 
@@ -541,10 +593,12 @@ async function main() {
   const sourceLangIdx = args.indexOf('--source-lang');
   const sourceLangArg = sourceLangIdx !== -1 ? args[sourceLangIdx + 1] : null;
   const sourceLangSuffix = sourceLangArg ? `.${sourceLangArg.toLowerCase()}` : '';
+  const chunkSizeIdx = args.indexOf('--chunk-size');
+  const chunkSize = chunkSizeIdx !== -1 ? parseInt(args[chunkSizeIdx + 1], 10) : 50;
 
   if (episodeName) {
     console.log(`Analyzing: ${episodeName}${sourceLangArg ? ` (source: ${sourceLangArg})` : ''}`);
-    await runAnalysis(configName, episodeName, sourceLangSuffix);
+    await runAnalysis(configName, episodeName, sourceLangSuffix, null, chunkSize);
   } else {
     // Discover all translated outputs for current commit (including lang-suffixed ones)
     const gitCommit = getGitInfo().commit;
@@ -567,7 +621,7 @@ async function main() {
       for (const outputFile of outputFiles) {
         // Extract suffix: "output.translated.ko.json" → ".ko", "output.translated.json" → ""
         const suffix = outputFile.replace('output.translated', '').replace('.json', '');
-        await runAnalysis(configName, epName, suffix, gitCommit);
+        await runAnalysis(configName, epName, suffix, gitCommit, chunkSize);
         found = true;
       }
     }

@@ -390,6 +390,13 @@ describe('hasRubyArtifact', () => {
     expect(hasRubyArtifact('(Spider-Man) Hello')).toBe(false);
   });
 
+  it('does not flag common English compound adjectives', () => {
+    // "year", "date", "face" etc. are 4 chars — above the 3-char segment cap
+    expect(hasRubyArtifact('Every year at the end-of-year party')).toBe(false);
+    expect(hasRubyArtifact('An out-of-date approach')).toBe(false);
+    expect(hasRubyArtifact('A face-to-face meeting')).toBe(false);
+  });
+
   it('allows empty string', () => {
     expect(hasRubyArtifact('')).toBe(false);
   });
