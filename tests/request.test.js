@@ -86,34 +86,64 @@ describe('buildProviderUrl', () => {
     buildRequest: () => ({ headers: {}, data: {} }),
   };
 
-  it('uses provider default URL', () => {
-    const config = { ollamaUrl: 'http://localhost:11434', model: 'gpt-4', apiKey: 'key' };
+  it('uses provider default URL when localUrl is empty', () => {
+    const config = { localUrl: '', model: 'gpt-4', apiKey: 'key' };
     const url = buildProviderUrl(fakeProvider, 'openai', config);
     expect(url).toBe('https://api.openai.com/v1/chat/completions');
   });
 
-  it('uses config.providerUrl override', () => {
-    const config = { providerUrl: 'https://custom.api.com/v1', ollamaUrl: 'http://localhost:11434', model: 'm', apiKey: 'k' };
+  it('uses config.localUrl override for non-ollama provider', () => {
+    const config = { localUrl: 'https://custom.api.com/v1', model: 'm', apiKey: 'k' };
     const url = buildProviderUrl(fakeProvider, 'openai', config);
     expect(url).toBe('https://custom.api.com/v1');
   });
 
   it('uses explicit providerUrl parameter over config', () => {
-    const config = { providerUrl: 'https://config.api.com', ollamaUrl: 'http://localhost:11434', model: 'm', apiKey: 'k' };
+    const config = { localUrl: 'https://config.api.com', model: 'm', apiKey: 'k' };
     const url = buildProviderUrl(fakeProvider, 'openai', config, 'https://explicit.api.com');
     expect(url).toBe('https://explicit.api.com');
   });
 
-  it('constructs Ollama URL from ollamaUrl config', () => {
-    const config = { ollamaUrl: 'http://nixos:11434/', model: 'm', apiKey: '' };
+  it('ollama with empty localUrl falls back to localhost:11434', () => {
+    const config = { localUrl: '', model: 'm', apiKey: '' };
+    const url = buildProviderUrl(fakeProvider, 'ollama', config);
+    expect(url).toBe('http://localhost:11434/api/chat');
+  });
+
+  it('constructs Ollama URL from localUrl config', () => {
+    const config = { localUrl: 'http://nixos:11434/', model: 'm', apiKey: '' };
     const url = buildProviderUrl(fakeProvider, 'ollama', config);
     expect(url).toBe('http://nixos:11434/api/chat');
   });
 
-  it('skips Ollama URL construction when providerUrl is set', () => {
-    const config = { providerUrl: 'https://custom.ollama.com', ollamaUrl: 'http://localhost:11434', model: 'm', apiKey: '' };
+  it('localUrl is used as base for ollama, appending /api/chat', () => {
+    const config = { localUrl: 'https://custom.ollama.com', model: 'm', apiKey: '' };
     const url = buildProviderUrl(fakeProvider, 'ollama', config);
-    expect(url).toBe('https://custom.ollama.com');
+    expect(url).toBe('https://custom.ollama.com/api/chat');
+  });
+
+  it('lmstudio with empty localUrl falls back to localhost:1234', () => {
+    const config = { localUrl: '', model: 'm', apiKey: '' };
+    const url = buildProviderUrl(fakeProvider, 'lmstudio', config);
+    expect(url).toBe('http://localhost:1234/v1/chat/completions');
+  });
+
+  it('lmstudio uses localUrl as base, appending /v1/chat/completions', () => {
+    const config = { localUrl: 'http://myserver:1234', model: 'm', apiKey: '' };
+    const url = buildProviderUrl(fakeProvider, 'lmstudio', config);
+    expect(url).toBe('http://myserver:1234/v1/chat/completions');
+  });
+
+  it('lmstudio strips trailing slash from localUrl', () => {
+    const config = { localUrl: 'http://localhost:1234/', model: 'm', apiKey: '' };
+    const url = buildProviderUrl(fakeProvider, 'lmstudio', config);
+    expect(url).toBe('http://localhost:1234/v1/chat/completions');
+  });
+
+  it('explicit providerUrl overrides lmstudio localUrl', () => {
+    const config = { localUrl: 'http://localhost:1234', model: 'm', apiKey: '' };
+    const url = buildProviderUrl(fakeProvider, 'lmstudio', config, 'https://remote.lmstudio.com/v1/chat/completions');
+    expect(url).toBe('https://remote.lmstudio.com/v1/chat/completions');
   });
 
   it('appends urlSuffix from buildRequest', () => {
@@ -121,7 +151,7 @@ describe('buildProviderUrl', () => {
       url: 'https://api.example.com',
       buildRequest: () => ({ headers: {}, data: {}, urlSuffix: '/models/gemini:generate' }),
     };
-    const config = { ollamaUrl: 'http://localhost:11434', model: 'gemini', apiKey: 'key' };
+    const config = { localUrl: '', model: 'gemini', apiKey: 'key' };
     const url = buildProviderUrl(providerWithSuffix, 'gemini', config);
     expect(url).toBe('https://api.example.com/models/gemini:generate');
   });
@@ -142,7 +172,7 @@ describe('sendProviderRequest', () => {
       status: 200,
       data: { choices: [{ message: { content: 'Hello world' } }] },
     });
-    const context = { config: { ollamaUrl: 'http://localhost:11434', model: 'gpt-4', apiKey: 'key' }, postJson: mockPostJson };
+    const context = { config: { localUrl: 'http://localhost:11434', model: 'gpt-4', apiKey: 'key' }, postJson: mockPostJson };
     const result = await sendProviderRequest(context, {
       provider: fakeProvider, providerKey: 'openai', model: 'gpt-4', apiKey: 'key',
       system: 'You are helpful', userMessage: 'Hi', timeout: 30000,
@@ -156,7 +186,7 @@ describe('sendProviderRequest', () => {
       status: 429,
       data: { error: { message: 'Rate limited' } },
     });
-    const context = { config: { ollamaUrl: 'http://localhost:11434', model: 'gpt-4', apiKey: 'key' }, postJson: mockPostJson };
+    const context = { config: { localUrl: 'http://localhost:11434', model: 'gpt-4', apiKey: 'key' }, postJson: mockPostJson };
     const result = await sendProviderRequest(context, {
       provider: fakeProvider, providerKey: 'openai', model: 'gpt-4', apiKey: 'key',
       system: 'You are helpful', userMessage: 'Hi', timeout: 30000,
@@ -167,7 +197,7 @@ describe('sendProviderRequest', () => {
 
   it('passes correct timeout to postJson', async () => {
     const mockPostJson = vi.fn().mockResolvedValue({ status: 200, data: { choices: [{ message: { content: 'ok' } }] } });
-    const context = { config: { ollamaUrl: 'http://localhost:11434', model: 'gpt-4', apiKey: 'key' }, postJson: mockPostJson };
+    const context = { config: { localUrl: 'http://localhost:11434', model: 'gpt-4', apiKey: 'key' }, postJson: mockPostJson };
     await sendProviderRequest(context, {
       provider: fakeProvider, providerKey: 'openai', model: 'gpt-4', apiKey: 'key',
       system: 'sys', userMessage: 'usr', timeout: 15000,

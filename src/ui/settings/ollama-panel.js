@@ -43,7 +43,7 @@ function populateOllamaDropdown(selectEl, customEl, hintEl, selectedModel, recom
       ).join('') + `<option value="_custom">Custom...</option>`;
       if (hintEl) {
         hintEl.style.display = 'block';
-        hintEl.innerHTML = '⚠️ Could not reach Ollama at <code>' + escapeHtml(CONFIG.ollamaUrl) + '</code>. Is it running? Start it with <code>ollama serve</code>';
+        hintEl.innerHTML = '⚠️ Could not reach Ollama at <code>' + escapeHtml(CONFIG.localUrl) + '</code>. Is it running? Start it with <code>ollama serve</code>';
       }
       return;
     }
@@ -104,11 +104,11 @@ function loadSecondOllamaModels(panelEl, doFetch = false) {
 /** Wire all Ollama-specific panel elements (URL check, model dropdowns, refresh buttons) */
 export function wireOllamaPanel(panelEl, modelSelect, modelCustom) {
   // Ollama URL reachability check
-  const ollamaUrlInput = panelEl.querySelector('#st-ollama-url');
+  const localUrlInput = panelEl.querySelector('#st-local-url');
   const ollamaCheckBtn = panelEl.querySelector('#st-ollama-check');
-  if (ollamaUrlInput && ollamaCheckBtn) {
-    ollamaCheckBtn.addEventListener('click', () => checkOllamaUrl(ollamaUrlInput, ollamaCheckBtn));
-    ollamaUrlInput.addEventListener('blur', () => checkOllamaUrl(ollamaUrlInput, ollamaCheckBtn));
+  if (localUrlInput && ollamaCheckBtn) {
+    ollamaCheckBtn.addEventListener('click', () => checkOllamaUrl(localUrlInput, ollamaCheckBtn));
+    localUrlInput.addEventListener('blur', () => checkOllamaUrl(localUrlInput, ollamaCheckBtn));
   }
 
   // Wire Ollama refresh button for primary model

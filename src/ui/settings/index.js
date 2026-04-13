@@ -1,4 +1,4 @@
-import { CONFIG, saveConfig } from '../../config.js';
+import { CONFIG, saveConfig, LOCAL_URL_DEFAULTS } from '../../config.js';
 import { PROVIDERS } from '../../core/providers/definitions.js';
 import { state } from '../../state.js';
 import { cacheClear } from '../../browser/cache.js';
@@ -8,6 +8,7 @@ import { INSTRUCTIONS_HTML } from '../instructions.js';
 import { getShowMetadata } from '../../browser/metadata-fetcher.js';
 import { retryCurrentChunk, retranslateAll, applyMasterToggle, applySubtitleToggle, applyDualSubsToggle, applyOrigOnFlaggedToggle, applyTranscriptToggle, PILL_ON, PILL_OFF } from '../../browser/shortcuts.js';
 import { wireOllamaPanel } from './ollama-panel.js';
+import { wireLMStudioPanel } from './lmstudio-panel.js';
 
 /** Wire a simple boolean toggle pill: flips CONFIG[configKey], updates pill UI, and persists. */
 function wireToggle(panelEl, id, configKey) {
@@ -77,6 +78,20 @@ export function togglePanel() {
           <input id="st-model-custom" placeholder="Custom model name" value="${ollamaIsCustom ? CONFIG.model : ''}" style="${inputStyle}display:${ollamaIsCustom ? 'block' : 'none'};" />
           <div id="st-ollama-model-hint" style="display:none;font-size:11px;line-height:1.4;padding:8px 10px;background:rgba(251,191,36,0.12);border:1px solid rgba(251,191,36,0.25);border-radius:6px;margin:-8px 0 14px;"></div>
         `;
+      } else if (CONFIG.provider === 'lmstudio') {
+        // LM Studio: dropdown populated dynamically from /v1/models
+        const btnStyle = 'padding:6px 10px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:6px;color:white;cursor:pointer;font-size:11px;white-space:nowrap;';
+        modelSection = `
+          <label style="${labelStyle}">Model</label>
+          <div style="display:flex;gap:6px;align-items:center;margin-bottom:14px;">
+            <select id="st-model" style="${selectStyle};margin-bottom:0;flex:1;">
+              <option value="${CONFIG.model}" selected>${CONFIG.model || 'Loading...'}</option>
+            </select>
+            <button id="st-lmstudio-refresh" title="Fetch loaded models from LM Studio" style="${btnStyle}">↻ Refresh</button>
+          </div>
+          <input id="st-model-custom" placeholder="Custom model name" value="" style="${inputStyle}display:none;" />
+          <div id="st-lmstudio-model-hint" style="display:none;font-size:11px;line-height:1.4;padding:8px 10px;background:rgba(251,191,36,0.12);border:1px solid rgba(251,191,36,0.25);border-radius:6px;margin:-8px 0 14px;"></div>
+        `;
       } else if (currentProvider.models) {
         const isCustom = !currentProvider.models.find(m => m.id === CONFIG.model);
         const modelOpts = currentProvider.models.map(m =>
@@ -126,9 +141,9 @@ export function togglePanel() {
     let urlSection = '';
     if (CONFIG.provider === 'ollama') {
       urlSection = `
-        <label style="${labelStyle}">Ollama URL</label>
+        <label style="${labelStyle}">Server URL</label>
         <div style="display:flex;gap:6px;align-items:center;margin-bottom:14px;">
-          <input id="st-ollama-url" value="${CONFIG.ollamaUrl}" placeholder="http://localhost:11434" style="${inputStyle};margin-bottom:0;flex:1;" />
+          <input id="st-local-url" value="${CONFIG.localUrl}" placeholder="http://localhost:11434" style="${inputStyle};margin-bottom:0;flex:1;" />
           <button id="st-ollama-check" title="Check if Ollama is reachable" style="padding:6px 10px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:6px;color:white;cursor:pointer;font-size:13px;min-width:36px;text-align:center;">✓</button>
         </div>
       `;
@@ -136,6 +151,19 @@ export function togglePanel() {
       urlSection = `
         <label style="${labelStyle}">LibreTranslate URL</label>
         <input id="st-libre-url" value="${CONFIG.libreTranslateUrl}" placeholder="https://libretranslate.com" style="${inputStyle}" />
+      `;
+    } else if (CONFIG.provider === 'openrouter') {
+      urlSection = `
+        <label style="${labelStyle}">Server URL <span style="opacity:0.5;font-weight:400;">(optional — overrides OpenRouter endpoint, e.g. local llama-server)</span></label>
+        <input id="st-local-url" value="${CONFIG.localUrl}" placeholder="http://localhost:8765/v1/chat/completions" style="${inputStyle}" />
+      `;
+    } else if (CONFIG.provider === 'lmstudio') {
+      urlSection = `
+        <label style="${labelStyle}">Server URL</label>
+        <div style="display:flex;gap:6px;align-items:center;margin-bottom:14px;">
+          <input id="st-local-url" value="${CONFIG.localUrl || 'http://localhost:1234'}" placeholder="http://localhost:1234" style="${inputStyle};margin-bottom:0;flex:1;" />
+          <button id="st-lmstudio-check" title="Check if LM Studio is reachable" style="padding:6px 10px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);border-radius:6px;color:white;cursor:pointer;font-size:13px;min-width:36px;text-align:center;">✓</button>
+        </div>
       `;
     }
 
@@ -587,24 +615,26 @@ export function togglePanel() {
     let providerSwitching = false;
     state.panelEl.querySelector('#st-provider').addEventListener('change', (e) => {
       providerSwitching = true;
-      // Save current provider's API key and model before switching
+      // Snapshot current provider's settings before switching
       const keyInput = state.panelEl.querySelector('#st-apikey');
-      if (keyInput) CONFIG.apiKeys[CONFIG.provider] = keyInput.value.trim();
       const modelSelect = state.panelEl.querySelector('#st-model');
       const modelCustom = state.panelEl.querySelector('#st-model-custom');
-      if (modelSelect) {
-        CONFIG.models[CONFIG.provider] = modelSelect.value === '_custom'
-          ? (modelCustom?.value.trim() || CONFIG.model)
-          : modelSelect.value;
-      }
+      const localUrlInput = state.panelEl.querySelector('#st-local-url');
+      CONFIG.providerConfigs[CONFIG.provider] = {
+        ...CONFIG.providerConfigs[CONFIG.provider],
+        apiKey: keyInput?.value.trim() || CONFIG.apiKey,
+        model: modelSelect ? (modelSelect.value === '_custom' ? (modelCustom?.value.trim() || CONFIG.model) : modelSelect.value) : CONFIG.model,
+        localUrl: localUrlInput?.value.trim() || CONFIG.localUrl,
+        chunkSize: CONFIG.chunkSize,
+      };
       CONFIG.provider = e.target.value;
       const selectedProvider = PROVIDERS[CONFIG.provider];
-      // Load user's saved model for this provider, or provider default
-      CONFIG.model = CONFIG.models[CONFIG.provider] || selectedProvider?.defaultModel || '';
-      // Load user's saved API key for this provider
-      CONFIG.apiKey = CONFIG.apiKeys[CONFIG.provider] || '';
-      // Load user's saved chunk size for this provider, or provider default
-      CONFIG.chunkSize = CONFIG.chunkSizes[CONFIG.provider] || selectedProvider?.defaultChunkSize || 50;
+      const newPc = CONFIG.providerConfigs[CONFIG.provider] || {};
+      // Load saved settings for the new provider
+      CONFIG.model = newPc.model || selectedProvider?.defaultModel || '';
+      CONFIG.apiKey = newPc.apiKey || '';
+      CONFIG.chunkSize = newPc.chunkSize || selectedProvider?.defaultChunkSize || 50;
+      CONFIG.localUrl = newPc.localUrl || LOCAL_URL_DEFAULTS[CONFIG.provider] || '';
       // Auto-set second model defaults when switching to Ollama (only if user hasn't configured second model yet)
       if (CONFIG.provider === 'ollama' && selectedProvider?.defaultSecondModel && !CONFIG.secondModel) {
         CONFIG.secondProvider = 'ollama';
@@ -619,13 +649,13 @@ export function togglePanel() {
     state.panelEl.querySelector('#st-chunksize-reset')?.addEventListener('click', () => {
       const def = PROVIDERS[CONFIG.provider]?.defaultChunkSize || 50;
       state.panelEl.querySelector('#st-chunksize').value = def;
-      delete CONFIG.chunkSizes[CONFIG.provider]; // clear user override
+      if (CONFIG.providerConfigs[CONFIG.provider]) delete CONFIG.providerConfigs[CONFIG.provider].chunkSize;
     });
     state.panelEl.querySelector('#st-second-chunksize-reset')?.addEventListener('click', () => {
       const secondProv = state.panelEl.querySelector('#st-second-provider')?.value || CONFIG.secondProvider;
       const def = PROVIDERS[secondProv]?.defaultChunkSize || 50;
       state.panelEl.querySelector('#st-second-chunksize').value = def;
-      delete CONFIG.secondChunkSizes[secondProv]; // clear user override
+      if (CONFIG.secondProviderConfigs[secondProv]) delete CONFIG.secondProviderConfigs[secondProv].chunkSize;
     });
 
     const modelSelect = state.panelEl.querySelector('#st-model');
@@ -636,8 +666,9 @@ export function togglePanel() {
       });
     }
 
-    // Wire Ollama-specific panel elements (URL check, model dropdowns, refresh buttons)
+    // Wire provider-specific panel elements
     const ollama = wireOllamaPanel(state.panelEl, modelSelect, modelCustom);
+    if (CONFIG.provider === 'lmstudio') wireLMStudioPanel(state.panelEl, modelSelect, modelCustom);
 
     // Second model toggle
     const secondToggle = state.panelEl.querySelector('#st-second-toggle');
@@ -672,7 +703,7 @@ export function togglePanel() {
     if (secondProvSelect) {
       secondProvSelect.addEventListener('change', (e) => {
         const changedProvider = PROVIDERS[e.target.value];
-        const saved = CONFIG.secondChunkSizes[e.target.value];
+        const saved = CONFIG.secondProviderConfigs[e.target.value]?.chunkSize;
         const chunkInput = state.panelEl.querySelector('#st-second-chunksize');
         if (chunkInput) chunkInput.value = saved || changedProvider?.defaultChunkSize || 50;
         // Reload Ollama dropdown vs text input visibility for second model
@@ -704,13 +735,13 @@ export function togglePanel() {
       const keyInput = state.panelEl.querySelector('#st-apikey');
       if (keyInput) CONFIG.apiKey = keyInput.value.trim();
 
-      const ollamaInput = state.panelEl.querySelector('#st-ollama-url');
-      if (ollamaInput) {
-        const ollamaVal = ollamaInput.value.trim() || 'http://localhost:11434';
-        if (isValidHttpUrl(ollamaVal)) {
-          CONFIG.ollamaUrl = ollamaVal;
+      const localUrlInput = state.panelEl.querySelector('#st-local-url');
+      if (localUrlInput) {
+        const val = localUrlInput.value.trim();
+        if (!val || isValidHttpUrl(val)) {
+          CONFIG.localUrl = val;
         } else {
-          showStatus('Invalid Ollama URL — must start with http:// or https://', 'error', true);
+          showStatus('Invalid server URL — must start with http:// or https://', 'error', true);
         }
       }
 

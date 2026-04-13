@@ -242,3 +242,38 @@ describe('openrouter extra headers', () => {
     expect(req.headers['X-Title']).toBe('Netflix Subtitle Translator');
   });
 });
+
+// ── LM Studio ──────────────────────────────────────────────
+
+describe('lmstudio provider', () => {
+  it('is defined with correct metadata', () => {
+    expect(PROVIDERS.lmstudio).toBeDefined();
+    expect(PROVIDERS.lmstudio.needsKey).toBe(false);
+    expect(PROVIDERS.lmstudio.type).toBe('llm');
+    expect(PROVIDERS.lmstudio.supportsVision).toBe(true);
+  });
+
+  it('buildRequest produces OpenAI-compatible payload with system prompt', () => {
+    const req = PROVIDERS.lmstudio.buildRequest('Be a translator.', 'Translate this', 'qwen2.5-7b', '');
+    const body = JSON.parse(req.data);
+    expect(body.model).toBe('qwen2.5-7b');
+    expect(body.messages[0]).toEqual({ role: 'system', content: 'Be a translator.' });
+    expect(body.messages[1]).toEqual({ role: 'user', content: 'Translate this' });
+    expect(req.headers['Authorization']).toBeUndefined();
+  });
+
+  it('buildRequest includes Authorization header when apiKey provided', () => {
+    const req = PROVIDERS.lmstudio.buildRequest('Sys', 'Msg', 'model', 'lm-key');
+    expect(req.headers['Authorization']).toBe('Bearer lm-key');
+  });
+
+  it('extractText returns content from OpenAI-compatible response', () => {
+    const data = { choices: [{ message: { content: 'こんにちは → Hello' } }] };
+    expect(PROVIDERS.lmstudio.extractText(data)).toBe('こんにちは → Hello');
+  });
+
+  it('extractText throws on error response', () => {
+    expect(() => PROVIDERS.lmstudio.extractText({ error: { message: 'model not loaded' } }))
+      .toThrow('model not loaded');
+  });
+});

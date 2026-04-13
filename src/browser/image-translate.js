@@ -57,7 +57,9 @@ function resolveVisionProvider() {
 function buildVisionUrl(provider, providerKey, model, apiKey) {
   let url = provider.url;
   if (providerKey === 'ollama') {
-    url = CONFIG.ollamaUrl.replace(/\/+$/, '') + '/api/chat';
+    url = (CONFIG.localUrl || 'http://localhost:11434').replace(/\/+$/, '') + '/api/chat';
+  } else if (providerKey === 'lmstudio') {
+    url = (CONFIG.localUrl || 'http://localhost:1234').replace(/\/+$/, '') + '/v1/chat/completions';
   }
   const req = provider.buildVisionRequest('', '', model, apiKey);
   if (req.urlSuffix) url = url + req.urlSuffix;

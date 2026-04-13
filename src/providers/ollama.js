@@ -14,7 +14,7 @@ export function fetchOllamaModels() {
   if (_ollamaModelsCache && Date.now() - _ollamaModelsFetchTime < CACHE_TTL) {
     return Promise.resolve(_ollamaModelsCache);
   }
-  const url = CONFIG.ollamaUrl.replace(/\/+$/, '') + '/api/tags';
+  const url = CONFIG.localUrl.replace(/\/+$/, '') + '/api/tags';
   return new Promise((resolve) => {
     GM_xmlhttpRequest({
       method: 'GET',
@@ -71,7 +71,7 @@ export function fetchOllamaVisionModels() {
   }
   return fetchOllamaModels().then(models => {
     if (!models) return null;
-    const url = CONFIG.ollamaUrl.replace(/\/+$/, '') + '/api/show';
+    const url = CONFIG.localUrl.replace(/\/+$/, '') + '/api/show';
     const checks = models.map(m => new Promise(resolve => {
       GM_xmlhttpRequest({
         method: 'POST', url,
@@ -101,7 +101,7 @@ export function fetchOllamaVisionModels() {
 
 export function warmupPrimaryModel() {
   if (CONFIG.provider !== 'ollama' || CONFIG.secondProvider !== 'ollama' || CONFIG.model === CONFIG.secondModel) return;
-  const warmupUrl = CONFIG.ollamaUrl.replace(/\/+$/, '') + '/api/chat';
+  const warmupUrl = CONFIG.localUrl.replace(/\/+$/, '') + '/api/chat';
   GM_xmlhttpRequest({
     method: 'POST', url: warmupUrl,
     headers: { 'Content-Type': 'application/json' },

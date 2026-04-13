@@ -18,18 +18,21 @@ function getJson(key) {
   try { return JSON.parse(GM_getValue(key, '{}')); } catch { return {}; }
 }
 
+// Default local server URLs per provider
+export const LOCAL_URL_DEFAULTS = { ollama: 'http://localhost:11434', lmstudio: 'http://localhost:1234' };
+
 export const CONFIG = {
   provider: GM_getValue('provider', 'ollama'),
-  apiKeys: getJson('apiKeys'),
-  apiKey: '', // active value — overwritten below from per-provider keys
-  models: getJson('models'),
-  model: '', // active value — overwritten below from per-provider models
-  ollamaUrl: GM_getValue('ollamaUrl', 'http://localhost:11434'),
+  // Per-provider settings: { [providerKey]: { model, apiKey, chunkSize, localUrl } }
+  providerConfigs: getJson('providerConfigs'),
+  // Active values — overwritten below from providerConfigs
+  apiKey: '',
+  model: '',
+  chunkSize: 50,
+  localUrl: '',
   libreTranslateUrl: GM_getValue('libreTranslateUrl', 'https://libretranslate.com'),
   targetLang: GM_getValue('targetLang', 'English'),
   sourceLang: GM_getValue('sourceLang', ''),
-  chunkSize: 50, // active value — overwritten below from per-provider sizes
-  chunkSizes: getJson('chunkSizes'),
   chunkOverlap: 10,
   prevContextLines: 5,
   timingOffset: parseInt(GM_getValue('timingOffset', '0')) || 0,
@@ -40,8 +43,9 @@ export const CONFIG = {
   secondProvider: GM_getValue('secondProvider', 'anthropic'),
   secondModel: GM_getValue('secondModel', ''),
   secondApiKey: GM_getValue('secondApiKey', ''),
-  secondChunkSize: 100, // active value — overwritten below from per-provider sizes
-  secondChunkSizes: getJson('secondChunkSizes'),
+  secondChunkSize: 100, // active value — overwritten below
+  // Per-second-provider settings: { [providerKey]: { chunkSize } }
+  secondProviderConfigs: getJson('secondProviderConfigs'),
   fullPassEnabled: getBool('fullPassEnabled', false),
   advancedMode: getBool('advancedMode', false),
   masterEnabled: getBool('masterEnabled', true),
@@ -62,17 +66,55 @@ export const CONFIG = {
   imageSourceLang: GM_getValue('imageSourceLang', ''),
 };
 
-// Set active model from per-provider storage (legacy fallback for existing users)
-CONFIG.model = CONFIG.models[CONFIG.provider] || GM_getValue('model', '') || PROVIDERS[CONFIG.provider]?.defaultModel || '';
-if (!CONFIG.secondModel) {
-  const secondProviderConfig = PROVIDERS[CONFIG.secondProvider];
-  CONFIG.secondModel = secondProviderConfig?.defaultModel || '';
+// One-time migration from legacy separate maps into providerConfigs
+if (Object.keys(CONFIG.providerConfigs).length === 0) {
+  const legacyApiKeys = getJson('apiKeys');
+  const legacyModels = getJson('models');
+  const legacyChunkSizes = getJson('chunkSizes');
+  const legacyLocalUrls = getJson('localUrls');
+  const legacyApiKey = GM_getValue('apiKey', '');
+  const legacyModel = GM_getValue('model', '');
+  const allProviders = new Set([
+    ...Object.keys(legacyApiKeys), ...Object.keys(legacyModels),
+    ...Object.keys(legacyChunkSizes), ...Object.keys(legacyLocalUrls),
+  ]);
+  for (const p of allProviders) {
+    CONFIG.providerConfigs[p] = {
+      ...(legacyApiKeys[p] ? { apiKey: legacyApiKeys[p] } : {}),
+      ...(legacyModels[p] ? { model: legacyModels[p] } : {}),
+      ...(legacyChunkSizes[p] ? { chunkSize: legacyChunkSizes[p] } : {}),
+      ...(legacyLocalUrls[p] ? { localUrl: legacyLocalUrls[p] } : {}),
+    };
+  }
+  // Migrate flat legacy keys for the active provider
+  if (legacyApiKey && !CONFIG.providerConfigs[CONFIG.provider]?.apiKey) {
+    CONFIG.providerConfigs[CONFIG.provider] = { ...CONFIG.providerConfigs[CONFIG.provider], apiKey: legacyApiKey };
+  }
+  if (legacyModel && !CONFIG.providerConfigs[CONFIG.provider]?.model) {
+    CONFIG.providerConfigs[CONFIG.provider] = { ...CONFIG.providerConfigs[CONFIG.provider], model: legacyModel };
+  }
 }
-// Set active chunk sizes from per-provider storage (or provider defaults)
-CONFIG.chunkSize = CONFIG.chunkSizes[CONFIG.provider] || PROVIDERS[CONFIG.provider]?.defaultChunkSize || 50;
-CONFIG.secondChunkSize = CONFIG.secondChunkSizes[CONFIG.secondProvider] || PROVIDERS[CONFIG.secondProvider]?.defaultChunkSize || 50;
-// Set active API key from per-provider storage (legacy fallback for existing users)
-CONFIG.apiKey = CONFIG.apiKeys[CONFIG.provider] || GM_getValue('apiKey', '');
+
+// One-time migration for secondProviderConfigs
+if (Object.keys(CONFIG.secondProviderConfigs).length === 0) {
+  const legacySecondChunkSizes = getJson('secondChunkSizes');
+  for (const p of Object.keys(legacySecondChunkSizes)) {
+    CONFIG.secondProviderConfigs[p] = { chunkSize: legacySecondChunkSizes[p] };
+  }
+}
+
+// Set active values from providerConfigs
+const _pc = CONFIG.providerConfigs[CONFIG.provider] || {};
+CONFIG.model = _pc.model || PROVIDERS[CONFIG.provider]?.defaultModel || '';
+CONFIG.chunkSize = _pc.chunkSize || PROVIDERS[CONFIG.provider]?.defaultChunkSize || 50;
+CONFIG.apiKey = _pc.apiKey || '';
+CONFIG.localUrl = _pc.localUrl || LOCAL_URL_DEFAULTS[CONFIG.provider] || '';
+
+CONFIG.secondChunkSize = CONFIG.secondProviderConfigs[CONFIG.secondProvider]?.chunkSize || PROVIDERS[CONFIG.secondProvider]?.defaultChunkSize || 50;
+if (!CONFIG.secondModel) {
+  CONFIG.secondModel = PROVIDERS[CONFIG.secondProvider]?.defaultModel || '';
+}
+
 // Auto-select default vision model if provider supports vision and user hasn't touched the setting
 // GM storage returns undefined/null for keys never written; '' means user explicitly chose "Disabled"
 if (GM_getValue('imageVisionModel', null) === null) {
@@ -85,13 +127,21 @@ if (GM_getValue('imageVisionModel', null) === null) {
 
 export function saveConfig() {
   GM_setValue('provider', CONFIG.provider);
-  // Save per-provider API keys
-  CONFIG.apiKeys[CONFIG.provider] = CONFIG.apiKey;
-  GM_setValue('apiKeys', JSON.stringify(CONFIG.apiKeys));
-  // Save per-provider models
-  CONFIG.models[CONFIG.provider] = CONFIG.model;
-  GM_setValue('models', JSON.stringify(CONFIG.models));
-  GM_setValue('ollamaUrl', CONFIG.ollamaUrl);
+  // Save per-provider config as a single map
+  CONFIG.providerConfigs[CONFIG.provider] = {
+    ...CONFIG.providerConfigs[CONFIG.provider],
+    apiKey: CONFIG.apiKey,
+    model: CONFIG.model,
+    chunkSize: CONFIG.chunkSize,
+    localUrl: CONFIG.localUrl,
+  };
+  GM_setValue('providerConfigs', JSON.stringify(CONFIG.providerConfigs));
+  // Save per-second-provider config
+  CONFIG.secondProviderConfigs[CONFIG.secondProvider] = {
+    ...CONFIG.secondProviderConfigs[CONFIG.secondProvider],
+    chunkSize: CONFIG.secondChunkSize,
+  };
+  GM_setValue('secondProviderConfigs', JSON.stringify(CONFIG.secondProviderConfigs));
   GM_setValue('libreTranslateUrl', CONFIG.libreTranslateUrl);
   GM_setValue('targetLang', CONFIG.targetLang);
   GM_setValue('sourceLang', CONFIG.sourceLang);
@@ -120,9 +170,4 @@ export function saveConfig() {
   GM_setValue('imageVisionApiKey', CONFIG.imageVisionApiKey);
   GM_setValue('imageDisplayDuration', CONFIG.imageDisplayDuration);
   GM_setValue('imageSourceLang', CONFIG.imageSourceLang);
-  // Save per-provider chunk sizes
-  CONFIG.chunkSizes[CONFIG.provider] = CONFIG.chunkSize;
-  CONFIG.secondChunkSizes[CONFIG.secondProvider] = CONFIG.secondChunkSize;
-  GM_setValue('chunkSizes', JSON.stringify(CONFIG.chunkSizes));
-  GM_setValue('secondChunkSizes', JSON.stringify(CONFIG.secondChunkSizes));
 }

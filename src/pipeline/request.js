@@ -8,9 +8,14 @@ import { buildSystemPrompt, buildUserMessage, buildPrevContext, buildGlossaryPer
  * Handles Ollama special URL construction and urlSuffix from buildRequest.
  */
 export function buildProviderUrl(provider, providerKey, config, providerUrl) {
-  let url = providerUrl || config.providerUrl || provider.url;
-  if (providerKey === 'ollama' && !providerUrl && !config.providerUrl) {
-    url = config.ollamaUrl.replace(/\/+$/, '') + '/api/chat';
+  const localUrl = config.localUrl?.replace(/\/+$/, '');
+  let url;
+  if (providerKey === 'ollama') {
+    url = providerUrl || (localUrl || 'http://localhost:11434') + '/api/chat';
+  } else if (providerKey === 'lmstudio') {
+    url = providerUrl || (localUrl || 'http://localhost:1234') + '/v1/chat/completions';
+  } else {
+    url = providerUrl || (localUrl || null) || provider.url;
   }
   // buildRequest may produce a urlSuffix (e.g. Gemini API key in path)
   const req = provider.buildRequest('', '', config.model, config.apiKey);
@@ -47,6 +52,10 @@ export async function _sendLLMRequest(cues, scriptLines, { retryNote = '', prevT
 
   const url = buildProviderUrl(provider, providerKey, config, providerOverride?.providerUrl);
   const req = provider.buildRequest(system, userMsg, providerModel, providerApiKey);
+  if (config.extraBody) {
+    const parsed = JSON.parse(req.data);
+    req.data = JSON.stringify({ ...parsed, ...config.extraBody });
+  }
   const isRetry = retryNote.length > 0;
   const modelLabel = providerOverride ? `${providerModel} (2nd)` : providerModel;
   const passLabel = context.sharedTranslationState.translationPassLabel ? ` [${context.sharedTranslationState.translationPassLabel}]` : '';

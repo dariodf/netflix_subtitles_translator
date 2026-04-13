@@ -323,6 +323,53 @@ export const PROVIDERS = {
     extractText: extractOpenAiCompatibleText,
   },
 
+  lmstudio: {
+    name: 'LM Studio (local, private)',
+    paid: false,
+    needsKey: false,
+    type: 'llm',
+    supportsVision: true,
+    defaultModel: '',
+    defaultChunkSize: 50,
+    url: 'http://localhost:1234/v1/chat/completions',
+    buildRequest(system, userMsg, model, apiKey) {
+      return {
+        headers: {
+          'Content-Type': 'application/json',
+          ...(apiKey ? { 'Authorization': `Bearer ${apiKey}` } : {}),
+        },
+        data: JSON.stringify({
+          model,
+          messages: [
+            ...(system ? [{ role: 'system', content: system }] : []),
+            { role: 'user', content: userMsg },
+          ],
+          max_tokens: 8192,
+        }),
+      };
+    },
+    buildVisionRequest(imageBase64, textPrompt, model, apiKey) {
+      return {
+        headers: {
+          'Content-Type': 'application/json',
+          ...(apiKey ? { 'Authorization': `Bearer ${apiKey}` } : {}),
+        },
+        data: JSON.stringify({
+          model,
+          messages: [{
+            role: 'user',
+            content: [
+              { type: 'image_url', image_url: { url: `data:image/jpeg;base64,${imageBase64}` } },
+              { type: 'text', text: textPrompt },
+            ],
+          }],
+          max_tokens: 8192,
+        }),
+      };
+    },
+    extractText: extractOpenAiCompatibleText,
+  },
+
   libretranslate: {
     name: 'LibreTranslate',
     paid: false,

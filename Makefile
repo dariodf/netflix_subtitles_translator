@@ -14,10 +14,11 @@ build: $(OUTPUT)  ## Build the .user.js bundle
 $(OUTPUT): $(SRC) vite.config.js package.json | node_modules
 	npx vite build
 	@node -e "const h=require('http'),f=require('fs'),p=require('path'); \
-		const s=h.createServer((q,r)=>{r.setHeader('Content-Type','application/javascript'); \
+		const s=h.createServer((q,r)=>{r.setHeader('Content-Type','application/octet-stream'); \
 		f.createReadStream(p.resolve('$(OUTPUT)')).pipe(r)}); \
 		s.listen(0,'127.0.0.1',()=>{const u='http://127.0.0.1:'+s.address().port+'/$(notdir $(OUTPUT))'; \
-		require('child_process').exec('google-chrome \"'+u+'\"'); \
+		const cmd=process.platform==='darwin'?'open -b com.google.Chrome \"'+u+'\"':'google-chrome \"'+u+'\"'; \
+		require('child_process').exec(cmd); \
 		setTimeout(()=>s.close(),5000)})" &
 
 dev: | node_modules  ## Start Vite dev server with HMR
