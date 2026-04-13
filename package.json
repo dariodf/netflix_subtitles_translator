@@ -1,6 +1,6 @@
 {
   "name": "netflix-subtitles-translator",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "description": "Intercept Netflix subtitles, translate via multiple AI providers, overlay on video",
   "type": "module",
   "scripts": {
